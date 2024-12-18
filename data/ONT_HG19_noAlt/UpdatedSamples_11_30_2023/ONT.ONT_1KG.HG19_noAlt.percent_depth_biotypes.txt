@@ -1,0 +1,14 @@
+# This table quanitifies the number of dark by depth dark bases stratified by GENCODE biotype
+# biotype : GENCODE biotype
+# num_dark_bases : number of dark by depth bases in biotype
+# total_biotype_bases : total count of all bases in biotype
+# perc_region : percentage of bases that are dark by depth in this biotype (num_dark_bases / total_biotype_bases) 
+biotype	num_dark_bases	total_biotype_bases	perc_dark
+total	542288	1514359700	0.035810
+protein coding	365076	1267983333	0.028792
+pseudogene	115131	41980279	0.274250
+rRNA	0	43128	0.000000
+snRNA	370	223004	0.165916
+miRNA	190	148242	0.128169
+lincRNA	56490	184091424	0.030686
+other	5031	19890290	0.025294

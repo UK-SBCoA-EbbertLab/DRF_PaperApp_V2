@@ -1,0 +1,10 @@
+# This table quantifies where dark regions fall within protein-coding genes, stratifying the percentage of dark by MAPQ bases by gene-body element
+# region_type : gene-body element ( e.g. Exon, Intron, CDS, UTR )
+# count : total number of dark by MAPQ bases within this gene-body element
+# total : total count of bases in across all gene-body elements of this type
+region_type	count	total	perc_region
+gene	3274667	1293695501	0.253125
+CDS	434605	95972893	0.452841
+exon	448271	96049437	0.466709
+intron	2825220	1197591734	0.235908
+UTR	13666	76544	17.853783

@@ -1,0 +1,14 @@
+# This table quanitifies the number of camo dark bases stratified by GENCODE biotype
+# biotype : GENCODE biotype
+# num_dark_bases : number of camo bases in biotype
+# total_biotype_bases : total count of all bases in biotype
+# perc_region : percentage of bases that are camo in this biotype (num_dark_bases / total_biotype_bases) 
+biotype	num_dark_bases	total_biotype_bases	perc_dark
+total	6650147	1866454669	0.356298
+protein coding	2404792	1293695501	0.185885
+pseudogene	2435271	58532476	4.160547
+rRNA	21727	2940263	0.738948
+snRNA	806	179642	0.448670
+miRNA	2857	62321	4.584330
+lincRNA	1736025	507011189	0.342404
+other	48669	4033277	1.206686

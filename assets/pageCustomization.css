@@ -1,0 +1,11 @@
+body {
+border: 100px solid white;
+}
+
+hr.dashed {
+  border-top: 3px dashed #bbb;
+}
+
+div.dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner .column-header-name {
+    margin-left: unset;
+}

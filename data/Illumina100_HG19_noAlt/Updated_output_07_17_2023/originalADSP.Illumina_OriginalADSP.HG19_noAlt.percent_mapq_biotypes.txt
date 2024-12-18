@@ -1,0 +1,14 @@
+# This table quanitifies the number of dark by MAPQ dark bases stratified by GENCODE biotype
+# biotype : GENCODE biotype
+# num_dark_bases : number of dark by MAPQ bases in biotype
+# total_biotype_bases : total count of all bases in biotype
+# perc_region : percentage of bases that are dark by MAPQ in this biotype (num_dark_bases / total_biotype_bases) 
+biotype	num_dark_bases	total_biotype_bases	perc_dark
+total	13661713	1514359700	0.902145
+protein coding	7083726	1267983333	0.558661
+pseudogene	4276244	41980279	10.186316
+rRNA	3125	43128	7.245873
+snRNA	3691	223004	1.655127
+miRNA	1526	148242	1.029398
+lincRNA	2015888	184091424	1.095047
+other	277513	19890290	1.395218
