@@ -428,17 +428,17 @@ mapq.pacbio.HG38_noAlt.biotype = fread("data/PacBio_HG38_noAlt/UpdatedSamples_11
 camo.pacbio.HG38_noAlt.biotype = fread("data/PacBio_HG38_noAlt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
 
 #### New Run
-PacBio.new.HG38_noAlt.darkMerged = fread("data/PacBio_HG38_noAlt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_no_alt.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
+PacBio.new.HG38_noAlt.darkMerged = fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
 PacBio.new.HG38_noAlt.darkMerged$size = PacBio.new.HG38_noAlt.darkMerged$V3 - PacBio.new.HG38_noAlt.darkMerged$V2
-PacBio.new.HG38_noAlt.depthMerged = fread("data/PacBio_HG38_noAlt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_no_alt.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+PacBio.new.HG38_noAlt.depthMerged = fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 PacBio.new.HG38_noAlt.depthMerged$size = PacBio.new.HG38_noAlt.depthMerged$end - PacBio.new.HG38_noAlt.depthMerged$start
-PacBio.new.HG38_noAlt.mapqMerged = fread("data/PacBio_HG38_noAlt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_no_alt.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+PacBio.new.HG38_noAlt.mapqMerged = fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 PacBio.new.HG38_noAlt.mapqMerged$size = PacBio.new.HG38_noAlt.mapqMerged$end - PacBio.new.HG38_noAlt.mapqMerged$start
 
-dark.pacbio.new.HG38_noAlt.biotype = fread("data/PacBio_HG38_noAlt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.pacbio.new.HG38_noAlt.biotype = fread("data/PacBio_HG38_noAlt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.pacbio.new.HG38_noAlt.biotype = fread("data/PacBio_HG38_noAlt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.pacbio.new.HG38_noAlt.biotype = fread("data/PacBio_HG38_noAlt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.pacbio.new.HG38_noAlt.biotype = fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.pacbio.new.HG38_noAlt.biotype = fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.pacbio.new.HG38_noAlt.biotype = fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.pacbio.new.HG38_noAlt.biotype = fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
 
 
 ###############################################################################################################################################################################################
@@ -851,10 +851,10 @@ depth.pacbio.HG38_noAlt.codingRegions = fread("data/PacBio_HG38_noAlt/UpdatedSam
 mapq.pacbio.HG38_noAlt.codingRegions = fread("data/PacBio_HG38_noAlt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 camo.pacbio.HG38_noAlt.codingRegions = fread("data/PacBio_HG38_noAlt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 
-dark.pacbio.new.HG38_noAlt.codingRegions = fread("data/PacBio_HG38_noAlt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.pacbio.new.HG38_noAlt.codingRegions = fread("data/PacBio_HG38_noAlt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.pacbio.new.HG38_noAlt.codingRegions = fread("data/PacBio_HG38_noAlt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.pacbio.new.HG38_noAlt.codingRegions = fread("data/PacBio_HG38_noAlt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.pacbio.new.HG38_noAlt.codingRegions = fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.pacbio.new.HG38_noAlt.codingRegions = fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.pacbio.new.HG38_noAlt.codingRegions = fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.pacbio.new.HG38_noAlt.codingRegions = fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 
 ### HG38_alt
 dark.pacbio.HG38_alt.codingRegions = fread("data/PacBio_HG38_Alt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_Alt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
@@ -1209,7 +1209,7 @@ withSuppCamoRegions$HG38_Alt$Illumina100=fread("data/Illumina100_HG38_Alt/Update
 withSuppCamoRegions$HG38_Alt$Illumina250=fread("data/Illumina250_HG38_Alt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_Alt.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
 withSuppCamoRegions$HG38_noAlt=NULL
 withSuppCamoRegions$HG38_noAlt$ONT=fread("data/ONT_HG38_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_noAlt.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
-withSuppCamoRegions$HG38_noAlt$PacBio=fread("data/PacBio_HG38_noAlt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_no_alt.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
+withSuppCamoRegions$HG38_noAlt$PacBio=fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
 withSuppCamoRegions$HG38_noAlt$Illumina100=fread("data/Illumina100_HG38_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG38_noAlt.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
 withSuppCamoRegions$HG38_noAlt$Illumina250=fread("data/Illumina250_HG38_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_noAlt.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
 withSuppCamoRegions$HG19_noAlt=NULL
@@ -1283,7 +1283,7 @@ withSuppCamoGenePercent$HG38_Alt$Illumina100=fread("data/Illumina100_HG38_Alt/Up
 withSuppCamoGenePercent$HG38_Alt$Illumina250=fread("data/Illumina250_HG38_Alt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_Alt.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
 withSuppCamoGenePercent$HG38_noAlt=NULL
 withSuppCamoGenePercent$HG38_noAlt$ONT=fread("data/ONT_HG38_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_noAlt.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppCamoGenePercent$HG38_noAlt$PacBio=fread("data/PacBio_HG38_noAlt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppCamoGenePercent$HG38_noAlt$PacBio=fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
 withSuppCamoGenePercent$HG38_noAlt$Illumina100=fread("data/Illumina100_HG38_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG38_noAlt.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
 withSuppCamoGenePercent$HG38_noAlt$Illumina250=fread("data/Illumina250_HG38_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_noAlt.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
 withSuppCamoGenePercent$HG19_noAlt=NULL
@@ -1350,7 +1350,7 @@ withSuppDarkByDepthGenePercent$HG38_Alt$Illumina100=fread("data/Illumina100_HG38
 withSuppDarkByDepthGenePercent$HG38_Alt$Illumina250=fread("data/Illumina250_HG38_Alt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_Alt.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
 withSuppDarkByDepthGenePercent$HG38_noAlt=NULL
 withSuppDarkByDepthGenePercent$HG38_noAlt$ONT=fread("data/ONT_HG38_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_noAlt.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppDarkByDepthGenePercent$HG38_noAlt$PacBio=fread("data/PacBio_HG38_noAlt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByDepthGenePercent$HG38_noAlt$PacBio=fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
 withSuppDarkByDepthGenePercent$HG38_noAlt$Illumina100=fread("data/Illumina100_HG38_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG38_noAlt.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
 withSuppDarkByDepthGenePercent$HG38_noAlt$Illumina250=fread("data/Illumina250_HG38_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_noAlt.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
 withSuppDarkByDepthGenePercent$HG19_noAlt=NULL
@@ -1397,7 +1397,7 @@ withSuppDarkGenePercent$HG38_Alt$Illumina100=fread("data/Illumina100_HG38_Alt/Up
 withSuppDarkGenePercent$HG38_Alt$Illumina250=fread("data/Illumina250_HG38_Alt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_Alt.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
 withSuppDarkGenePercent$HG38_noAlt=NULL
 withSuppDarkGenePercent$HG38_noAlt$ONT=fread("data/ONT_HG38_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_noAlt.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppDarkGenePercent$HG38_noAlt$PacBio=fread("data/PacBio_HG38_noAlt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkGenePercent$HG38_noAlt$PacBio=fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
 withSuppDarkGenePercent$HG38_noAlt$Illumina100=fread("data/Illumina100_HG38_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG38_noAlt.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
 withSuppDarkGenePercent$HG38_noAlt$Illumina250=fread("data/Illumina250_HG38_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_noAlt.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
 withSuppDarkGenePercent$HG19_noAlt=NULL
@@ -1445,7 +1445,7 @@ sithSuppDarkByMapQGenePercent$HG38_Alt$Illumina100=fread("data/Illumina100_HG38_
 sithSuppDarkByMapQGenePercent$HG38_Alt$Illumina250=fread("data/Illumina250_HG38_Alt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_Alt.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
 sithSuppDarkByMapQGenePercent$HG38_noAlt=NULL
 sithSuppDarkByMapQGenePercent$HG38_noAlt$ONT=fread("data/ONT_HG38_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_noAlt.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-sithSuppDarkByMapQGenePercent$HG38_noAlt$PacBio=fread("data/PacBio_HG38_noAlt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+sithSuppDarkByMapQGenePercent$HG38_noAlt$PacBio=fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
 sithSuppDarkByMapQGenePercent$HG38_noAlt$Illumina100=fread("data/Illumina100_HG38_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG38_noAlt.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
 sithSuppDarkByMapQGenePercent$HG38_noAlt$Illumina250=fread("data/Illumina250_HG38_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_noAlt.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
 sithSuppDarkByMapQGenePercent$HG19_noAlt=NULL
