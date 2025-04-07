@@ -1,0 +1,27 @@
+# This table shows what percentage of genes are camo, stratefied by genebody element
+# gene_name : Ensembl gene name
+# biotype : GENCODE biotype of gene
+# biotype : percent of CDS bases that are camo within gene (non protein-coding genes will have value of -1)
+# perc_UTR : percent of UTR bases that are camo within gene (non protein-coding genes will have value of -1)
+# perc_exon : percent of exonic bases that are camo
+# perc_intron : percent of intronic bases that are camo
+# perc_total : percent of total gene that is camo
+gene_name	biotype	perc_CDS	perc_UTR	perc_exon	perc_intron	perc_total
+RP11-347K2.1	lincRNA	-1.000000	-1.000000	0.000000	60.163241	57.793312
+RP11-347K2.2	lincRNA	-1.000000	-1.000000	41.400000	19.060412	19.804222
+PRYP3	pseudogene	-1.000000	-1.000000	0.000000	24.414743	22.383743
+XKRYP3	pseudogene	-1.000000	-1.000000	99.910314	100.000000	99.990814
+USP9YP25	pseudogene	-1.000000	-1.000000	98.190045	100.000000	99.610895
+USP9YP29	pseudogene	-1.000000	-1.000000	100.000000	100.000000	100.000000
+RAB9AP1	pseudogene	-1.000000	-1.000000	99.825175	-1.000000	99.825175
+TRAPPC2P9	pseudogene	-1.000000	-1.000000	94.152047	100.000000	99.271403
+OFD1P11Y	pseudogene	-1.000000	-1.000000	91.666667	99.603760	99.257003
+CDY15P	pseudogene	-1.000000	-1.000000	98.980242	-1.000000	98.980242
+CDY22P	pseudogene	-1.000000	-1.000000	100.000000	-1.000000	100.000000
+OFD1P18Y	pseudogene	-1.000000	-1.000000	100.000000	100.000000	100.000000
+TRAPPC2P4	pseudogene	-1.000000	-1.000000	97.878788	100.000000	99.743777
+RAB9AP3	pseudogene	-1.000000	-1.000000	99.825175	-1.000000	99.825175
+USP9YP20	pseudogene	-1.000000	-1.000000	94.254937	100.000000	99.502951
+USP9YP21	pseudogene	-1.000000	-1.000000	100.000000	100.000000	100.000000
+XKRYP6	pseudogene	-1.000000	-1.000000	99.910314	100.000000	99.990812
+PRYP4	pseudogene	-1.000000	-1.000000	0.000000	24.414743	23.423065

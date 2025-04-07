@@ -7,11 +7,12 @@ library(reshape2)
 library(plotly)
 library(kableExtra)
 library(gridExtra)
+library(RIdeogram)
 library(data.table)
 
 
 #SET THIS WD
-setwd("~/Documents/EbbertLab/CHM13PaperFigures/DRF_PaperApp_V2/")
+setwd(".")
 
 # Create a Dash app
 app <- dash_app()
@@ -33,17 +34,17 @@ mapq.Illumina250.CHM13.biotype = fread("data/Illumina250_CHM13/Updated_Output_01
 camo.Illumina250.CHM13.biotype = fread("data/Illumina250_CHM13/Updated_Output_01_18_2024/Illumina250.Illumina250.T2T_CHM13_v2.0.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
 
 ### New Run
-Illumina250.new.CHM13.darkMerged = fread("data/Illumina250_CHM13/Updated_output_12_09_2024/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
+Illumina250.new.CHM13.darkMerged = fread("data/Illumina250_CHM13/Updated_output_01_17_2025/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
 Illumina250.new.CHM13.darkMerged$size = Illumina250.new.CHM13.darkMerged$V3 - Illumina250.new.CHM13.darkMerged$V2
-Illumina250.new.CHM13.depthMerged = fread("data/Illumina250_CHM13/Updated_output_12_09_2024/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+Illumina250.new.CHM13.depthMerged = fread("data/Illumina250_CHM13/Updated_output_01_17_2025/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 Illumina250.new.CHM13.depthMerged$size = Illumina250.new.CHM13.depthMerged$end - Illumina250.new.CHM13.depthMerged$start
-Illumina250.new.CHM13.mapqMerged = fread("data/Illumina250_CHM13/Updated_output_12_09_2024/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+Illumina250.new.CHM13.mapqMerged = fread("data/Illumina250_CHM13/Updated_output_01_17_2025/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 Illumina250.new.CHM13.mapqMerged$size = Illumina250.new.CHM13.mapqMerged$end - Illumina250.new.CHM13.mapqMerged$start
 
-dark.new.Illumina250.CHM13.biotype = fread("data/Illumina250_CHM13/Updated_output_12_09_2024/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.new.Illumina250.CHM13.biotype = fread("data/Illumina250_CHM13/Updated_output_12_09_2024/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.new.Illumina250.CHM13.biotype = fread("data/Illumina250_CHM13/Updated_output_12_09_2024/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.new.Illumina250.CHM13.biotype = fread("data/Illumina250_CHM13/Updated_output_12_09_2024/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.new.Illumina250.CHM13.biotype = fread("data/Illumina250_CHM13/Updated_output_01_17_2025/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.new.Illumina250.CHM13.biotype = fread("data/Illumina250_CHM13/Updated_output_01_17_2025/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.new.Illumina250.CHM13.biotype = fread("data/Illumina250_CHM13/Updated_output_01_17_2025/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.new.Illumina250.CHM13.biotype = fread("data/Illumina250_CHM13/Updated_output_01_17_2025/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
 
 
 
@@ -61,17 +62,17 @@ mapq.Illumina250.HG38_noAlt.biotype = fread("data/Illumina250_HG38_noAlt/Updated
 camo.Illumina250.HG38_noAlt.biotype = fread("data/Illumina250_HG38_noAlt/Updated_Output_01_18_2024/Illumina250.Illumina250.HG38_noAlt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
 
 ### New Run
-Illumina250.new.HG38_noAlt.darkMerged = fread("data/Illumina250_HG38_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_noAlt.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
+Illumina250.new.HG38_noAlt.darkMerged = fread("data/Illumina250_HG38_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_noAlt.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
 Illumina250.new.HG38_noAlt.darkMerged$size = Illumina250.new.HG38_noAlt.darkMerged$V3 - Illumina250.new.HG38_noAlt.darkMerged$V2
-Illumina250.new.HG38_noAlt.depthMerged = fread("data/Illumina250_HG38_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_noAlt.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+Illumina250.new.HG38_noAlt.depthMerged = fread("data/Illumina250_HG38_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_noAlt.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 Illumina250.new.HG38_noAlt.depthMerged$size = Illumina250.new.HG38_noAlt.depthMerged$end - Illumina250.new.HG38_noAlt.depthMerged$start
-Illumina250.new.HG38_noAlt.mapqMerged = fread("data/Illumina250_HG38_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_noAlt.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+Illumina250.new.HG38_noAlt.mapqMerged = fread("data/Illumina250_HG38_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_noAlt.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 Illumina250.new.HG38_noAlt.mapqMerged$size = Illumina250.new.HG38_noAlt.mapqMerged$end - Illumina250.new.HG38_noAlt.mapqMerged$start
 
-dark.new.Illumina250.HG38_noAlt.biotype = fread("data/Illumina250_HG38_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_noAlt.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.new.Illumina250.HG38_noAlt.biotype = fread("data/Illumina250_HG38_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_noAlt.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.new.Illumina250.HG38_noAlt.biotype = fread("data/Illumina250_HG38_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_noAlt.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.new.Illumina250.HG38_noAlt.biotype = fread("data/Illumina250_HG38_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_noAlt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.new.Illumina250.HG38_noAlt.biotype = fread("data/Illumina250_HG38_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_noAlt.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.new.Illumina250.HG38_noAlt.biotype = fread("data/Illumina250_HG38_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_noAlt.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.new.Illumina250.HG38_noAlt.biotype = fread("data/Illumina250_HG38_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_noAlt.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.new.Illumina250.HG38_noAlt.biotype = fread("data/Illumina250_HG38_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_noAlt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
 
 
 ### HG38_Alt
@@ -88,17 +89,17 @@ mapq.Illumina250.HG38_Alt.biotype = fread("data/Illumina250_HG38_Alt/Updated_Out
 camo.Illumina250.HG38_Alt.biotype = fread("data/Illumina250_HG38_Alt/Updated_Output_01_18_2024/Illumina250.Illumina250.HG38_Alt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
 
 ### New Run
-Illumina250.new.HG38_Alt.darkMerged = fread("data/Illumina250_HG38_Alt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_Alt.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
+Illumina250.new.HG38_Alt.darkMerged = fread("data/Illumina250_HG38_Alt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_Alt.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
 Illumina250.new.HG38_Alt.darkMerged$size = Illumina250.new.HG38_Alt.darkMerged$V3 - Illumina250.new.HG38_Alt.darkMerged$V2
-Illumina250.new.HG38_Alt.depthMerged = fread("data/Illumina250_HG38_Alt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_Alt.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+Illumina250.new.HG38_Alt.depthMerged = fread("data/Illumina250_HG38_Alt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_Alt.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 Illumina250.new.HG38_Alt.depthMerged$size = Illumina250.new.HG38_Alt.depthMerged$end - Illumina250.new.HG38_Alt.depthMerged$start
-Illumina250.new.HG38_Alt.mapqMerged = fread("data/Illumina250_HG38_Alt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_Alt.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+Illumina250.new.HG38_Alt.mapqMerged = fread("data/Illumina250_HG38_Alt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_Alt.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 Illumina250.new.HG38_Alt.mapqMerged$size = Illumina250.new.HG38_Alt.mapqMerged$end - Illumina250.new.HG38_Alt.mapqMerged$start
 
-dark.new.Illumina250.HG38_Alt.biotype = fread("data/Illumina250_HG38_Alt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_Alt.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.new.Illumina250.HG38_Alt.biotype = fread("data/Illumina250_HG38_Alt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_Alt.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.new.Illumina250.HG38_Alt.biotype = fread("data/Illumina250_HG38_Alt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_Alt.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.new.Illumina250.HG38_Alt.biotype = fread("data/Illumina250_HG38_Alt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_Alt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.new.Illumina250.HG38_Alt.biotype = fread("data/Illumina250_HG38_Alt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_Alt.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.new.Illumina250.HG38_Alt.biotype = fread("data/Illumina250_HG38_Alt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_Alt.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.new.Illumina250.HG38_Alt.biotype = fread("data/Illumina250_HG38_Alt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_Alt.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.new.Illumina250.HG38_Alt.biotype = fread("data/Illumina250_HG38_Alt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_Alt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
 
 
 
@@ -116,17 +117,17 @@ mapq.Illumina250.HG19_noAlt.biotype = fread("data/Illumina250_HG19_noAlt/Updated
 camo.Illumina250.HG19_noAlt.biotype = fread("data/Illumina250_HG19_noAlt/Updated_Output_01_18_2024/Illumina250.Illumina250.HG19_noAlt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
 
 ### New Run
-Illumina250.new.HG19_noAlt.darkMerged = fread("data/Illumina250_HG19_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG19_noAlt.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
+Illumina250.new.HG19_noAlt.darkMerged = fread("data/Illumina250_HG19_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG19_noAlt.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
 Illumina250.new.HG19_noAlt.darkMerged$size = Illumina250.new.HG19_noAlt.darkMerged$V3 - Illumina250.new.HG19_noAlt.darkMerged$V2
-Illumina250.new.HG19_noAlt.depthMerged = fread("data/Illumina250_HG19_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG19_noAlt.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+Illumina250.new.HG19_noAlt.depthMerged = fread("data/Illumina250_HG19_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG19_noAlt.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 Illumina250.new.HG19_noAlt.depthMerged$size = Illumina250.new.HG19_noAlt.depthMerged$end - Illumina250.new.HG19_noAlt.depthMerged$start
-Illumina250.new.HG19_noAlt.mapqMerged = fread("data/Illumina250_HG19_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG19_noAlt.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+Illumina250.new.HG19_noAlt.mapqMerged = fread("data/Illumina250_HG19_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG19_noAlt.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 Illumina250.new.HG19_noAlt.mapqMerged$size = Illumina250.new.HG19_noAlt.mapqMerged$end - Illumina250.new.HG19_noAlt.mapqMerged$start
 
-dark.new.Illumina250.HG19_noAlt.biotype = fread("data/Illumina250_HG19_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG19_noAlt.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.new.Illumina250.HG19_noAlt.biotype = fread("data/Illumina250_HG19_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG19_noAlt.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.new.Illumina250.HG19_noAlt.biotype = fread("data/Illumina250_HG19_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG19_noAlt.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.new.Illumina250.HG19_noAlt.biotype = fread("data/Illumina250_HG19_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG19_noAlt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.new.Illumina250.HG19_noAlt.biotype = fread("data/Illumina250_HG19_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG19_noAlt.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.new.Illumina250.HG19_noAlt.biotype = fread("data/Illumina250_HG19_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG19_noAlt.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.new.Illumina250.HG19_noAlt.biotype = fread("data/Illumina250_HG19_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG19_noAlt.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.new.Illumina250.HG19_noAlt.biotype = fread("data/Illumina250_HG19_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG19_noAlt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
 
 
 ####################################################################################################################################################################################################################3
@@ -145,17 +146,17 @@ mapq.Illumina100.CHM13.biotype = fread("data/Illumina100_CHM13/Updated_output_07
 camo.Illumina100.CHM13.biotype = fread("data/Illumina100_CHM13/Updated_output_07_17_2023/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
 
 ### NewRun
-Illumina100.new.CHM13.darkMerged = fread("data/Illumina100_CHM13/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
+Illumina100.new.CHM13.darkMerged = fread("data/Illumina100_CHM13/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
 Illumina100.new.CHM13.darkMerged$size = Illumina100.new.CHM13.darkMerged$V3 - Illumina100.new.CHM13.darkMerged$V2
-Illumina100.new.CHM13.depthMerged = fread("data/Illumina100_CHM13/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+Illumina100.new.CHM13.depthMerged = fread("data/Illumina100_CHM13/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 Illumina100.new.CHM13.depthMerged$size = Illumina100.new.CHM13.depthMerged$end - Illumina100.new.CHM13.depthMerged$start
-Illumina100.new.CHM13.mapqMerged = fread("data/Illumina100_CHM13/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+Illumina100.new.CHM13.mapqMerged = fread("data/Illumina100_CHM13/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 Illumina100.new.CHM13.mapqMerged$size = Illumina100.new.CHM13.mapqMerged$end - Illumina100.new.CHM13.mapqMerged$start
 
-dark.new.Illumina100.CHM13.biotype = fread("data/Illumina100_CHM13/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.new.Illumina100.CHM13.biotype = fread("data/Illumina100_CHM13/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.new.Illumina100.CHM13.biotype = fread("data/Illumina100_CHM13/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.new.Illumina100.CHM13.biotype = fread("data/Illumina100_CHM13/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.new.Illumina100.CHM13.biotype = fread("data/Illumina100_CHM13/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.new.Illumina100.CHM13.biotype = fread("data/Illumina100_CHM13/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.new.Illumina100.CHM13.biotype = fread("data/Illumina100_CHM13/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.new.Illumina100.CHM13.biotype = fread("data/Illumina100_CHM13/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
 
 
 
@@ -175,17 +176,17 @@ camo.Illumina100.HG38_noAlt.biotype = fread("data/Illumina100_HG38_noAlt/Updated
 
 
 ### NewRun
-Illumina100.new.HG38_noAlt.darkMerged = fread("data/Illumina100_HG38_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG38_noAlt.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
+Illumina100.new.HG38_noAlt.darkMerged = fread("data/Illumina100_HG38_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG38_noAlt.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
 Illumina100.new.HG38_noAlt.darkMerged$size = Illumina100.new.HG38_noAlt.darkMerged$V3 - Illumina100.new.HG38_noAlt.darkMerged$V2
-Illumina100.new.HG38_noAlt.depthMerged = fread("data/Illumina100_HG38_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG38_noAlt.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+Illumina100.new.HG38_noAlt.depthMerged = fread("data/Illumina100_HG38_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG38_noAlt.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 Illumina100.new.HG38_noAlt.depthMerged$size = Illumina100.new.HG38_noAlt.depthMerged$end - Illumina100.new.HG38_noAlt.depthMerged$start
-Illumina100.new.HG38_noAlt.mapqMerged = fread("data/Illumina100_HG38_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG38_noAlt.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+Illumina100.new.HG38_noAlt.mapqMerged = fread("data/Illumina100_HG38_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG38_noAlt.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 Illumina100.new.HG38_noAlt.mapqMerged$size = Illumina100.new.HG38_noAlt.mapqMerged$end - Illumina100.new.HG38_noAlt.mapqMerged$start
 
-dark.new.Illumina100.HG38_noAlt.biotype = fread("data/Illumina100_HG38_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG38_noAlt.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.new.Illumina100.HG38_noAlt.biotype = fread("data/Illumina100_HG38_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG38_noAlt.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.new.Illumina100.HG38_noAlt.biotype = fread("data/Illumina100_HG38_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG38_noAlt.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.new.Illumina100.HG38_noAlt.biotype = fread("data/Illumina100_HG38_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG38_noAlt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.new.Illumina100.HG38_noAlt.biotype = fread("data/Illumina100_HG38_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG38_noAlt.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.new.Illumina100.HG38_noAlt.biotype = fread("data/Illumina100_HG38_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG38_noAlt.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.new.Illumina100.HG38_noAlt.biotype = fread("data/Illumina100_HG38_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG38_noAlt.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.new.Illumina100.HG38_noAlt.biotype = fread("data/Illumina100_HG38_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG38_noAlt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
 
 
 ####################################################################################################################################################################################################################3
@@ -204,17 +205,17 @@ camo.Illumina100.HG38_Alt.biotype = fread("data/Illumina100_HG38_Alt/Updated_out
 
 
 ### NewRun
-Illumina100.new.HG38_Alt.darkMerged = fread("data/Illumina100_HG38_Alt/Updated_output_12_09_2024/illuminaRL100.1KGenomes_hg38_plus_decoy.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
+Illumina100.new.HG38_Alt.darkMerged = fread("data/Illumina100_HG38_Alt/Updated_output_01_17_2025/illuminaRL100.1KGenomes_hg38_plus_decoy.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
 Illumina100.new.HG38_Alt.darkMerged$size = Illumina100.new.HG38_Alt.darkMerged$V3 - Illumina100.new.HG38_Alt.darkMerged$V2
-Illumina100.new.HG38_Alt.depthMerged = fread("data/Illumina100_HG38_Alt/Updated_output_12_09_2024/illuminaRL100.1KGenomes_hg38_plus_decoy.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+Illumina100.new.HG38_Alt.depthMerged = fread("data/Illumina100_HG38_Alt/Updated_output_01_17_2025/illuminaRL100.1KGenomes_hg38_plus_decoy.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 Illumina100.new.HG38_Alt.depthMerged$size = Illumina100.new.HG38_Alt.depthMerged$end - Illumina100.new.HG38_Alt.depthMerged$start
-Illumina100.new.HG38_Alt.mapqMerged = fread("data/Illumina100_HG38_Alt/Updated_output_12_09_2024/illuminaRL100.1KGenomes_hg38_plus_decoy.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+Illumina100.new.HG38_Alt.mapqMerged = fread("data/Illumina100_HG38_Alt/Updated_output_01_17_2025/illuminaRL100.1KGenomes_hg38_plus_decoy.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 Illumina100.new.HG38_Alt.mapqMerged$size = Illumina100.new.HG38_Alt.mapqMerged$end - Illumina100.new.HG38_Alt.mapqMerged$start
 
-dark.new.Illumina100.HG38_Alt.biotype = fread("data/Illumina100_HG38_Alt/Updated_output_12_09_2024/illuminaRL100.1KGenomes_hg38_plus_decoy.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.new.Illumina100.HG38_Alt.biotype = fread("data/Illumina100_HG38_Alt/Updated_output_12_09_2024/illuminaRL100.1KGenomes_hg38_plus_decoy.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.new.Illumina100.HG38_Alt.biotype = fread("data/Illumina100_HG38_Alt/Updated_output_12_09_2024/illuminaRL100.1KGenomes_hg38_plus_decoy.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.new.Illumina100.HG38_Alt.biotype = fread("data/Illumina100_HG38_Alt/Updated_output_12_09_2024/illuminaRL100.1KGenomes_hg38_plus_decoy.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.new.Illumina100.HG38_Alt.biotype = fread("data/Illumina100_HG38_Alt/Updated_output_01_17_2025/illuminaRL100.1KGenomes_hg38_plus_decoy.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.new.Illumina100.HG38_Alt.biotype = fread("data/Illumina100_HG38_Alt/Updated_output_01_17_2025/illuminaRL100.1KGenomes_hg38_plus_decoy.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.new.Illumina100.HG38_Alt.biotype = fread("data/Illumina100_HG38_Alt/Updated_output_01_17_2025/illuminaRL100.1KGenomes_hg38_plus_decoy.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.new.Illumina100.HG38_Alt.biotype = fread("data/Illumina100_HG38_Alt/Updated_output_01_17_2025/illuminaRL100.1KGenomes_hg38_plus_decoy.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
 
 
 ####################################################################################################################################################################################################################3
@@ -233,17 +234,17 @@ camo.Illumina100.HG19_noAlt.biotype = fread("data/Illumina100_HG19_noAlt/Updated
 
 
 ### NewRun
-Illumina100.new.HG19_noAlt.darkMerged = fread("data/Illumina100_HG19_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG19_noAlt.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
+Illumina100.new.HG19_noAlt.darkMerged = fread("data/Illumina100_HG19_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG19_noAlt.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
 Illumina100.new.HG19_noAlt.darkMerged$size = Illumina100.new.HG19_noAlt.darkMerged$V3 - Illumina100.new.HG19_noAlt.darkMerged$V2
-Illumina100.new.HG19_noAlt.depthMerged = fread("data/Illumina100_HG19_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG19_noAlt.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+Illumina100.new.HG19_noAlt.depthMerged = fread("data/Illumina100_HG19_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG19_noAlt.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 Illumina100.new.HG19_noAlt.depthMerged$size = Illumina100.new.HG19_noAlt.depthMerged$end - Illumina100.new.HG19_noAlt.depthMerged$start
-Illumina100.new.HG19_noAlt.mapqMerged = fread("data/Illumina100_HG19_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG19_noAlt.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+Illumina100.new.HG19_noAlt.mapqMerged = fread("data/Illumina100_HG19_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG19_noAlt.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 Illumina100.new.HG19_noAlt.mapqMerged$size = Illumina100.new.HG19_noAlt.mapqMerged$end - Illumina100.new.HG19_noAlt.mapqMerged$start
 
-dark.new.Illumina100.HG19_noAlt.biotype = fread("data/Illumina100_HG19_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG19_noAlt.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.new.Illumina100.HG19_noAlt.biotype = fread("data/Illumina100_HG19_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG19_noAlt.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.new.Illumina100.HG19_noAlt.biotype = fread("data/Illumina100_HG19_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG19_noAlt.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.new.Illumina100.HG19_noAlt.biotype = fread("data/Illumina100_HG19_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG19_noAlt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.new.Illumina100.HG19_noAlt.biotype = fread("data/Illumina100_HG19_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG19_noAlt.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.new.Illumina100.HG19_noAlt.biotype = fread("data/Illumina100_HG19_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG19_noAlt.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.new.Illumina100.HG19_noAlt.biotype = fread("data/Illumina100_HG19_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG19_noAlt.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.new.Illumina100.HG19_noAlt.biotype = fread("data/Illumina100_HG19_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG19_noAlt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
 
 
 ###############################################################################################################################################################################################
@@ -263,17 +264,17 @@ camo.ONT.CHM13.biotype = fread("data/ONT_CHM13/UpdatedSamples_11_30_2023/ONT.ONT
 
 #### New Run
 
-ONT.new.CHM13.darkMerged = fread("data/ONT_CHM13/Updated_output_12_09_2024/ONT.ONT_1KG.T2T_CHM13_v2.0.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
+ONT.new.CHM13.darkMerged = fread("data/ONT_CHM13/Updated_output_01_17_2025/ONT.ONT_1KG.T2T_CHM13_v2.0.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
 ONT.new.CHM13.darkMerged$size = ONT.new.CHM13.darkMerged$V3 - ONT.new.CHM13.darkMerged$V2
-ONT.new.CHM13.depthMerged = fread("data/ONT_CHM13/Updated_output_12_09_2024/ONT.ONT_1KG.T2T_CHM13_v2.0.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+ONT.new.CHM13.depthMerged = fread("data/ONT_CHM13/Updated_output_01_17_2025/ONT.ONT_1KG.T2T_CHM13_v2.0.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 ONT.new.CHM13.depthMerged$size = ONT.new.CHM13.depthMerged$end - ONT.new.CHM13.depthMerged$start
-ONT.new.CHM13.mapqMerged = fread("data/ONT_CHM13/Updated_output_12_09_2024/ONT.ONT_1KG.T2T_CHM13_v2.0.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+ONT.new.CHM13.mapqMerged = fread("data/ONT_CHM13/Updated_output_01_17_2025/ONT.ONT_1KG.T2T_CHM13_v2.0.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 ONT.new.CHM13.mapqMerged$size = ONT.new.CHM13.mapqMerged$end - ONT.new.CHM13.mapqMerged$start
 
-dark.ONT.new.CHM13.biotype = fread("data/ONT_CHM13/Updated_output_12_09_2024/ONT.ONT_1KG.T2T_CHM13_v2.0.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.ONT.new.CHM13.biotype = fread("data/ONT_CHM13/Updated_output_12_09_2024/ONT.ONT_1KG.T2T_CHM13_v2.0.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.ONT.new.CHM13.biotype = fread("data/ONT_CHM13/Updated_output_12_09_2024/ONT.ONT_1KG.T2T_CHM13_v2.0.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.ONT.new.CHM13.biotype = fread("data/ONT_CHM13/Updated_output_12_09_2024/ONT.ONT_1KG.T2T_CHM13_v2.0.percent_camo_biotypes.txt", sep="\t",stringsAsFactors = F, header=T)
+dark.ONT.new.CHM13.biotype = fread("data/ONT_CHM13/Updated_output_01_17_2025/ONT.ONT_1KG.T2T_CHM13_v2.0.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.ONT.new.CHM13.biotype = fread("data/ONT_CHM13/Updated_output_01_17_2025/ONT.ONT_1KG.T2T_CHM13_v2.0.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.ONT.new.CHM13.biotype = fread("data/ONT_CHM13/Updated_output_01_17_2025/ONT.ONT_1KG.T2T_CHM13_v2.0.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.ONT.new.CHM13.biotype = fread("data/ONT_CHM13/Updated_output_01_17_2025/ONT.ONT_1KG.T2T_CHM13_v2.0.percent_camo_biotypes.txt", sep="\t",stringsAsFactors = F, header=T)
 
 ###############################################################################################################################################################################################
 ### HG38_noAlt
@@ -291,17 +292,17 @@ camo.ONT.HG38_noAlt.biotype = fread("data/ONT_HG38_noAlt/UpdatedSamples_11_30_20
 
 ###### New Run
 
-ONT.new.HG38_noAlt.darkMerged = fread("data/ONT_HG38_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_noAlt.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
+ONT.new.HG38_noAlt.darkMerged = fread("data/ONT_HG38_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_noAlt.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
 ONT.new.HG38_noAlt.darkMerged$size = ONT.new.HG38_noAlt.darkMerged$V3 - ONT.new.HG38_noAlt.darkMerged$V2
-ONT.new.HG38_noAlt.depthMerged = fread("data/ONT_HG38_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_noAlt.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+ONT.new.HG38_noAlt.depthMerged = fread("data/ONT_HG38_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_noAlt.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 ONT.new.HG38_noAlt.depthMerged$size = ONT.new.HG38_noAlt.depthMerged$end - ONT.new.HG38_noAlt.depthMerged$start
-ONT.new.HG38_noAlt.mapqMerged = fread("data/ONT_HG38_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_noAlt.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+ONT.new.HG38_noAlt.mapqMerged = fread("data/ONT_HG38_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_noAlt.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 ONT.new.HG38_noAlt.mapqMerged$size = ONT.new.HG38_noAlt.mapqMerged$end - ONT.new.HG38_noAlt.mapqMerged$start
 
-dark.ONT.new.HG38_noAlt.biotype = fread("data/ONT_HG38_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_noAlt.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.ONT.new.HG38_noAlt.biotype = fread("data/ONT_HG38_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_noAlt.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.ONT.new.HG38_noAlt.biotype = fread("data/ONT_HG38_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_noAlt.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.ONT.new.HG38_noAlt.biotype = fread("data/ONT_HG38_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_noAlt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.ONT.new.HG38_noAlt.biotype = fread("data/ONT_HG38_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_noAlt.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.ONT.new.HG38_noAlt.biotype = fread("data/ONT_HG38_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_noAlt.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.ONT.new.HG38_noAlt.biotype = fread("data/ONT_HG38_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_noAlt.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.ONT.new.HG38_noAlt.biotype = fread("data/ONT_HG38_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_noAlt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
 
 ###############################################################################################################################################################################################
 ### HG38_Alt
@@ -318,17 +319,17 @@ mapq.ONT.HG38_Alt.biotype = fread("data/ONT_HG38_Alt/UpdatedSamples_11_30_2023/O
 camo.ONT.HG38_Alt.biotype = fread("data/ONT_HG38_Alt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_Alt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
 
 ##### New Run
-ONT.new.HG38_Alt.darkMerged = fread("data/ONT_HG38_Alt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_Alt.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
+ONT.new.HG38_Alt.darkMerged = fread("data/ONT_HG38_Alt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_Alt.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
 ONT.new.HG38_Alt.darkMerged$size = ONT.new.HG38_Alt.darkMerged$V3 - ONT.new.HG38_Alt.darkMerged$V2
-ONT.new.HG38_Alt.depthMerged = fread("data/ONT_HG38_Alt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_Alt.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+ONT.new.HG38_Alt.depthMerged = fread("data/ONT_HG38_Alt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_Alt.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 ONT.new.HG38_Alt.depthMerged$size = ONT.new.HG38_Alt.depthMerged$end - ONT.new.HG38_Alt.depthMerged$start
-ONT.new.HG38_Alt.mapqMerged = fread("data/ONT_HG38_Alt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_Alt.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+ONT.new.HG38_Alt.mapqMerged = fread("data/ONT_HG38_Alt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_Alt.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 ONT.new.HG38_Alt.mapqMerged$size = ONT.new.HG38_Alt.mapqMerged$end - ONT.new.HG38_Alt.mapqMerged$start
 
-dark.ONT.new.HG38_Alt.biotype = fread("data/ONT_HG38_Alt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_Alt.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.ONT.new.HG38_Alt.biotype = fread("data/ONT_HG38_Alt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_Alt.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.ONT.new.HG38_Alt.biotype = fread("data/ONT_HG38_Alt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_Alt.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.ONT.new.HG38_Alt.biotype = fread("data/ONT_HG38_Alt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_Alt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.ONT.new.HG38_Alt.biotype = fread("data/ONT_HG38_Alt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_Alt.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.ONT.new.HG38_Alt.biotype = fread("data/ONT_HG38_Alt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_Alt.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.ONT.new.HG38_Alt.biotype = fread("data/ONT_HG38_Alt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_Alt.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.ONT.new.HG38_Alt.biotype = fread("data/ONT_HG38_Alt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_Alt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
 
 
 ###############################################################################################################################################################################################
@@ -346,17 +347,17 @@ mapq.ONT.HG19_noAlt.biotype = fread("data/ONT_HG19_noAlt/UpdatedSamples_11_30_20
 camo.ONT.HG19_noAlt.biotype = fread("data/ONT_HG19_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG19_noAlt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
 
 ###### New Run
-ONT.new.HG19_noAlt.darkMerged = fread("data/ONT_HG19_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG19_noAlt.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
+ONT.new.HG19_noAlt.darkMerged = fread("data/ONT_HG19_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG19_noAlt.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
 ONT.new.HG19_noAlt.darkMerged$size = ONT.new.HG19_noAlt.darkMerged$V3 - ONT.new.HG19_noAlt.darkMerged$V2
-ONT.new.HG19_noAlt.depthMerged = fread("data/ONT_HG19_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG19_noAlt.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+ONT.new.HG19_noAlt.depthMerged = fread("data/ONT_HG19_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG19_noAlt.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 ONT.new.HG19_noAlt.depthMerged$size = ONT.new.HG19_noAlt.depthMerged$end - ONT.new.HG19_noAlt.depthMerged$start
-ONT.new.HG19_noAlt.mapqMerged = fread("data/ONT_HG19_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG19_noAlt.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+ONT.new.HG19_noAlt.mapqMerged = fread("data/ONT_HG19_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG19_noAlt.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 ONT.new.HG19_noAlt.mapqMerged$size = ONT.new.HG19_noAlt.mapqMerged$end - ONT.new.HG19_noAlt.mapqMerged$start
 
-dark.ONT.new.HG19_noAlt.biotype = fread("data/ONT_HG19_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG19_noAlt.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.ONT.new.HG19_noAlt.biotype = fread("data/ONT_HG19_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG19_noAlt.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.ONT.new.HG19_noAlt.biotype = fread("data/ONT_HG19_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG19_noAlt.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.ONT.new.HG19_noAlt.biotype = fread("data/ONT_HG19_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG19_noAlt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.ONT.new.HG19_noAlt.biotype = fread("data/ONT_HG19_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG19_noAlt.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.ONT.new.HG19_noAlt.biotype = fread("data/ONT_HG19_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG19_noAlt.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.ONT.new.HG19_noAlt.biotype = fread("data/ONT_HG19_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG19_noAlt.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.ONT.new.HG19_noAlt.biotype = fread("data/ONT_HG19_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG19_noAlt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
 
 ###############################################################################################################################################################################################
 ## PacBio
@@ -374,17 +375,17 @@ mapq.pacbio.CHM13.biotype = fread("data/PacBio_CHM13/UpdatedSamples_11_30_2023/P
 camo.pacbio.CHM13.biotype = fread("data/PacBio_CHM13/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
 
 #### New Run
-PacBio.new.CHM13.darkMerged = fread("data/PacBio_CHM13/Updated_output_12_09_2024/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
+PacBio.new.CHM13.darkMerged = fread("data/PacBio_CHM13/Updated_output_01_17_2025/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
 PacBio.new.CHM13.darkMerged$size = PacBio.new.CHM13.darkMerged$V3 - PacBio.new.CHM13.darkMerged$V2
-PacBio.new.CHM13.depthMerged = fread("data/PacBio_CHM13/Updated_output_12_09_2024/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+PacBio.new.CHM13.depthMerged = fread("data/PacBio_CHM13/Updated_output_01_17_2025/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 PacBio.new.CHM13.depthMerged$size = PacBio.new.CHM13.depthMerged$end - PacBio.new.CHM13.depthMerged$start
-PacBio.new.CHM13.mapqMerged = fread("data/PacBio_CHM13/Updated_output_12_09_2024/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+PacBio.new.CHM13.mapqMerged = fread("data/PacBio_CHM13/Updated_output_01_17_2025/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 PacBio.new.CHM13.mapqMerged$size = PacBio.new.CHM13.mapqMerged$end - PacBio.new.CHM13.mapqMerged$start
 
-dark.pacbio.new.CHM13.biotype = fread("data/PacBio_CHM13/Updated_output_12_09_2024/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.pacbio.new.CHM13.biotype = fread("data/PacBio_CHM13/Updated_output_12_09_2024/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.pacbio.new.CHM13.biotype = fread("data/PacBio_CHM13/Updated_output_12_09_2024/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.pacbio.new.CHM13.biotype = fread("data/PacBio_CHM13/Updated_output_12_09_2024/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.pacbio.new.CHM13.biotype = fread("data/PacBio_CHM13/Updated_output_01_17_2025/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.pacbio.new.CHM13.biotype = fread("data/PacBio_CHM13/Updated_output_01_17_2025/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.pacbio.new.CHM13.biotype = fread("data/PacBio_CHM13/Updated_output_01_17_2025/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.pacbio.new.CHM13.biotype = fread("data/PacBio_CHM13/Updated_output_01_17_2025/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
 
 ###############################################################################################################################################################################################
 ### HG19_noAlt
@@ -401,17 +402,17 @@ mapq.pacbio.HG19_noAlt.biotype = fread("data/PacBio_HG19_noAlt/UpdatedSamples_11
 camo.pacbio.HG19_noAlt.biotype = fread("data/PacBio_HG19_noAlt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG19_no_alt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
 
 ##### New Run
-PacBio.new.HG19_noAlt.darkMerged = fread("data/PacBio_HG19_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG19_no_alt.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
+PacBio.new.HG19_noAlt.darkMerged = fread("data/PacBio_HG19_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG19_no_alt.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
 PacBio.new.HG19_noAlt.darkMerged$size = PacBio.new.HG19_noAlt.darkMerged$V3 - PacBio.new.HG19_noAlt.darkMerged$V2
-PacBio.new.HG19_noAlt.depthMerged = fread("data/PacBio_HG19_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG19_no_alt.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+PacBio.new.HG19_noAlt.depthMerged = fread("data/PacBio_HG19_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG19_no_alt.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 PacBio.new.HG19_noAlt.depthMerged$size = PacBio.new.HG19_noAlt.depthMerged$end - PacBio.new.HG19_noAlt.depthMerged$start
-PacBio.new.HG19_noAlt.mapqMerged = fread("data/PacBio_HG19_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG19_no_alt.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+PacBio.new.HG19_noAlt.mapqMerged = fread("data/PacBio_HG19_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG19_no_alt.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 PacBio.new.HG19_noAlt.mapqMerged$size = PacBio.new.HG19_noAlt.mapqMerged$end - PacBio.new.HG19_noAlt.mapqMerged$start
 
-dark.pacbio.new.HG19_noAlt.biotype = fread("data/PacBio_HG19_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG19_no_alt.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.pacbio.new.HG19_noAlt.biotype = fread("data/PacBio_HG19_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG19_no_alt.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.pacbio.new.HG19_noAlt.biotype = fread("data/PacBio_HG19_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG19_no_alt.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.pacbio.new.HG19_noAlt.biotype = fread("data/PacBio_HG19_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG19_no_alt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.pacbio.new.HG19_noAlt.biotype = fread("data/PacBio_HG19_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG19_no_alt.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.pacbio.new.HG19_noAlt.biotype = fread("data/PacBio_HG19_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG19_no_alt.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.pacbio.new.HG19_noAlt.biotype = fread("data/PacBio_HG19_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG19_no_alt.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.pacbio.new.HG19_noAlt.biotype = fread("data/PacBio_HG19_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG19_no_alt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
 
 ###############################################################################################################################################################################################
 ### HG38_noAlt
@@ -428,17 +429,17 @@ mapq.pacbio.HG38_noAlt.biotype = fread("data/PacBio_HG38_noAlt/UpdatedSamples_11
 camo.pacbio.HG38_noAlt.biotype = fread("data/PacBio_HG38_noAlt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
 
 #### New Run
-PacBio.new.HG38_noAlt.darkMerged = fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
+PacBio.new.HG38_noAlt.darkMerged = fread("data/PacBio_HG38_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_no_alt.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
 PacBio.new.HG38_noAlt.darkMerged$size = PacBio.new.HG38_noAlt.darkMerged$V3 - PacBio.new.HG38_noAlt.darkMerged$V2
-PacBio.new.HG38_noAlt.depthMerged = fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+PacBio.new.HG38_noAlt.depthMerged = fread("data/PacBio_HG38_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_no_alt.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 PacBio.new.HG38_noAlt.depthMerged$size = PacBio.new.HG38_noAlt.depthMerged$end - PacBio.new.HG38_noAlt.depthMerged$start
-PacBio.new.HG38_noAlt.mapqMerged = fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+PacBio.new.HG38_noAlt.mapqMerged = fread("data/PacBio_HG38_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_no_alt.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 PacBio.new.HG38_noAlt.mapqMerged$size = PacBio.new.HG38_noAlt.mapqMerged$end - PacBio.new.HG38_noAlt.mapqMerged$start
 
-dark.pacbio.new.HG38_noAlt.biotype = fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.pacbio.new.HG38_noAlt.biotype = fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.pacbio.new.HG38_noAlt.biotype = fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.pacbio.new.HG38_noAlt.biotype = fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.pacbio.new.HG38_noAlt.biotype = fread("data/PacBio_HG38_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.pacbio.new.HG38_noAlt.biotype = fread("data/PacBio_HG38_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.pacbio.new.HG38_noAlt.biotype = fread("data/PacBio_HG38_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.pacbio.new.HG38_noAlt.biotype = fread("data/PacBio_HG38_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
 
 
 ###############################################################################################################################################################################################
@@ -456,17 +457,17 @@ mapq.pacbio.HG38_alt.biotype = fread("data/PacBio_HG38_Alt/UpdatedSamples_11_30_
 camo.pacbio.HG38_alt.biotype = fread("data/PacBio_HG38_Alt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_Alt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
 
 #### New Run
-PacBio.new.HG38_alt.darkMerged = fread("data/PacBio_HG38_Alt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_Alt.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
+PacBio.new.HG38_alt.darkMerged = fread("data/PacBio_HG38_Alt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_Alt.dark-merged.bed", sep="\t", stringsAsFactors = F, header=F)
 PacBio.new.HG38_alt.darkMerged$size = PacBio.new.HG38_alt.darkMerged$V3 - PacBio.new.HG38_alt.darkMerged$V2
-PacBio.new.HG38_alt.depthMerged = fread("data/PacBio_HG38_Alt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_Alt.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+PacBio.new.HG38_alt.depthMerged = fread("data/PacBio_HG38_Alt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_Alt.low_depth-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 PacBio.new.HG38_alt.depthMerged$size = PacBio.new.HG38_alt.depthMerged$end - PacBio.new.HG38_alt.depthMerged$start
-PacBio.new.HG38_alt.mapqMerged = fread("data/PacBio_HG38_Alt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_Alt.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
+PacBio.new.HG38_alt.mapqMerged = fread("data/PacBio_HG38_Alt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_Alt.low_mapq-merged.bed", sep="\t", stringsAsFactors = F, header=T)
 PacBio.new.HG38_alt.mapqMerged$size = PacBio.new.HG38_alt.mapqMerged$end - PacBio.new.HG38_alt.mapqMerged$start
 
-dark.pacbio.new.HG38_alt.biotype = fread("data/PacBio_HG38_Alt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_Alt.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.pacbio.new.HG38_alt.biotype = fread("data/PacBio_HG38_Alt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_Alt.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.pacbio.new.HG38_alt.biotype = fread("data/PacBio_HG38_Alt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_Alt.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.pacbio.new.HG38_alt.biotype = fread("data/PacBio_HG38_Alt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_Alt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.pacbio.new.HG38_alt.biotype = fread("data/PacBio_HG38_Alt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_Alt.percent_dark_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.pacbio.new.HG38_alt.biotype = fread("data/PacBio_HG38_Alt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_Alt.percent_depth_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.pacbio.new.HG38_alt.biotype = fread("data/PacBio_HG38_Alt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_Alt.percent_mapq_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.pacbio.new.HG38_alt.biotype = fread("data/PacBio_HG38_Alt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_Alt.percent_camo_biotypes.txt", sep="\t", stringsAsFactors = F, header=T)
 
 ###############################################################################################################################################################################################
 
@@ -563,7 +564,7 @@ colnames(biotype) = c("biotype", "AllDark", "Dark_by_Depth", "Dark_by_MapQ", "Ca
 NewLongRead_nucsAndRegions = data.table(
   "Region_type"=c(rep(c("All_Dark","Low_Depth", "Low_Mapq"), 16)), 
   "Platform"=c(rep("ONT", 3), rep("ONT", 3), rep("ONT", 3), rep("ONT", 3), rep("Illumina100", 3), rep("Illumina100", 3), rep("Illumina100", 3), rep("Illumina100", 3), rep("Illumina250", 3), rep("Illumina250", 3), rep("Illumina250", 3), rep("Illumina250", 3), rep("PacBio", 3), rep("PacBio", 3), rep("PacBio", 3), rep("PacBio", 3)),
-  "Reference"=c(rep("CHM13", 3), rep("HG38_noAlt", 3), rep("HG19_noAlt", 3), rep("HG38_alt", 3), rep("CHM13", 3), rep("HG19_noAlt", 3), rep("HG38_noAlt", 3), rep("HG38_alt", 3), rep("CHM13", 3), rep("HG19_noAlt", 3), rep("HG38_noAlt", 3), rep("HG38_alt", 3), rep("CHM13", 3), rep("HG19_noAlt", 3), rep("HG38_noAlt", 3), rep("HG38_alt", 3)),
+  "Reference"=c(rep("CHM13", 3), rep("HG38_noAlt", 3), rep("HG19_noAlt", 3), rep("HG38_alt", 3), rep("CHM13", 3), rep("HG38_noAlt", 3), rep("HG19_noAlt", 3), rep("HG38_alt", 3), rep("CHM13", 3), rep("HG38_noAlt", 3), rep("HG19_noAlt", 3), rep("HG38_alt", 3), rep("CHM13", 3), rep("HG19_noAlt", 3), rep("HG38_noAlt", 3), rep("HG38_alt", 3)),
   "Nucleotide_count"=c(sum(ONT.new.CHM13.darkMerged$size), sum(ONT.new.CHM13.depthMerged$size), sum(ONT.new.CHM13.mapqMerged$size), 
                        sum(ONT.new.HG38_noAlt.darkMerged$size), sum(ONT.new.HG38_noAlt.depthMerged$size), sum(ONT.new.HG38_noAlt.mapqMerged$size),
                        sum(ONT.new.HG19_noAlt.darkMerged$size), sum(ONT.new.HG19_noAlt.depthMerged$size), sum(ONT.new.HG19_noAlt.mapqMerged$size),
@@ -670,10 +671,10 @@ camo.Illumina100.CHM13.codingRegions = fread("data/Illumina100_CHM13/Updated_out
 
 ### NEW
 
-dark.Illumina100.new.CHM13.codingRegions = fread("data/Illumina100_CHM13/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.Illumina100.new.CHM13.codingRegions = fread("data/Illumina100_CHM13/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.Illumina100.new.CHM13.codingRegions = fread("data/Illumina100_CHM13/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.Illumina100.new.CHM13.codingRegions = fread("data/Illumina100_CHM13/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.Illumina100.new.CHM13.codingRegions = fread("data/Illumina100_CHM13/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.Illumina100.new.CHM13.codingRegions = fread("data/Illumina100_CHM13/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.Illumina100.new.CHM13.codingRegions = fread("data/Illumina100_CHM13/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.Illumina100.new.CHM13.codingRegions = fread("data/Illumina100_CHM13/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 
 ### HG19_noAlt
 dark.Illumina100.HG19_noAlt.codingRegions = fread("data/Illumina100_HG19_noAlt/Updated_output_07_17_2023/originalADSP.Illumina_OriginalADSP.HG19_noAlt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
@@ -683,10 +684,10 @@ camo.Illumina100.HG19_noAlt.codingRegions = fread("data/Illumina100_HG19_noAlt/U
 
 ###NEW
 
-dark.Illumina100.new.HG19_noAlt.codingRegions = fread("data/Illumina100_HG19_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG19_noAlt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.Illumina100.new.HG19_noAlt.codingRegions = fread("data/Illumina100_HG19_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG19_noAlt.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.Illumina100.new.HG19_noAlt.codingRegions = fread("data/Illumina100_HG19_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG19_noAlt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.Illumina100.new.HG19_noAlt.codingRegions = fread("data/Illumina100_HG19_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG19_noAlt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.Illumina100.new.HG19_noAlt.codingRegions = fread("data/Illumina100_HG19_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG19_noAlt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.Illumina100.new.HG19_noAlt.codingRegions = fread("data/Illumina100_HG19_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG19_noAlt.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.Illumina100.new.HG19_noAlt.codingRegions = fread("data/Illumina100_HG19_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG19_noAlt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.Illumina100.new.HG19_noAlt.codingRegions = fread("data/Illumina100_HG19_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG19_noAlt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 
 ### HG38_noAlt
 dark.Illumina100.HG38_noAlt.codingRegions = fread("data/Illumina100_HG38_noAlt/Updated_output_07_17_2023/originalADSP.Illumina_OriginalADSP.HG38_noAlt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
@@ -696,10 +697,10 @@ camo.Illumina100.HG38_noAlt.codingRegions = fread("data/Illumina100_HG38_noAlt/U
 
 ###NEW 
 
-dark.Illumina100.new.HG38_noAlt.codingRegions = fread("data/Illumina100_HG38_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG38_noAlt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.Illumina100.new.HG38_noAlt.codingRegions = fread("data/Illumina100_HG38_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG38_noAlt.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.Illumina100.new.HG38_noAlt.codingRegions = fread("data/Illumina100_HG38_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG38_noAlt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.Illumina100.new.HG38_noAlt.codingRegions = fread("data/Illumina100_HG38_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG38_noAlt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.Illumina100.new.HG38_noAlt.codingRegions = fread("data/Illumina100_HG38_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG38_noAlt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.Illumina100.new.HG38_noAlt.codingRegions = fread("data/Illumina100_HG38_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG38_noAlt.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.Illumina100.new.HG38_noAlt.codingRegions = fread("data/Illumina100_HG38_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG38_noAlt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.Illumina100.new.HG38_noAlt.codingRegions = fread("data/Illumina100_HG38_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG38_noAlt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 
 ### HG38_Alt
 dark.Illumina100.HG38_Alt.codingRegions = fread("data/Illumina100_HG38_Alt/Updated_output_07_17_2023/illuminaRL100.1KGenomes_hg38_plus_decoy.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
@@ -709,10 +710,10 @@ camo.Illumina100.HG38_Alt.codingRegions = fread("data/Illumina100_HG38_Alt/Updat
 
 ###NEW
 
-dark.Illumina100.new.HG38_Alt.codingRegions = fread("data/Illumina100_HG38_Alt/Updated_output_12_09_2024/illuminaRL100.1KGenomes_hg38_plus_decoy.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.Illumina100.new.HG38_Alt.codingRegions = fread("data/Illumina100_HG38_Alt/Updated_output_12_09_2024/illuminaRL100.1KGenomes_hg38_plus_decoy.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.Illumina100.new.HG38_Alt.codingRegions = fread("data/Illumina100_HG38_Alt/Updated_output_12_09_2024/illuminaRL100.1KGenomes_hg38_plus_decoy.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.Illumina100.new.HG38_Alt.codingRegions = fread("data/Illumina100_HG38_Alt/Updated_output_12_09_2024/illuminaRL100.1KGenomes_hg38_plus_decoy.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.Illumina100.new.HG38_Alt.codingRegions = fread("data/Illumina100_HG38_Alt/Updated_output_01_17_2025/illuminaRL100.1KGenomes_hg38_plus_decoy.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.Illumina100.new.HG38_Alt.codingRegions = fread("data/Illumina100_HG38_Alt/Updated_output_01_17_2025/illuminaRL100.1KGenomes_hg38_plus_decoy.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.Illumina100.new.HG38_Alt.codingRegions = fread("data/Illumina100_HG38_Alt/Updated_output_01_17_2025/illuminaRL100.1KGenomes_hg38_plus_decoy.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.Illumina100.new.HG38_Alt.codingRegions = fread("data/Illumina100_HG38_Alt/Updated_output_01_17_2025/illuminaRL100.1KGenomes_hg38_plus_decoy.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 
 
 ## Illumina250
@@ -724,10 +725,10 @@ camo.Illumina250.CHM13.codingRegions = fread("data/Illumina250_CHM13/Updated_Out
 
 ## NEW
 
-dark.new.Illumina250.CHM13.codingRegions = fread("data/Illumina250_CHM13/Updated_output_12_09_2024/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.new.Illumina250.CHM13.codingRegions = fread("data/Illumina250_CHM13/Updated_output_12_09_2024/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.new.Illumina250.CHM13.codingRegions = fread("data/Illumina250_CHM13/Updated_output_12_09_2024/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.new.Illumina250.CHM13.codingRegions = fread("data/Illumina250_CHM13/Updated_output_12_09_2024/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.new.Illumina250.CHM13.codingRegions = fread("data/Illumina250_CHM13/Updated_output_01_17_2025/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.new.Illumina250.CHM13.codingRegions = fread("data/Illumina250_CHM13/Updated_output_01_17_2025/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.new.Illumina250.CHM13.codingRegions = fread("data/Illumina250_CHM13/Updated_output_01_17_2025/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.new.Illumina250.CHM13.codingRegions = fread("data/Illumina250_CHM13/Updated_output_01_17_2025/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 
 
 #####################################################################################3
@@ -739,10 +740,10 @@ camo.Illumina250.HG38_noAlt.codingRegions = fread("data/Illumina250_HG38_noAlt/U
 
 ## NEW
 
-dark.new.Illumina250.HG38_noAlt.codingRegions = fread("data/Illumina250_HG38_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_noAlt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.new.Illumina250.HG38_noAlt.codingRegions = fread("data/Illumina250_HG38_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_noAlt.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.new.Illumina250.HG38_noAlt.codingRegions = fread("data/Illumina250_HG38_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_noAlt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.new.Illumina250.HG38_noAlt.codingRegions = fread("data/Illumina250_HG38_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_noAlt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.new.Illumina250.HG38_noAlt.codingRegions = fread("data/Illumina250_HG38_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_noAlt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.new.Illumina250.HG38_noAlt.codingRegions = fread("data/Illumina250_HG38_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_noAlt.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.new.Illumina250.HG38_noAlt.codingRegions = fread("data/Illumina250_HG38_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_noAlt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.new.Illumina250.HG38_noAlt.codingRegions = fread("data/Illumina250_HG38_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_noAlt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 
 
 #####################################################################################3
@@ -754,10 +755,10 @@ camo.Illumina250.HG38_Alt.codingRegions = fread("data/Illumina250_HG38_Alt/Updat
 
 ## NEW
 
-dark.new.Illumina250.HG38_Alt.codingRegions = fread("data/Illumina250_HG38_Alt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_Alt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.new.Illumina250.HG38_Alt.codingRegions = fread("data/Illumina250_HG38_Alt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_Alt.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.new.Illumina250.HG38_Alt.codingRegions = fread("data/Illumina250_HG38_Alt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_Alt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.new.Illumina250.HG38_Alt.codingRegions = fread("data/Illumina250_HG38_Alt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_Alt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.new.Illumina250.HG38_Alt.codingRegions = fread("data/Illumina250_HG38_Alt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_Alt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.new.Illumina250.HG38_Alt.codingRegions = fread("data/Illumina250_HG38_Alt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_Alt.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.new.Illumina250.HG38_Alt.codingRegions = fread("data/Illumina250_HG38_Alt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_Alt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.new.Illumina250.HG38_Alt.codingRegions = fread("data/Illumina250_HG38_Alt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_Alt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 
 
 #####################################################################################3
@@ -769,10 +770,10 @@ camo.Illumina250.HG19_noAlt.codingRegions = fread("data/Illumina250_HG19_noAlt/U
 
 ## NEW
 
-dark.new.Illumina250.HG19_noAlt.codingRegions = fread("data/Illumina250_HG19_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG19_noAlt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.new.Illumina250.HG19_noAlt.codingRegions = fread("data/Illumina250_HG19_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG19_noAlt.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.new.Illumina250.HG19_noAlt.codingRegions = fread("data/Illumina250_HG19_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG19_noAlt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.new.Illumina250.HG19_noAlt.codingRegions = fread("data/Illumina250_HG19_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG19_noAlt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.new.Illumina250.HG19_noAlt.codingRegions = fread("data/Illumina250_HG19_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG19_noAlt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.new.Illumina250.HG19_noAlt.codingRegions = fread("data/Illumina250_HG19_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG19_noAlt.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.new.Illumina250.HG19_noAlt.codingRegions = fread("data/Illumina250_HG19_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG19_noAlt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.new.Illumina250.HG19_noAlt.codingRegions = fread("data/Illumina250_HG19_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG19_noAlt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 
 
 #####################################################################################3
@@ -783,10 +784,10 @@ depth.ONT.CHM13.codingRegions = fread("data/ONT_CHM13/UpdatedSamples_11_30_2023/
 mapq.ONT.CHM13.codingRegions = fread("data/ONT_CHM13/UpdatedSamples_11_30_2023/ONT.ONT_1KG.T2T_CHM13_v2.0.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 camo.ONT.CHM13.codingRegions = fread("data/ONT_CHM13/UpdatedSamples_11_30_2023/ONT.ONT_1KG.T2T_CHM13_v2.0.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 
-dark.ONT.new.CHM13.codingRegions = fread("data/ONT_CHM13/Updated_output_12_09_2024/ONT.ONT_1KG.T2T_CHM13_v2.0.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.ONT.new.CHM13.codingRegions = fread("data/ONT_CHM13/Updated_output_12_09_2024/ONT.ONT_1KG.T2T_CHM13_v2.0.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.ONT.new.CHM13.codingRegions = fread("data/ONT_CHM13/Updated_output_12_09_2024/ONT.ONT_1KG.T2T_CHM13_v2.0.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.ONT.new.CHM13.codingRegions = fread("data/ONT_CHM13/Updated_output_12_09_2024/ONT.ONT_1KG.T2T_CHM13_v2.0.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.ONT.new.CHM13.codingRegions = fread("data/ONT_CHM13/Updated_output_01_17_2025/ONT.ONT_1KG.T2T_CHM13_v2.0.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.ONT.new.CHM13.codingRegions = fread("data/ONT_CHM13/Updated_output_01_17_2025/ONT.ONT_1KG.T2T_CHM13_v2.0.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.ONT.new.CHM13.codingRegions = fread("data/ONT_CHM13/Updated_output_01_17_2025/ONT.ONT_1KG.T2T_CHM13_v2.0.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.ONT.new.CHM13.codingRegions = fread("data/ONT_CHM13/Updated_output_01_17_2025/ONT.ONT_1KG.T2T_CHM13_v2.0.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 
 ### HG38_noAlt
 dark.ONT.HG38_noAlt.codingRegions = fread("data/ONT_HG38_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_noAlt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
@@ -794,10 +795,10 @@ depth.ONT.HG38_noAlt.codingRegions = fread("data/ONT_HG38_noAlt/UpdatedSamples_1
 mapq.ONT.HG38_noAlt.codingRegions = fread("data/ONT_HG38_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_noAlt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 camo.ONT.HG38_noAlt.codingRegions = fread("data/ONT_HG38_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_noAlt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 
-dark.ONT.new.HG38_noAlt.codingRegions = fread("data/ONT_HG38_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_noAlt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.ONT.new.HG38_noAlt.codingRegions = fread("data/ONT_HG38_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_noAlt.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.ONT.new.HG38_noAlt.codingRegions = fread("data/ONT_HG38_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_noAlt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.ONT.new.HG38_noAlt.codingRegions = fread("data/ONT_HG38_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_noAlt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.ONT.new.HG38_noAlt.codingRegions = fread("data/ONT_HG38_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_noAlt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.ONT.new.HG38_noAlt.codingRegions = fread("data/ONT_HG38_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_noAlt.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.ONT.new.HG38_noAlt.codingRegions = fread("data/ONT_HG38_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_noAlt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.ONT.new.HG38_noAlt.codingRegions = fread("data/ONT_HG38_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_noAlt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 
 ### HG38_Alt
 dark.ONT.HG38_alt.codingRegions = fread("data/ONT_HG38_Alt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_Alt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
@@ -805,10 +806,10 @@ depth.ONT.HG38_alt.codingRegions = fread("data/ONT_HG38_Alt/UpdatedSamples_11_30
 mapq.ONT.HG38_alt.codingRegions = fread("data/ONT_HG38_Alt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_Alt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 camo.ONT.HG38_alt.codingRegions = fread("data/ONT_HG38_Alt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_Alt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 
-dark.ONT.new.HG38_alt.codingRegions = fread("data/ONT_HG38_Alt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_Alt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.ONT.new.HG38_alt.codingRegions = fread("data/ONT_HG38_Alt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_Alt.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.ONT.new.HG38_alt.codingRegions = fread("data/ONT_HG38_Alt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_Alt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.ONT.new.HG38_alt.codingRegions = fread("data/ONT_HG38_Alt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_Alt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.ONT.new.HG38_alt.codingRegions = fread("data/ONT_HG38_Alt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_Alt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.ONT.new.HG38_alt.codingRegions = fread("data/ONT_HG38_Alt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_Alt.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.ONT.new.HG38_alt.codingRegions = fread("data/ONT_HG38_Alt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_Alt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.ONT.new.HG38_alt.codingRegions = fread("data/ONT_HG38_Alt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_Alt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 
 ### HG19_noAlt
 dark.ONT.HG19_noAlt.codingRegions = fread("data/ONT_HG19_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG19_noAlt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
@@ -816,10 +817,10 @@ depth.ONT.HG19_noAlt.codingRegions = fread("data/ONT_HG19_noAlt/UpdatedSamples_1
 mapq.ONT.HG19_noAlt.codingRegions = fread("data/ONT_HG19_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG19_noAlt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 camo.ONT.HG19_noAlt.codingRegions = fread("data/ONT_HG19_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG19_noAlt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 
-dark.ONT.new.HG19_noAlt.codingRegions = fread("data/ONT_HG19_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG19_noAlt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.ONT.new.HG19_noAlt.codingRegions = fread("data/ONT_HG19_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG19_noAlt.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.ONT.new.HG19_noAlt.codingRegions = fread("data/ONT_HG19_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG19_noAlt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.ONT.new.HG19_noAlt.codingRegions = fread("data/ONT_HG19_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG19_noAlt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.ONT.new.HG19_noAlt.codingRegions = fread("data/ONT_HG19_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG19_noAlt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.ONT.new.HG19_noAlt.codingRegions = fread("data/ONT_HG19_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG19_noAlt.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.ONT.new.HG19_noAlt.codingRegions = fread("data/ONT_HG19_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG19_noAlt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.ONT.new.HG19_noAlt.codingRegions = fread("data/ONT_HG19_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG19_noAlt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 
 
 ## PacBio
@@ -829,10 +830,10 @@ depth.pacbio.CHM13.codingRegions = fread("data/PacBio_CHM13/UpdatedSamples_11_30
 mapq.pacbio.CHM13.codingRegions = fread("data/PacBio_CHM13/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 camo.pacbio.CHM13.codingRegions = fread("data/PacBio_CHM13/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 
-dark.pacbio.new.CHM13.codingRegions = fread("data/PacBio_CHM13/Updated_output_12_09_2024/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.pacbio.new.CHM13.codingRegions = fread("data/PacBio_CHM13/Updated_output_12_09_2024/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.pacbio.new.CHM13.codingRegions = fread("data/PacBio_CHM13/Updated_output_12_09_2024/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.pacbio.new.CHM13.codingRegions = fread("data/PacBio_CHM13/Updated_output_12_09_2024/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.pacbio.new.CHM13.codingRegions = fread("data/PacBio_CHM13/Updated_output_01_17_2025/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.pacbio.new.CHM13.codingRegions = fread("data/PacBio_CHM13/Updated_output_01_17_2025/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.pacbio.new.CHM13.codingRegions = fread("data/PacBio_CHM13/Updated_output_01_17_2025/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.pacbio.new.CHM13.codingRegions = fread("data/PacBio_CHM13/Updated_output_01_17_2025/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 
 ### HG19_noAlt
 dark.pacbio.HG19_noAlt.codingRegions = fread("data/PacBio_HG19_noAlt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG19_no_alt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
@@ -840,10 +841,10 @@ depth.pacbio.HG19_noAlt.codingRegions = fread("data/PacBio_HG19_noAlt/UpdatedSam
 mapq.pacbio.HG19_noAlt.codingRegions = fread("data/PacBio_HG19_noAlt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG19_no_alt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 camo.pacbio.HG19_noAlt.codingRegions = fread("data/PacBio_HG19_noAlt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG19_no_alt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 
-dark.pacbio.new.HG19_noAlt.codingRegions = fread("data/PacBio_HG19_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG19_no_alt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.pacbio.new.HG19_noAlt.codingRegions = fread("data/PacBio_HG19_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG19_no_alt.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.pacbio.new.HG19_noAlt.codingRegions = fread("data/PacBio_HG19_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG19_no_alt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.pacbio.new.HG19_noAlt.codingRegions = fread("data/PacBio_HG19_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG19_no_alt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.pacbio.new.HG19_noAlt.codingRegions = fread("data/PacBio_HG19_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG19_no_alt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.pacbio.new.HG19_noAlt.codingRegions = fread("data/PacBio_HG19_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG19_no_alt.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.pacbio.new.HG19_noAlt.codingRegions = fread("data/PacBio_HG19_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG19_no_alt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.pacbio.new.HG19_noAlt.codingRegions = fread("data/PacBio_HG19_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG19_no_alt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 
 ### HG38_noAlt
 dark.pacbio.HG38_noAlt.codingRegions = fread("data/PacBio_HG38_noAlt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
@@ -851,10 +852,10 @@ depth.pacbio.HG38_noAlt.codingRegions = fread("data/PacBio_HG38_noAlt/UpdatedSam
 mapq.pacbio.HG38_noAlt.codingRegions = fread("data/PacBio_HG38_noAlt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 camo.pacbio.HG38_noAlt.codingRegions = fread("data/PacBio_HG38_noAlt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 
-dark.pacbio.new.HG38_noAlt.codingRegions = fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.pacbio.new.HG38_noAlt.codingRegions = fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.pacbio.new.HG38_noAlt.codingRegions = fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.pacbio.new.HG38_noAlt.codingRegions = fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.pacbio.new.HG38_noAlt.codingRegions = fread("data/PacBio_HG38_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.pacbio.new.HG38_noAlt.codingRegions = fread("data/PacBio_HG38_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.pacbio.new.HG38_noAlt.codingRegions = fread("data/PacBio_HG38_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.pacbio.new.HG38_noAlt.codingRegions = fread("data/PacBio_HG38_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 
 ### HG38_alt
 dark.pacbio.HG38_alt.codingRegions = fread("data/PacBio_HG38_Alt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_Alt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
@@ -862,10 +863,10 @@ depth.pacbio.HG38_alt.codingRegions = fread("data/PacBio_HG38_Alt/UpdatedSamples
 mapq.pacbio.HG38_alt.codingRegions = fread("data/PacBio_HG38_Alt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_Alt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 camo.pacbio.HG38_alt.codingRegions = fread("data/PacBio_HG38_Alt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_Alt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 
-dark.pacbio.new.HG38_alt.codingRegions = fread("data/PacBio_HG38_Alt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_Alt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-depth.pacbio.new.HG38_alt.codingRegions = fread("data/PacBio_HG38_Alt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_Alt.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-mapq.pacbio.new.HG38_alt.codingRegions = fread("data/PacBio_HG38_Alt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_Alt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
-camo.pacbio.new.HG38_alt.codingRegions = fread("data/PacBio_HG38_Alt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_Alt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+dark.pacbio.new.HG38_alt.codingRegions = fread("data/PacBio_HG38_Alt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_Alt.percent_dark_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+depth.pacbio.new.HG38_alt.codingRegions = fread("data/PacBio_HG38_Alt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_Alt.percent_depth_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+mapq.pacbio.new.HG38_alt.codingRegions = fread("data/PacBio_HG38_Alt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_Alt.percent_mapq_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
+camo.pacbio.new.HG38_alt.codingRegions = fread("data/PacBio_HG38_Alt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_Alt.percent_camo_coding_regions.txt", sep="\t", stringsAsFactors = F, header=T)
 
 
 codingRegions=rbind(data.table("CodingRegions"=dark.ONT.CHM13.codingRegions[,1, drop=T], "AllDark"=dark.ONT.CHM13.codingRegions[,2, drop=T], "Dark_by_Depth"=depth.ONT.CHM13.codingRegions[,2, drop=T], "Dark_by_MapQ"=mapq.ONT.CHM13.codingRegions[,2, drop=T], "Camo"=camo.ONT.CHM13.codingRegions[,2, drop=T], "Platform"=rep("ONT", 5), "Reference"=rep("CHM13", 5)), 
@@ -905,6 +906,18 @@ NewLongRead_codingRegions=rbind(data.table("CodingRegions"=dark.ONT.CHM13.coding
                     data.table("CodingRegions"=dark.new.Illumina250.HG38_Alt.codingRegions[,1, drop=T], "AllDark"=dark.new.Illumina250.HG38_Alt.codingRegions[,2, drop=T], "Dark_by_Depth"=depth.new.Illumina250.HG38_Alt.codingRegions[,2, drop=T],"Dark_by_MapQ"= mapq.new.Illumina250.HG38_Alt.codingRegions[,2, drop=T], "Camo"= camo.new.Illumina250.HG38_Alt.codingRegions[,2, drop=T], "Platform"=rep("Illumina250", 5), "Reference"= rep("HG38_alt", 5))
               )
 colnames(NewLongRead_codingRegions) = c("CodingRegions", "AllDark", "Dark_by_Depth", "Dark_by_MapQ", "Camo", "Platform", "Reference")
+
+
+
+mergedCodingRegions = merge(codingRegions, NewLongRead_codingRegions, by=c("CodingRegions", "Platform", "Reference"))
+colnames(mergedCodingRegions) = c("CodingRegions", "Platform", "Reference", "PrimaryOnly_AllDark", "PrimaryOnly_Dark_by_Depth", "PrimaryOnly_Dark_by_MapQ", "PrimaryOnly_Camo", "PrimarySupp_AllDark", "PrimarySupp_Dark_by_Depth", "PrimarySupp_Dark_by_MapQ", "PrimarySupp_Camo")
+
+mergedCodingRegions.melt = melt(mergedCodingRegions)
+
+codingRegionFig = ggplot(mergedCodingRegions.melt[which(mergedCodingRegions.melt$CodingRegions == "gene"),], aes(x=variable, y=value, fill=Platform)) + geom_bar(stat="identity",position=position_dodge()) + theme_bw() + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+codingRegionFig = codingRegionFig + facet_wrap(~Reference)
+codingRegionFig
+
 
 codingRegionClasses = as.list(unique(codingRegions$CodingRegions))
 Coding_option_indicator <- lapply(
@@ -1104,6 +1117,145 @@ darkSlidingWindow$HG19_noAlt$PacBio = NULL
 darkSlidingWindow$HG19_noAlt$PacBio$Depth = hg19_PacBioDepth
 darkSlidingWindow$HG19_noAlt$PacBio$MAPQ = hg19_PacBioMapQ
 
+# PimaryAndSup Run
+
+hg19_dark_WithSupp = fread("data/SlidingWindows/Updated_output_01_17_2025//Merged_HG19_NoAlt_1MbWindow.bed", header=T, stringsAsFactors = F, sep="\t")
+hg19_Illumina100Depth_WithSupp=data.frame("block_id" = hg19_dark_WithSupp$Chr, "start" = as.numeric(hg19_dark_WithSupp$Start), "end" = as.numeric(hg19_dark_WithSupp$End), "value" = as.numeric(hg19_dark_WithSupp$Illumina100_Depth) / 1000000 * 100)
+hg19_Illumina100MapQ_WithSupp=data.frame("block_id" = hg19_dark_WithSupp$Chr, "start" = as.numeric(hg19_dark_WithSupp$Start), "end" = as.numeric(hg19_dark_WithSupp$End), "value" = as.numeric(hg19_dark_WithSupp$Illumina100_MapQ) / 1000000 * 100)
+
+hg19_ONTDepth_WithSupp=data.frame("block_id" = hg19_dark_WithSupp$Chr, "start" = as.numeric(hg19_dark_WithSupp$Start), "end" = as.numeric(hg19_dark_WithSupp$End), "value" = as.numeric(hg19_dark_WithSupp$ONT_Depth) / 1000000 * 100)
+hg19_ONTMapQ_WithSupp=data.frame("block_id" = hg19_dark_WithSupp$Chr, "start" = as.numeric(hg19_dark_WithSupp$Start), "end" = as.numeric(hg19_dark_WithSupp$End), "value" = as.numeric(hg19_dark_WithSupp$ONT_MapQ) / 1000000 * 100)
+
+hg19_PacBioDepth_WithSupp=data.frame("block_id" = hg19_dark_WithSupp$Chr, "start" = as.numeric(hg19_dark_WithSupp$Start), "end" = as.numeric(hg19_dark_WithSupp$End), "value" = as.numeric(hg19_dark_WithSupp$PacBio_Depth) / 1000000 * 100)
+hg19_PacBioMapQ_WithSupp=data.frame("block_id" = hg19_dark_WithSupp$Chr, "start" = as.numeric(hg19_dark_WithSupp$Start), "end" = as.numeric(hg19_dark_WithSupp$End), "value" = as.numeric(hg19_dark_WithSupp$PacBio_MapQ) / 1000000 * 100)
+
+hg19_Illumina250Depth_WithSupp=data.frame("block_id" = hg19_dark_WithSupp$Chr, "start" = as.numeric(hg19_dark_WithSupp$Start), "end" = as.numeric(hg19_dark_WithSupp$End), "value" = as.numeric(hg19_dark_WithSupp$Illumina250_Depth) / 1000000 * 100)
+hg19_Illumina250MapQ_WithSupp=data.frame("block_id" = hg19_dark_WithSupp$Chr, "start" = as.numeric(hg19_dark_WithSupp$Start), "end" = as.numeric(hg19_dark_WithSupp$End), "value" = as.numeric(hg19_dark_WithSupp$Illumina250_MapQ) / 1000000 * 100)
+
+hg38_dark_WithSupp = fread("data/SlidingWindows/Updated_output_01_17_2025/Merged_HG38_NoAlt_1MbWindow.bed", header=T, stringsAsFactors = F, sep="\t")
+hg38ONTDepth_WithSupp=data.frame("block_id" = hg38_dark_WithSupp$Chr, "start" = as.numeric(hg38_dark_WithSupp$Start), "end" = as.numeric(hg38_dark_WithSupp$End), "value" = as.numeric(hg38_dark_WithSupp$ONT_Depth) / 1000000 * 100)
+hg38ONTMapQ_WithSupp=data.frame("block_id" = hg38_dark_WithSupp$Chr, "start" = as.numeric(hg38_dark_WithSupp$Start), "end" = as.numeric(hg38_dark_WithSupp$End), "value" = as.numeric(hg38_dark_WithSupp$ONT_MapQ) / 1000000 * 100)
+
+hg38PacBioDepth_WithSupp=data.frame("block_id" = hg38_dark_WithSupp$Chr, "start" = as.numeric(hg38_dark_WithSupp$Start), "end" = as.numeric(hg38_dark_WithSupp$End), "value" = as.numeric(hg38_dark_WithSupp$PacBio_Depth) / 1000000 * 100)
+hg38PacBioMapQ_WithSupp=data.frame("block_id" = hg38_dark_WithSupp$Chr, "start" = as.numeric(hg38_dark_WithSupp$Start), "end" = as.numeric(hg38_dark_WithSupp$End), "value" = as.numeric(hg38_dark_WithSupp$PacBio_MapQ) / 1000000 * 100)
+
+hg38_Illumina250Depth_WithSupp=data.frame("block_id" = hg38_dark_WithSupp$Chr, "start" = as.numeric(hg38_dark_WithSupp$Start), "end" = as.numeric(hg38_dark_WithSupp$End), "value" = as.numeric(hg38_dark_WithSupp$Illumina250_Depth) / 1000000 * 100)
+hg38_Illumina250MapQ_WithSupp=data.frame("block_id" = hg38_dark_WithSupp$Chr, "start" = as.numeric(hg38_dark_WithSupp$Start), "end" = as.numeric(hg38_dark_WithSupp$End), "value" = as.numeric(hg38_dark_WithSupp$Illumina250_MapQ) / 1000000 * 100)
+
+hg38_Illumina100Depth_WithSupp=data.frame("block_id" = hg38_dark_WithSupp$Chr, "start" = as.numeric(hg38_dark_WithSupp$Start), "end" = as.numeric(hg38_dark_WithSupp$End), "value" = as.numeric(hg38_dark_WithSupp$Illumina100_Depth) / 1000000 * 100)
+hg38_Illumina100MapQ_WithSupp=data.frame("block_id" = hg38_dark_WithSupp$Chr, "start" = as.numeric(hg38_dark_WithSupp$Start), "end" = as.numeric(hg38_dark_WithSupp$End), "value" = as.numeric(hg38_dark_WithSupp$Illumina100_MapQ) / 1000000 * 100)
+
+hg38_Alt_dark_WithSupp = fread("data/SlidingWindows/Updated_output_01_17_2025/Merged_HG38_Alt_1MbWindow.bed", header=T, stringsAsFactors = F, sep="\t")
+hg38_Alt_ONTDepth_WithSupp=data.frame("block_id" = hg38_Alt_dark_WithSupp$Chr, "start" = as.numeric(hg38_Alt_dark_WithSupp$Start), "end" = as.numeric(hg38_Alt_dark_WithSupp$End), "value" = as.numeric(hg38_Alt_dark_WithSupp$ONT_Depth) / 1000000 * 100)
+hg38_Alt_ONTMapQ_WithSupp=data.frame("block_id" = hg38_Alt_dark_WithSupp$Chr, "start" = as.numeric(hg38_Alt_dark_WithSupp$Start), "end" = as.numeric(hg38_Alt_dark_WithSupp$End), "value" = as.numeric(hg38_Alt_dark_WithSupp$ONT_MapQ) / 1000000 * 100)
+
+hg38_Alt_Illumina100Depth_WithSupp=data.frame("block_id" = hg38_Alt_dark_WithSupp$Chr, "start" = as.numeric(hg38_Alt_dark_WithSupp$Start), "end" = as.numeric(hg38_Alt_dark_WithSupp$End), "value" = as.numeric(hg38_Alt_dark_WithSupp$Illumina100_Depth) / 1000000 * 100)
+hg38_Alt_Illumina100MapQ_WithSupp=data.frame("block_id" = hg38_Alt_dark_WithSupp$Chr, "start" = as.numeric(hg38_Alt_dark_WithSupp$Start), "end" = as.numeric(hg38_Alt_dark_WithSupp$End), "value" = as.numeric(hg38_Alt_dark_WithSupp$Illumina100_MapQ) / 1000000 * 100)
+
+hg38_Alt_Illumina250Depth_WithSupp=data.frame("block_id" = hg38_Alt_dark_WithSupp$Chr, "start" = as.numeric(hg38_Alt_dark_WithSupp$Start), "end" = as.numeric(hg38_Alt_dark_WithSupp$End), "value" = as.numeric(hg38_Alt_dark_WithSupp$Illumina250_Depth) / 1000000 * 100)
+hg38_Alt_Illumina250MapQ_WithSupp=data.frame("block_id" = hg38_Alt_dark_WithSupp$Chr, "start" = as.numeric(hg38_Alt_dark_WithSupp$Start), "end" = as.numeric(hg38_Alt_dark_WithSupp$End), "value" = as.numeric(hg38_Alt_dark_WithSupp$Illumina250_MapQ) / 1000000 * 100)
+
+hg38_Alt_PacBioDepth_WithSupp=data.frame("block_id" = hg38_Alt_dark_WithSupp$Chr, "start" = as.numeric(hg38_Alt_dark_WithSupp$Start), "end" = as.numeric(hg38_Alt_dark_WithSupp$End), "value" = as.numeric(hg38_Alt_dark_WithSupp$PacBio_Depth) / 1000000 * 100)
+hg38_Alt_PacBioMapQ_WithSupp=data.frame("block_id" = hg38_Alt_dark_WithSupp$Chr, "start" = as.numeric(hg38_Alt_dark_WithSupp$Start), "end" = as.numeric(hg38_Alt_dark_WithSupp$End), "value" = as.numeric(hg38_Alt_dark_WithSupp$PacBio_MapQ) / 1000000 * 100)
+
+chm13_dark_WithSupp = fread("data/SlidingWindows/Updated_output_01_17_2025/Merged_CHM13_1MbWindow.bed", header=T, stringsAsFactors = F, sep="\t")
+ONTDepth_WithSupp=data.frame("block_id" = chm13_dark_WithSupp$Chr, "start" = as.numeric(chm13_dark_WithSupp$Start), "end" = as.numeric(chm13_dark_WithSupp$End), "value" = as.numeric(chm13_dark_WithSupp$ONT_Depth) / 1000000 * 100)
+ONTMapQ_WithSupp=data.frame("block_id" = chm13_dark_WithSupp$Chr, "start" = as.numeric(chm13_dark_WithSupp$Start), "end" = as.numeric(chm13_dark_WithSupp$End), "value" = as.numeric(chm13_dark_WithSupp$ONT_MapQ) / 1000000 * 100)
+
+PacBioDepth_WithSupp=data.frame("block_id" = chm13_dark_WithSupp$Chr, "start" = as.numeric(chm13_dark_WithSupp$Start), "end" = as.numeric(chm13_dark_WithSupp$End), "value" = as.numeric(chm13_dark_WithSupp$PacBio_Depth) / 1000000 * 100)
+PacBioMapQ_WithSupp=data.frame("block_id" = chm13_dark_WithSupp$Chr, "start" = as.numeric(chm13_dark_WithSupp$Start), "end" = as.numeric(chm13_dark_WithSupp$End), "value" = as.numeric(chm13_dark_WithSupp$PacBio_MapQ) / 1000000 * 100)
+
+Illumina250Depth_WithSupp=data.frame("block_id" = chm13_dark_WithSupp$Chr, "start" = as.numeric(chm13_dark_WithSupp$Start), "end" = as.numeric(chm13_dark_WithSupp$End), "value" = as.numeric(chm13_dark_WithSupp$Illumina250_Depth) / 1000000 * 100)
+Illumina250MapQ_WithSupp=data.frame("block_id" = chm13_dark_WithSupp$Chr, "start" = as.numeric(chm13_dark_WithSupp$Start), "end" = as.numeric(chm13_dark_WithSupp$End), "value" = as.numeric(chm13_dark_WithSupp$Illumina250_MapQ) / 1000000 * 100)
+
+Illumina100Depth_WithSupp=data.frame("block_id" = chm13_dark_WithSupp$Chr, "start" = as.numeric(chm13_dark_WithSupp$Start), "end" = as.numeric(chm13_dark_WithSupp$End), "value" = as.numeric(chm13_dark_WithSupp$Illumina100_Depth) / 1000000 * 100)
+Illumina100MapQ_WithSupp=data.frame("block_id" = chm13_dark_WithSupp$Chr, "start" = as.numeric(chm13_dark_WithSupp$Start), "end" = as.numeric(chm13_dark_WithSupp$End), "value" = as.numeric(chm13_dark_WithSupp$Illumina100_MapQ) / 1000000 * 100)
+
+
+darkSlidingWindow_WithSupp=NULL
+darkSlidingWindow_WithSupp$CHM13 = NULL
+darkSlidingWindow_WithSupp$CHM13$ONT = NULL
+darkSlidingWindow_WithSupp$CHM13$ONT$Depth = ONTDepth_WithSupp
+darkSlidingWindow_WithSupp$CHM13$ONT$MAPQ = ONTMapQ_WithSupp
+darkSlidingWindow_WithSupp$CHM13$PacBio = NULL
+darkSlidingWindow_WithSupp$CHM13$PacBio$Depth = PacBioDepth_WithSupp
+darkSlidingWindow_WithSupp$CHM13$PacBio$MAPQ = PacBioMapQ_WithSupp
+darkSlidingWindow_WithSupp$CHM13$Illumina250 = NULL
+darkSlidingWindow_WithSupp$CHM13$Illumina250$Depth = Illumina250Depth_WithSupp
+darkSlidingWindow_WithSupp$CHM13$Illumina250$MAPQ = Illumina250MapQ_WithSupp
+darkSlidingWindow_WithSupp$CHM13$Illumina100 = NULL
+darkSlidingWindow_WithSupp$CHM13$Illumina100$Depth = Illumina100Depth_WithSupp
+darkSlidingWindow_WithSupp$CHM13$Illumina100$MAPQ = Illumina100MapQ_WithSupp
+darkSlidingWindow_WithSupp$HG38_alt = NULL
+darkSlidingWindow_WithSupp$HG38_alt$Illumina100 = NULL
+darkSlidingWindow_WithSupp$HG38_alt$Illumina100$Depth = hg38_Alt_Illumina100Depth_WithSupp
+darkSlidingWindow_WithSupp$HG38_alt$Illumina100$MAPQ = hg38_Alt_Illumina100MapQ_WithSupp
+darkSlidingWindow_WithSupp$HG38_alt$Illumina250 = NULL
+darkSlidingWindow_WithSupp$HG38_alt$Illumina250$Depth = hg38_Alt_Illumina250Depth_WithSupp
+darkSlidingWindow_WithSupp$HG38_alt$Illumina250$MAPQ = hg38_Alt_Illumina250MapQ_WithSupp
+darkSlidingWindow_WithSupp$HG38_alt$ONT = NULL
+darkSlidingWindow_WithSupp$HG38_alt$ONT$Depth = hg38_Alt_ONTDepth_WithSupp
+darkSlidingWindow_WithSupp$HG38_alt$ONT$MAPQ = hg38_Alt_ONTMapQ_WithSupp
+darkSlidingWindow_WithSupp$HG38_alt$PacBio = NULL
+darkSlidingWindow_WithSupp$HG38_alt$PacBio$Depth = hg38_Alt_PacBioDepth_WithSupp
+darkSlidingWindow_WithSupp$HG38_alt$PacBio$MAPQ = hg38_Alt_PacBioMapQ_WithSupp
+darkSlidingWindow_WithSupp$HG38_noAlt = NULL
+darkSlidingWindow_WithSupp$HG38_noAlt$ONT = NULL
+darkSlidingWindow_WithSupp$HG38_noAlt$ONT$Depth = hg38ONTDepth_WithSupp
+darkSlidingWindow_WithSupp$HG38_noAlt$ONT$MAPQ = hg38ONTMapQ_WithSupp
+darkSlidingWindow_WithSupp$HG38_noAlt$PacBio = NULL
+darkSlidingWindow_WithSupp$HG38_noAlt$PacBio$Depth = hg38PacBioDepth_WithSupp
+darkSlidingWindow_WithSupp$HG38_noAlt$PacBio$MAPQ = hg38PacBioMapQ_WithSupp
+darkSlidingWindow_WithSupp$HG38_noAlt$Illumina250 = NULL
+darkSlidingWindow_WithSupp$HG38_noAlt$Illumina250$Depth = hg38_Illumina250Depth_WithSupp
+darkSlidingWindow_WithSupp$HG38_noAlt$Illumina250$MAPQ = hg38_Illumina250MapQ_WithSupp
+darkSlidingWindow_WithSupp$HG38_noAlt$Illumina100 = NULL
+darkSlidingWindow_WithSupp$HG38_noAlt$Illumina100$Depth = hg38_Illumina100Depth_WithSupp
+darkSlidingWindow_WithSupp$HG38_noAlt$Illumina100$MAPQ = hg38_Illumina100MapQ_WithSupp
+darkSlidingWindow_WithSupp$HG19_noAlt = NULL
+darkSlidingWindow_WithSupp$HG19_noAlt$Illumina100 = NULL
+darkSlidingWindow_WithSupp$HG19_noAlt$Illumina100$Depth = hg19_Illumina100Depth_WithSupp
+darkSlidingWindow_WithSupp$HG19_noAlt$Illumina100$MAPQ = hg19_Illumina100MapQ_WithSupp
+darkSlidingWindow_WithSupp$HG19_noAlt$Illumina250 = NULL
+darkSlidingWindow_WithSupp$HG19_noAlt$Illumina250$Depth = hg19_Illumina250Depth_WithSupp
+darkSlidingWindow_WithSupp$HG19_noAlt$Illumina250$MAPQ = hg19_Illumina250MapQ_WithSupp
+darkSlidingWindow_WithSupp$HG19_noAlt$ONT = NULL
+darkSlidingWindow_WithSupp$HG19_noAlt$ONT$Depth = hg19_ONTDepth_WithSupp
+darkSlidingWindow_WithSupp$HG19_noAlt$ONT$MAPQ = hg19_ONTMapQ_WithSupp
+darkSlidingWindow_WithSupp$HG19_noAlt$PacBio = NULL
+darkSlidingWindow_WithSupp$HG19_noAlt$PacBio$Depth = hg19_PacBioDepth_WithSupp
+darkSlidingWindow_WithSupp$HG19_noAlt$PacBio$MAPQ = hg19_PacBioMapQ_WithSupp
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #chm13_mapq_cov = melt(chm13_dark[,c(1,grep("MapQ", colnames(chm13_dark))), with=F])
 #chm13_mapq_Fig = ggplot(chm13_mapq_cov, aes(x=log10(value+1), fill=variable)) + geom_density(alpha=.1) + facet_wrap(~Chr)
 #hg19_mapq_cov = melt(hg19_dark[,c(1,grep("MapQ", colnames(hg19_dark))), with=F])
@@ -1141,7 +1293,7 @@ fullGenome$Depth=data.frame(Ref=c(rep("CHM13", 4),rep("HG19_noAlt", 4),rep("HG38
                                            hg19_noAlt_sum["Illumina100_Depth"], hg19_noAlt_sum["Illumina250_Depth"], hg19_noAlt_sum["PacBio_Depth"], hg19_noAlt_sum["ONT_Depth"],
                                            hg38_noAlt_sum["Illumina100_Depth"], hg38_noAlt_sum["Illumina250_Depth"], hg38_noAlt_sum["PacBio_Depth"], hg38_noAlt_sum["ONT_Depth"],
                                            hg38_Alt_sum["Illumina100_Depth"], hg38_Alt_sum["Illumina250_Depth"], hg38_Alt_sum["PacBio_Depth"], hg38_Alt_sum["ONT_Depth"]))
-fullGenome$MapQ=data.frame(Ref=c(rep("CHM13", 4),rep("HG19_noAlt", 4),rep("HG38_noAlt", 4),rep("HG38_Alt", 4)), Platform=c("Illumina100", "Illumina250", "PacBio", "ONT", "Illumina100", "Illumina250", "PacBio", "ONT", "Illumina100", "Illumina250", "PacBio", "ONT", "Illumina100", "Illumina250", "PacBio", "ONT"), 
+fullGenome$MapQ=data.frame(Ref=c(rep("CHM13", 4 ),rep("HG19_noAlt", 4),rep("HG38_noAlt", 4),rep("HG38_Alt", 4)), Platform=c("Illumina100", "Illumina250", "PacBio", "ONT", "Illumina100", "Illumina250", "PacBio", "ONT", "Illumina100", "Illumina250", "PacBio", "ONT", "Illumina100", "Illumina250", "PacBio", "ONT"), 
                            NumDarkBases=c(chm13_sum["Illumina100_MapQ"], chm13_sum["Illumina250_MapQ"], chm13_sum["PacBio_MapQ"], chm13_sum["ONT_MapQ"], 
                                           hg19_noAlt_sum["Illumina100_MapQ"], hg19_noAlt_sum["Illumina250_MapQ"], hg19_noAlt_sum["PacBio_MapQ"], hg19_noAlt_sum["ONT_MapQ"],
                                           hg38_noAlt_sum["Illumina100_MapQ"], hg38_noAlt_sum["Illumina250_MapQ"], hg38_noAlt_sum["PacBio_MapQ"], hg38_noAlt_sum["ONT_MapQ"],
@@ -1155,8 +1307,29 @@ NewLongRead_nucsAndRegions$Reference = factor(NewLongRead_nucsAndRegions$Referen
 NewLongRead_nucsAndRegions$Platform = factor(NewLongRead_nucsAndRegions$Platform, levels=c("Illumina100", "Illumina250", "PacBio", "ONT"))
 WithSuppmapqFig=ggplot(NewLongRead_nucsAndRegions[which(NewLongRead_nucsAndRegions$Region_type=="Low_Mapq"), ], aes(x=Reference, y=Nucleotide_count/1000000, fill=Platform)) + geom_bar(stat="identity", position="dodge") + ggtitle("Genome-wide Dark-By-MapQ") + theme_bw() + xlab("Reference") + ylab("Number of Dark Bases (Mb)") + scale_fill_manual(values = RColorBrewer::brewer.pal(5, "Set2")[c(1,3,4,5)])
 
+
+mergedMAPQ = merge(NewLongRead_nucsAndRegions[which(NewLongRead_nucsAndRegions$Region_type=="Low_Mapq"), 1:4], nucsAndRegions[which(nucsAndRegions$Region_type=="Low_Mapq"), 1:4], by=c("Region_type", "Platform", "Reference"))
+colnames(mergedMAPQ) = c("Region_type", "Platform", "Reference", "PrimarySupp", "PrimaryOnly")
+
+WithSuppmapqFigWithLine=ggplot(mergedMAPQ, aes(x=Reference, y=PrimarySupp/1000000, fill=Platform)) + geom_bar(stat="identity", position=position_dodge(width=.9), width=.9) + geom_segment(aes(x = as.numeric(Reference) - 0.45 + (as.numeric(Platform) - 1) *.225, xend = as.numeric(Reference) - 0.45 + (as.numeric(Platform) - 1) * .225 + .225, y = PrimaryOnly / 1000000, yend = PrimaryOnly / 1000000, group = Platform), size = 0.2) + ggtitle("Genome-wide Dark-By-MapQ") + theme_bw() + xlab("Reference") + ylab("Number of Dark Bases (Mb)") + scale_fill_manual(values = RColorBrewer::brewer.pal(5, "Set2")[c(1,3,4,5)])
+
+
+mergedMAPQ$Diff = mergedMAPQ$PrimarySupp-mergedMAPQ$PrimaryOnly
+WithSuppmapqFigDiff=ggplot(mergedMAPQ, aes(x=Reference, y=Diff, fill=Platform)) + geom_bar(stat="identity", position=position_dodge(width=.9), width=.9) + ggtitle("Genome-wide Dark-By-MapQ Difference (Primary + Supp - Primary Only)") + theme_bw() + xlab("Reference") + ylab("Number of Dark Bases") + scale_fill_manual(values = RColorBrewer::brewer.pal(5, "Set2")[c(1,3,4,5)])
+#pdf("Figures/GenomeWideDbM_WithSupp_Differences.pdf", width = 6, height=3)
+#WithSuppmapqFigDiff
+#dev.off()
+
 #pdf("Figures/GenomeWideDbM.pdf", width = 6, height=3)
 #mapqFig
+#dev.off()
+
+#pdf("Figures/GenomeWideDbM_WithSupp.pdf", width = 6, height=3)
+#WithSuppmapqFig
+#dev.off()
+
+#pdf("Figures/GenomeWideDbM_WithSupp_withLine.pdf", width = 6, height=3)
+#WithSuppmapqFigWithLine
 #dev.off()
 
 biotype$Reference = factor(biotype$Reference, levels=c("HG19_noAlt", "HG38_noAlt", "HG38_alt", "CHM13"))
@@ -1167,8 +1340,29 @@ biotypeDepth=ggplot(biotype[biotype=="total",], aes(x=Reference, y=Dark_by_Depth
 depthFig=ggplot(nucsAndRegions[which(nucsAndRegions$Region_type=="Low_Depth"), ], aes(x=Reference, y=Nucleotide_count/1000000, fill=Platform)) + geom_bar(stat="identity", position="dodge") + ggtitle("Genome-wide Dark-By-Depth") + theme_bw() + xlab("Reference") + ylab("Number of Dark Bases (Mb)") + scale_fill_manual(values = RColorBrewer::brewer.pal(5, "Set2")[c(1,3,4,5)])
 WithSuppdepthFig=ggplot(NewLongRead_nucsAndRegions[which(NewLongRead_nucsAndRegions$Region_type=="Low_Depth"), ], aes(x=Reference, y=Nucleotide_count/1000000, fill=Platform)) + geom_bar(stat="identity", position="dodge") + ggtitle("Genome-wide Dark-By-Depth") + theme_bw() + xlab("Reference") + ylab("Number of Dark Bases (Mb)") + scale_fill_manual(values = RColorBrewer::brewer.pal(5, "Set2")[c(1,3,4,5)])
 
+
+mergedDepth = merge(NewLongRead_nucsAndRegions[which(NewLongRead_nucsAndRegions$Region_type=="Low_Depth"), 1:4], nucsAndRegions[which(nucsAndRegions$Region_type=="Low_Depth"), 1:4], by=c("Region_type", "Platform", "Reference"))
+colnames(mergedDepth) = c("Region_type", "Platform", "Reference", "PrimarySupp", "PrimaryOnly")
+
+WithSuppDepthFigWithLine=ggplot(mergedDepth, aes(x=Reference, y=PrimarySupp/1000000, fill=Platform)) + geom_bar(stat="identity", position=position_dodge(width=.9), width=.9) + geom_segment(aes(x = as.numeric(Reference) - 0.45 + (as.numeric(Platform) - 1) *.225, xend = as.numeric(Reference) - 0.45 + (as.numeric(Platform) - 1) * .225 + .225, y = PrimaryOnly / 1000000, yend = PrimaryOnly / 1000000, group = Platform), size = 0.2) + ggtitle("Genome-wide Dark-By-Depth") + theme_bw() + xlab("Reference") + ylab("Number of Dark Bases (Mb)") + scale_fill_manual(values = RColorBrewer::brewer.pal(5, "Set2")[c(1,3,4,5)])
+#pdf("Figures/GenomeWideDbD_WithSupp_withLine.pdf", width = 6, height=3)
+#WithSuppDepthFigWithLine
+#dev.off()
+
+mergedDepth$Diff = mergedDepth$PrimarySupp - mergedDepth$PrimaryOnly
+WithSuppDepthFigDiff=ggplot(mergedDepth, aes(x=Reference, y=Diff, fill=Platform)) + geom_bar(stat="identity", position=position_dodge(width=.9), width=.9) + ggtitle("Genome-wide Dark-By-Depth Difference (Primary + Supp - Primary Only)") + theme_bw() + xlab("Reference") + ylab("Number of Dark Bases (Mb)") + scale_fill_manual(values = RColorBrewer::brewer.pal(5, "Set2")[c(1,3,4,5)])
+#pdf("Figures/GenomeWideDbD_WithSupp_Differences.pdf", width = 6, height=3)
+#WithSuppDepthFigDiff
+#dev.off()
+
+
+
 #pdf("Figures/GenomeWideDbD.pdf", width = 6, height=3)
 #depthFig
+#dev.off()
+
+#pdf("Figures/GenomeWideDbD_WithSupp.pdf", width = 6, height=3)
+#WithSuppdepthFig
 #dev.off()
 
 # Camo Regions
@@ -1198,25 +1392,25 @@ CamoRegions$HG19_noAlt$Illumina250=fread("data/Illumina250_HG19_noAlt/Updated_Ou
 
 withSuppCamoRegions=NULL
 withSuppCamoRegions$CHM13=NULL
-#withSuppCamoRegions$CHM13$ONT=fread("data/ONT_CHM13/Updated_output_12_09_2024/ONT.ONT_1KG.T2T_CHM13_v2.0.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
-withSuppCamoRegions$CHM13$PacBio=fread("data/PacBio_CHM13/Updated_output_12_09_2024/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
-withSuppCamoRegions$CHM13$Illumina100=fread("data/Illumina100_CHM13/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
-withSuppCamoRegions$CHM13$Illumina250=fread("data/Illumina250_CHM13/Updated_output_12_09_2024/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
+withSuppCamoRegions$CHM13$ONT=fread("data/ONT_CHM13/Updated_output_01_17_2025/ONT.ONT_1KG.T2T_CHM13_v2.0.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
+withSuppCamoRegions$CHM13$PacBio=fread("data/PacBio_CHM13/Updated_output_01_17_2025/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
+withSuppCamoRegions$CHM13$Illumina100=fread("data/Illumina100_CHM13/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
+withSuppCamoRegions$CHM13$Illumina250=fread("data/Illumina250_CHM13/Updated_output_01_17_2025/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
 withSuppCamoRegions$HG38_Alt=NULL
-withSuppCamoRegions$HG38_Alt$ONT=fread("data/ONT_HG38_Alt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_Alt.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
-withSuppCamoRegions$HG38_Alt$PacBio=fread("data/PacBio_HG38_Alt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_Alt.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
-withSuppCamoRegions$HG38_Alt$Illumina100=fread("data/Illumina100_HG38_Alt/Updated_output_12_09_2024/illuminaRL100.1KGenomes_hg38_plus_decoy.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
-withSuppCamoRegions$HG38_Alt$Illumina250=fread("data/Illumina250_HG38_Alt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_Alt.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
+withSuppCamoRegions$HG38_Alt$ONT=fread("data/ONT_HG38_Alt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_Alt.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
+withSuppCamoRegions$HG38_Alt$PacBio=fread("data/PacBio_HG38_Alt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_Alt.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
+withSuppCamoRegions$HG38_Alt$Illumina100=fread("data/Illumina100_HG38_Alt/Updated_output_01_17_2025/illuminaRL100.1KGenomes_hg38_plus_decoy.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
+withSuppCamoRegions$HG38_Alt$Illumina250=fread("data/Illumina250_HG38_Alt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_Alt.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
 withSuppCamoRegions$HG38_noAlt=NULL
-withSuppCamoRegions$HG38_noAlt$ONT=fread("data/ONT_HG38_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_noAlt.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
-withSuppCamoRegions$HG38_noAlt$PacBio=fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
-withSuppCamoRegions$HG38_noAlt$Illumina100=fread("data/Illumina100_HG38_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG38_noAlt.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
-withSuppCamoRegions$HG38_noAlt$Illumina250=fread("data/Illumina250_HG38_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_noAlt.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
+withSuppCamoRegions$HG38_noAlt$ONT=fread("data/ONT_HG38_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_noAlt.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
+withSuppCamoRegions$HG38_noAlt$PacBio=fread("data/PacBio_HG38_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_no_alt.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
+withSuppCamoRegions$HG38_noAlt$Illumina100=fread("data/Illumina100_HG38_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG38_noAlt.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
+withSuppCamoRegions$HG38_noAlt$Illumina250=fread("data/Illumina250_HG38_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_noAlt.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
 withSuppCamoRegions$HG19_noAlt=NULL
-withSuppCamoRegions$HG19_noAlt$ONT=fread("data/ONT_HG19_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG19_noAlt.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
-withSuppCamoRegions$HG19_noAlt$PacBio=fread("data/PacBio_HG19_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG19_no_alt.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
-withSuppCamoRegions$HG19_noAlt$Illumina100=fread("data/Illumina100_HG19_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG19_noAlt.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
-withSuppCamoRegions$HG19_noAlt$Illumina250=fread("data/Illumina250_HG19_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG19_noAlt.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
+withSuppCamoRegions$HG19_noAlt$ONT=fread("data/ONT_HG19_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG19_noAlt.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
+withSuppCamoRegions$HG19_noAlt$PacBio=fread("data/PacBio_HG19_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG19_no_alt.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
+withSuppCamoRegions$HG19_noAlt$Illumina100=fread("data/Illumina100_HG19_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG19_noAlt.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
+withSuppCamoRegions$HG19_noAlt$Illumina250=fread("data/Illumina250_HG19_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG19_noAlt.camo.GATK.all_camo_regions.bed", header=F, sep="\t", stringsAsFactors = F)
 
 
 
@@ -1272,25 +1466,25 @@ CamoGenePercent$HG19_noAlt$Illumina250=fread("data/Illumina250_HG19_noAlt/Update
 
 withSuppCamoGenePercent=NULL
 withSuppCamoGenePercent$CHM13=NULL
-withSuppCamoGenePercent$CHM13$ONT=fread("data/ONT_CHM13/Updated_output_12_09_2024/ONT.ONT_1KG.T2T_CHM13_v2.0.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppCamoGenePercent$CHM13$PacBio=fread("data/PacBio_CHM13/Updated_output_12_09_2024/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppCamoGenePercent$CHM13$Illumina100=fread("data/Illumina100_CHM13/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppCamoGenePercent$CHM13$Illumina250=fread("data/Illumina250_CHM13/Updated_output_12_09_2024/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppCamoGenePercent$CHM13$ONT=fread("data/ONT_CHM13/Updated_output_01_17_2025/ONT.ONT_1KG.T2T_CHM13_v2.0.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppCamoGenePercent$CHM13$PacBio=fread("data/PacBio_CHM13/Updated_output_01_17_2025/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppCamoGenePercent$CHM13$Illumina100=fread("data/Illumina100_CHM13/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppCamoGenePercent$CHM13$Illumina250=fread("data/Illumina250_CHM13/Updated_output_01_17_2025/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
 withSuppCamoGenePercent$HG38_Alt=NULL
-withSuppCamoGenePercent$HG38_Alt$ONT=fread("data/ONT_HG38_Alt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_Alt.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppCamoGenePercent$HG38_Alt$PacBio=fread("data/PacBio_HG38_Alt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_Alt.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppCamoGenePercent$HG38_Alt$Illumina100=fread("data/Illumina100_HG38_Alt/Updated_output_12_09_2024/illuminaRL100.1KGenomes_hg38_plus_decoy.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppCamoGenePercent$HG38_Alt$Illumina250=fread("data/Illumina250_HG38_Alt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_Alt.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppCamoGenePercent$HG38_Alt$ONT=fread("data/ONT_HG38_Alt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_Alt.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppCamoGenePercent$HG38_Alt$PacBio=fread("data/PacBio_HG38_Alt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_Alt.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppCamoGenePercent$HG38_Alt$Illumina100=fread("data/Illumina100_HG38_Alt/Updated_output_01_17_2025/illuminaRL100.1KGenomes_hg38_plus_decoy.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppCamoGenePercent$HG38_Alt$Illumina250=fread("data/Illumina250_HG38_Alt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_Alt.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
 withSuppCamoGenePercent$HG38_noAlt=NULL
-withSuppCamoGenePercent$HG38_noAlt$ONT=fread("data/ONT_HG38_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_noAlt.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppCamoGenePercent$HG38_noAlt$PacBio=fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppCamoGenePercent$HG38_noAlt$Illumina100=fread("data/Illumina100_HG38_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG38_noAlt.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppCamoGenePercent$HG38_noAlt$Illumina250=fread("data/Illumina250_HG38_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_noAlt.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppCamoGenePercent$HG38_noAlt$ONT=fread("data/ONT_HG38_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_noAlt.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppCamoGenePercent$HG38_noAlt$PacBio=fread("data/PacBio_HG38_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppCamoGenePercent$HG38_noAlt$Illumina100=fread("data/Illumina100_HG38_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG38_noAlt.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppCamoGenePercent$HG38_noAlt$Illumina250=fread("data/Illumina250_HG38_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_noAlt.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
 withSuppCamoGenePercent$HG19_noAlt=NULL
-withSuppCamoGenePercent$HG19_noAlt$ONT=fread("data/ONT_HG19_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG19_noAlt.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppCamoGenePercent$HG19_noAlt$PacBio=fread("data/PacBio_HG19_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG19_no_alt.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppCamoGenePercent$HG19_noAlt$Illumina100=fread("data/Illumina100_HG19_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG19_noAlt.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppCamoGenePercent$HG19_noAlt$Illumina250=fread("data/Illumina250_HG19_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG19_noAlt.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppCamoGenePercent$HG19_noAlt$ONT=fread("data/ONT_HG19_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG19_noAlt.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppCamoGenePercent$HG19_noAlt$PacBio=fread("data/PacBio_HG19_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG19_no_alt.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppCamoGenePercent$HG19_noAlt$Illumina100=fread("data/Illumina100_HG19_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG19_noAlt.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppCamoGenePercent$HG19_noAlt$Illumina250=fread("data/Illumina250_HG19_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG19_noAlt.percent_camo_genes.txt", header=T, sep="\t", stringsAsFactors = F)
 
 hg19_noAlt_inter = intersect(intersect(intersect(CamoGenePercent$HG19_noAlt$ONT[which(CamoGenePercent$HG19_noAlt$ONT$perc_total > 10), "gene_name"], CamoGenePercent$HG19_noAlt$Illumina100[which(CamoGenePercent$HG19_noAlt$Illumina100$perc_total > 10), "gene_name"]), CamoGenePercent$HG19_noAlt$Illumina100[which(CamoGenePercent$HG19_noAlt$Illumina100$perc_total > 10), "gene_name"]), CamoGenePercent$HG19_noAlt$PacBio[which(CamoGenePercent$HG19_noAlt$Illumina250$perc_total > 10), "gene_name"])
 hg38_noAlt_inter = intersect(intersect(intersect(CamoGenePercent$HG38_noAlt$ONT[which(CamoGenePercent$HG38_noAlt$ONT$perc_total > 10), "gene_name"], CamoGenePercent$HG38_noAlt$Illumina100[which(CamoGenePercent$HG38_noAlt$Illumina100$perc_total > 10), "gene_name"]), CamoGenePercent$HG38_noAlt$Illumina100[which(CamoGenePercent$HG38_noAlt$Illumina100$perc_total > 10), "gene_name"]), CamoGenePercent$HG38_noAlt$PacBio[which(CamoGenePercent$HG38_noAlt$Illumina250$perc_total > 10), "gene_name"])
@@ -1301,16 +1495,6 @@ hg19_noAlt_union = union(union(union(CamoGenePercent$HG19_noAlt$ONT[which(CamoGe
 hg38_noAlt_union = union(union(union(CamoGenePercent$HG38_noAlt$ONT[which(CamoGenePercent$HG38_noAlt$ONT$perc_total > 10), "gene_name"], CamoGenePercent$HG38_noAlt$Illumina100[which(CamoGenePercent$HG38_noAlt$Illumina100$perc_total > 10), "gene_name"]), CamoGenePercent$HG38_noAlt$Illumina100[which(CamoGenePercent$HG38_noAlt$Illumina100$perc_total > 10), "gene_name"]), CamoGenePercent$HG38_noAlt$PacBio[which(CamoGenePercent$HG38_noAlt$Illumina250$perc_total > 10), "gene_name"])
 hg38_Alt_union = union(union(union(CamoGenePercent$HG38_Alt$ONT[which(CamoGenePercent$HG38_Alt$ONT$perc_total > 10), "gene_name"], CamoGenePercent$HG38_Alt$Illumina100[which(CamoGenePercent$HG38_Alt$Illumina100$perc_total > 10), "gene_name"]), CamoGenePercent$HG38_Alt$Illumina100[which(CamoGenePercent$HG38_Alt$Illumina100$perc_total > 10), "gene_name"]), CamoGenePercent$HG38_Alt$PacBio[which(CamoGenePercent$HG38_Alt$Illumina250$perc_total > 10), "gene_name"])
 hg19_noAlt_inter = union(union(union(CamoGenePercent$HG19_noAlt$ONT[which(CamoGenePercent$HG19_noAlt$ONT$perc_total > 10), "gene_name"], CamoGenePercent$HG19_noAlt$Illumina100[which(CamoGenePercent$HG19_noAlt$Illumina100$perc_total > 10), "gene_name"]), CamoGenePercent$HG19_noAlt$Illumina100[which(CamoGenePercent$HG19_noAlt$Illumina100$perc_total > 10), "gene_name"]), CamoGenePercent$HG19_noAlt$PacBio[which(CamoGenePercent$HG19_noAlt$Illumina250$perc_total > 10), "gene_name"])
-
-#medRelGenes = fread("data/MedicallyRelevantGenes/medically_relevant_genes.tsv", header=T, stringsAsFactors = F, sep="\t")
-#
-#intersect(hg19_noAlt_inter, medRelGenes$gene_name)
-#intersect(hg38_noAlt_inter, medRelGenes$gene_name)
-#intersect(hg38_Alt_inter, medRelGenes$gene_name)
-#
-#write.table(intersect(hg19_noAlt_union, medRelGenes$gene_name), file="data/MedicallyRelevantGenes/HG19_noAlt.UnionCamoGenes.MedRelevantGenes.txt", sep="\n", quote=F, row.names = F, col.names = F)
-#write.table(intersect(hg38_noAlt_union, medRelGenes$gene_name), file="data/MedicallyRelevantGenes/HG38_noAlt.UnionCamoGenes.MedRelevantGenes.txt", sep="\n", quote=F, row.names = F, col.names = F)
-#write.table(intersect(hg38_Alt_union, medRelGenes$gene_name), file="data/MedicallyRelevantGenes/HG38_Alt.UnionCamoGenes.MedRelevantGenes.txt", sep="\n", quote=F, row.names = F, col.names = F)
 
 # DarkByDepth Genes
 darkByDepthGenePercent=NULL
@@ -1339,25 +1523,25 @@ darkByDepthGenePercent$HG19_noAlt$Illumina250=fread("data/Illumina250_HG19_noAlt
 
 withSuppDarkByDepthGenePercent=NULL
 withSuppDarkByDepthGenePercent$CHM13=NULL
-withSuppDarkByDepthGenePercent$CHM13$ONT=fread("data/ONT_CHM13/Updated_output_12_09_2024/ONT.ONT_1KG.T2T_CHM13_v2.0.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppDarkByDepthGenePercent$CHM13$PacBio=fread("data/PacBio_CHM13/Updated_output_12_09_2024/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppDarkByDepthGenePercent$CHM13$Illumina100=fread("data/Illumina100_CHM13/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppDarkByDepthGenePercent$CHM13$Illumina250=fread("data/Illumina250_CHM13/Updated_output_12_09_2024/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByDepthGenePercent$CHM13$ONT=fread("data/ONT_CHM13/Updated_output_01_17_2025/ONT.ONT_1KG.T2T_CHM13_v2.0.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByDepthGenePercent$CHM13$PacBio=fread("data/PacBio_CHM13/Updated_output_01_17_2025/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByDepthGenePercent$CHM13$Illumina100=fread("data/Illumina100_CHM13/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByDepthGenePercent$CHM13$Illumina250=fread("data/Illumina250_CHM13/Updated_output_01_17_2025/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
 withSuppDarkByDepthGenePercent$HG38_Alt=NULL
-withSuppDarkByDepthGenePercent$HG38_Alt$ONT=fread("data/ONT_HG38_Alt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_Alt.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppDarkByDepthGenePercent$HG38_Alt$PacBio=fread("data/PacBio_HG38_Alt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_Alt.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppDarkByDepthGenePercent$HG38_Alt$Illumina100=fread("data/Illumina100_HG38_Alt/Updated_output_12_09_2024/illuminaRL100.1KGenomes_hg38_plus_decoy.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppDarkByDepthGenePercent$HG38_Alt$Illumina250=fread("data/Illumina250_HG38_Alt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_Alt.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByDepthGenePercent$HG38_Alt$ONT=fread("data/ONT_HG38_Alt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_Alt.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByDepthGenePercent$HG38_Alt$PacBio=fread("data/PacBio_HG38_Alt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_Alt.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByDepthGenePercent$HG38_Alt$Illumina100=fread("data/Illumina100_HG38_Alt/Updated_output_01_17_2025/illuminaRL100.1KGenomes_hg38_plus_decoy.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByDepthGenePercent$HG38_Alt$Illumina250=fread("data/Illumina250_HG38_Alt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_Alt.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
 withSuppDarkByDepthGenePercent$HG38_noAlt=NULL
-withSuppDarkByDepthGenePercent$HG38_noAlt$ONT=fread("data/ONT_HG38_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_noAlt.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppDarkByDepthGenePercent$HG38_noAlt$PacBio=fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppDarkByDepthGenePercent$HG38_noAlt$Illumina100=fread("data/Illumina100_HG38_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG38_noAlt.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppDarkByDepthGenePercent$HG38_noAlt$Illumina250=fread("data/Illumina250_HG38_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_noAlt.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByDepthGenePercent$HG38_noAlt$ONT=fread("data/ONT_HG38_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_noAlt.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByDepthGenePercent$HG38_noAlt$PacBio=fread("data/PacBio_HG38_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByDepthGenePercent$HG38_noAlt$Illumina100=fread("data/Illumina100_HG38_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG38_noAlt.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByDepthGenePercent$HG38_noAlt$Illumina250=fread("data/Illumina250_HG38_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_noAlt.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
 withSuppDarkByDepthGenePercent$HG19_noAlt=NULL
-withSuppDarkByDepthGenePercent$HG19_noAlt$ONT=fread("data/ONT_HG19_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG19_noAlt.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppDarkByDepthGenePercent$HG19_noAlt$PacBio=fread("data/PacBio_HG19_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG19_no_alt.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppDarkByDepthGenePercent$HG19_noAlt$Illumina100=fread("data/Illumina100_HG19_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG19_noAlt.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppDarkByDepthGenePercent$HG19_noAlt$Illumina250=fread("data/Illumina250_HG19_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG19_noAlt.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByDepthGenePercent$HG19_noAlt$ONT=fread("data/ONT_HG19_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG19_noAlt.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByDepthGenePercent$HG19_noAlt$PacBio=fread("data/PacBio_HG19_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG19_no_alt.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByDepthGenePercent$HG19_noAlt$Illumina100=fread("data/Illumina100_HG19_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG19_noAlt.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByDepthGenePercent$HG19_noAlt$Illumina250=fread("data/Illumina250_HG19_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG19_noAlt.percent_low_depth_genes.txt", header=T, sep="\t", stringsAsFactors = F)
 
 # Dark Genes
 darkGenePercent=NULL
@@ -1386,25 +1570,25 @@ darkGenePercent$HG19_noAlt$Illumina250=fread("data/Illumina250_HG19_noAlt/Update
 
 withSuppDarkGenePercent=NULL
 withSuppDarkGenePercent$CHM13=NULL
-withSuppDarkGenePercent$CHM13$ONT=fread("data/ONT_CHM13/Updated_output_12_09_2024/ONT.ONT_1KG.T2T_CHM13_v2.0.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppDarkGenePercent$CHM13$PacBio=fread("data/PacBio_CHM13/Updated_output_12_09_2024/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppDarkGenePercent$CHM13$Illumina100=fread("data/Illumina100_CHM13/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppDarkGenePercent$CHM13$Illumina250=fread("data/Illumina250_CHM13/Updated_output_12_09_2024/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkGenePercent$CHM13$ONT=fread("data/ONT_CHM13/Updated_output_01_17_2025/ONT.ONT_1KG.T2T_CHM13_v2.0.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkGenePercent$CHM13$PacBio=fread("data/PacBio_CHM13/Updated_output_01_17_2025/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkGenePercent$CHM13$Illumina100=fread("data/Illumina100_CHM13/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkGenePercent$CHM13$Illumina250=fread("data/Illumina250_CHM13/Updated_output_01_17_2025/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
 withSuppDarkGenePercent$HG38_Alt=NULL
-withSuppDarkGenePercent$HG38_Alt$ONT=fread("data/ONT_HG38_Alt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_Alt.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppDarkGenePercent$HG38_Alt$PacBio=fread("data/PacBio_HG38_Alt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_Alt.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppDarkGenePercent$HG38_Alt$Illumina100=fread("data/Illumina100_HG38_Alt/Updated_output_12_09_2024/illuminaRL100.1KGenomes_hg38_plus_decoy.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppDarkGenePercent$HG38_Alt$Illumina250=fread("data/Illumina250_HG38_Alt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_Alt.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkGenePercent$HG38_Alt$ONT=fread("data/ONT_HG38_Alt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_Alt.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkGenePercent$HG38_Alt$PacBio=fread("data/PacBio_HG38_Alt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_Alt.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkGenePercent$HG38_Alt$Illumina100=fread("data/Illumina100_HG38_Alt/Updated_output_01_17_2025/illuminaRL100.1KGenomes_hg38_plus_decoy.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkGenePercent$HG38_Alt$Illumina250=fread("data/Illumina250_HG38_Alt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_Alt.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
 withSuppDarkGenePercent$HG38_noAlt=NULL
-withSuppDarkGenePercent$HG38_noAlt$ONT=fread("data/ONT_HG38_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_noAlt.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppDarkGenePercent$HG38_noAlt$PacBio=fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppDarkGenePercent$HG38_noAlt$Illumina100=fread("data/Illumina100_HG38_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG38_noAlt.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppDarkGenePercent$HG38_noAlt$Illumina250=fread("data/Illumina250_HG38_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_noAlt.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkGenePercent$HG38_noAlt$ONT=fread("data/ONT_HG38_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_noAlt.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkGenePercent$HG38_noAlt$PacBio=fread("data/PacBio_HG38_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkGenePercent$HG38_noAlt$Illumina100=fread("data/Illumina100_HG38_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG38_noAlt.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkGenePercent$HG38_noAlt$Illumina250=fread("data/Illumina250_HG38_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_noAlt.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
 withSuppDarkGenePercent$HG19_noAlt=NULL
-withSuppDarkGenePercent$HG19_noAlt$ONT=fread("data/ONT_HG19_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG19_noAlt.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppDarkGenePercent$HG19_noAlt$PacBio=fread("data/PacBio_HG19_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG19_no_alt.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppDarkGenePercent$HG19_noAlt$Illumina100=fread("data/Illumina100_HG19_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG19_noAlt.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-withSuppDarkGenePercent$HG19_noAlt$Illumina250=fread("data/Illumina250_HG19_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG19_noAlt.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkGenePercent$HG19_noAlt$ONT=fread("data/ONT_HG19_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG19_noAlt.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkGenePercent$HG19_noAlt$PacBio=fread("data/PacBio_HG19_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG19_no_alt.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkGenePercent$HG19_noAlt$Illumina100=fread("data/Illumina100_HG19_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG19_noAlt.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkGenePercent$HG19_noAlt$Illumina250=fread("data/Illumina250_HG19_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG19_noAlt.percent_dark_genes.txt", header=T, sep="\t", stringsAsFactors = F)
 
 
 # DarkByMapQ Genes
@@ -1432,31 +1616,42 @@ darkByMapQGenePercent$HG19_noAlt$Illumina250=fread("data/Illumina250_HG19_noAlt/
 
 ### New Run
 
-sithSuppDarkByMapQGenePercent=NULL
-sithSuppDarkByMapQGenePercent$CHM13=NULL
-sithSuppDarkByMapQGenePercent$CHM13$ONT=fread("data/ONT_CHM13/Updated_output_12_09_2024/ONT.ONT_1KG.T2T_CHM13_v2.0.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-sithSuppDarkByMapQGenePercent$CHM13$PacBio=fread("data/PacBio_CHM13/Updated_output_12_09_2024/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-sithSuppDarkByMapQGenePercent$CHM13$Illumina100=fread("data/Illumina100_CHM13/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-sithSuppDarkByMapQGenePercent$CHM13$Illumina250=fread("data/Illumina250_CHM13/Updated_output_12_09_2024/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-sithSuppDarkByMapQGenePercent$HG38_Alt=NULL
-sithSuppDarkByMapQGenePercent$HG38_Alt$ONT=fread("data/ONT_HG38_Alt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_Alt.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-sithSuppDarkByMapQGenePercent$HG38_Alt$PacBio=fread("data/PacBio_HG38_Alt/UpdatedSamples_11_30_2023/PacBio.PacBio.All1KG.HG38_v107_Alt.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-sithSuppDarkByMapQGenePercent$HG38_Alt$Illumina100=fread("data/Illumina100_HG38_Alt/Updated_output_12_09_2024/illuminaRL100.1KGenomes_hg38_plus_decoy.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-sithSuppDarkByMapQGenePercent$HG38_Alt$Illumina250=fread("data/Illumina250_HG38_Alt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_Alt.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-sithSuppDarkByMapQGenePercent$HG38_noAlt=NULL
-sithSuppDarkByMapQGenePercent$HG38_noAlt$ONT=fread("data/ONT_HG38_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG38_noAlt.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-sithSuppDarkByMapQGenePercent$HG38_noAlt$PacBio=fread("data/PacBio_HG38_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-sithSuppDarkByMapQGenePercent$HG38_noAlt$Illumina100=fread("data/Illumina100_HG38_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG38_noAlt.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-sithSuppDarkByMapQGenePercent$HG38_noAlt$Illumina250=fread("data/Illumina250_HG38_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG38_noAlt.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-sithSuppDarkByMapQGenePercent$HG19_noAlt=NULL
-sithSuppDarkByMapQGenePercent$HG19_noAlt$ONT=fread("data/ONT_HG19_noAlt/UpdatedSamples_11_30_2023/ONT.ONT_1KG.HG19_noAlt.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-sithSuppDarkByMapQGenePercent$HG19_noAlt$PacBio=fread("data/PacBio_HG19_noAlt/Updated_output_12_09_2024/PacBio.PacBio.All1KG.HG19_no_alt.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-sithSuppDarkByMapQGenePercent$HG19_noAlt$Illumina100=fread("data/Illumina100_HG19_noAlt/Updated_output_12_09_2024/originalADSP.Illumina_OriginalADSP.HG19_noAlt.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
-sithSuppDarkByMapQGenePercent$HG19_noAlt$Illumina250=fread("data/Illumina250_HG19_noAlt/Updated_output_12_09_2024/Illumina250.Illumina250.HG19_noAlt.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByMapQGenePercent=NULL
+withSuppDarkByMapQGenePercent$CHM13=NULL
+withSuppDarkByMapQGenePercent$CHM13$ONT=fread("data/ONT_CHM13/Updated_output_01_17_2025/ONT.ONT_1KG.T2T_CHM13_v2.0.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByMapQGenePercent$CHM13$PacBio=fread("data/PacBio_CHM13/Updated_output_01_17_2025/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByMapQGenePercent$CHM13$Illumina100=fread("data/Illumina100_CHM13/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByMapQGenePercent$CHM13$Illumina250=fread("data/Illumina250_CHM13/Updated_output_01_17_2025/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByMapQGenePercent$HG38_Alt=NULL
+withSuppDarkByMapQGenePercent$HG38_Alt$ONT=fread("data/ONT_HG38_Alt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_Alt.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByMapQGenePercent$HG38_Alt$PacBio=fread("data/PacBio_HG38_Alt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_Alt.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByMapQGenePercent$HG38_Alt$Illumina100=fread("data/Illumina100_HG38_Alt/Updated_output_01_17_2025/illuminaRL100.1KGenomes_hg38_plus_decoy.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByMapQGenePercent$HG38_Alt$Illumina250=fread("data/Illumina250_HG38_Alt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_Alt.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByMapQGenePercent$HG38_noAlt=NULL
+withSuppDarkByMapQGenePercent$HG38_noAlt$ONT=fread("data/ONT_HG38_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG38_noAlt.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByMapQGenePercent$HG38_noAlt$PacBio=fread("data/PacBio_HG38_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG38_v107_no_alt.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByMapQGenePercent$HG38_noAlt$Illumina100=fread("data/Illumina100_HG38_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG38_noAlt.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByMapQGenePercent$HG38_noAlt$Illumina250=fread("data/Illumina250_HG38_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG38_noAlt.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByMapQGenePercent$HG19_noAlt=NULL
+withSuppDarkByMapQGenePercent$HG19_noAlt$ONT=fread("data/ONT_HG19_noAlt/Updated_output_01_17_2025/ONT.ONT_1KG.HG19_noAlt.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByMapQGenePercent$HG19_noAlt$PacBio=fread("data/PacBio_HG19_noAlt/Updated_output_01_17_2025/PacBio.PacBio.All1KG.HG19_no_alt.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByMapQGenePercent$HG19_noAlt$Illumina100=fread("data/Illumina100_HG19_noAlt/Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.HG19_noAlt.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+withSuppDarkByMapQGenePercent$HG19_noAlt$Illumina250=fread("data/Illumina250_HG19_noAlt/Updated_output_01_17_2025/Illumina250.Illumina250.HG19_noAlt.percent_low_mapq_genes.txt", header=T, sep="\t", stringsAsFactors = F)
+
+ONT_DbD_PrimaryOnlyMinusPrimarySup=fread("data/ONT_CHM13/ONT.CHM13.PrimaryOnlyDbDMinusPrimarySupp.bed", header=F, sep="\t", stringsAsFactors = F)
+ONT_DbD_PrimaryOnlyMinusPrimarySup = ONT_DbD_PrimaryOnlyMinusPrimarySup[,c(1,2,3,6)]
+colnames(ONT_DbD_PrimaryOnlyMinusPrimarySup) = c("block_id", "start", "end", "value")
 
 
+## Ideohram
+chm13RefSize = read.table("referenceSizes/chm13v2.0_cytobands_allchrs.bed", header=T,sep="\t")
 
 
+ONT_DbD_PrimaryOnlyMinusPrimarySup4Ideogram = ONT_DbD_PrimaryOnlyMinusPrimarySup
+colnames(ONT_DbD_PrimaryOnlyMinusPrimarySup4Ideogram) = c("Chr", "Start", "End", "Value")
+
+#ideogram(karyotype = chm13RefSize, overlaid = ONT_DbD_PrimaryOnlyMinusPrimarySup4Ideogram, output = "ONT_DbD_PrimaryOnlyMinusPrimarySup4Ideogram.svg")
+#convertSVG("ONT_DbD_PrimaryOnlyMinusPrimarySup4Ideogram.svg", device = "png", file = "ONT_DbD_PrimaryOnlyMinusPrimarySup4Ideogram.png")
 
 
 # Set the layout of the app
@@ -1695,9 +1890,20 @@ app %>% add_callback(
         br(), br(),
         h2("Number of Genome-wide Dark Bases", style=list(textAlign = "center")),
         br(),
-        dccGraph(id="SuppGW_MapQ", style = list(width = '40%', display = 'inline-block'), figure = ggplotly(WithSuppmapqFig)),
+        div(class="black-box",
+            style = list(background = "black",
+                         height = "5px",
+                         width = "20px",
+                         display = 'inline-block')
+        ),
+        div(
+          "   Number of Bases from Primary Only Alignments",
+          style = list(width = '20%', display = 'inline-block')
+        ),
+        br(),br(),br(),
+        dccGraph(id="SuppGW_MapQ", style = list(width = '40%', display = 'inline-block'), figure = ggplotly(WithSuppmapqFigWithLine)),
         div(style = list(width = '12%', display = 'inline-block')),
-        dccGraph(id="SuppGW_depth", style = list(width = '40%', display = 'inline-block'), figure = ggplotly(WithSuppdepthFig)),
+        dccGraph(id="SuppGW_depth", style = list(width = '40%', display = 'inline-block'), figure = ggplotly(WithSuppDepthFigWithLine)),
         br(), br(),
         
         htmlHr(class="dashed"),
@@ -1797,7 +2003,7 @@ app %>% add_callback(
           strong("All Dark Region Stats", style=list('font-size'="18pt")),
           dashDataTable(
             id = "Nucleotide-region-AllDark-datatable",
-            data = df_to_list(nucsAndRegions[which(nucsAndRegions$Region_type=="All_Dark"),]),
+            data = df_to_list(NewLongRead_nucsAndRegions[which(NewLongRead_nucsAndRegions$Region_type=="All_Dark"),]),
             sort_action='native',
             sort_mode='single',
             style_as_list_view=T,
@@ -1831,7 +2037,7 @@ app %>% add_callback(
           strong("Dark-by-Depth Region Stats", style=list('font-size'="18pt")),
           dashDataTable(
             id = "Nucleotide-region-dbd-datatable",
-            data = df_to_list(nucsAndRegions[which(nucsAndRegions$Region_type=="Low_Depth"),]),
+            data = df_to_list(NewLongRead_nucsAndRegions[which(NewLongRead_nucsAndRegions$Region_type=="Low_Depth"),]),
             sort_action='native',
             sort_mode='single',
             style_data = list(
@@ -1864,7 +2070,7 @@ app %>% add_callback(
           strong("Dark-by-MapQ Region Stats", style=list('font-size'="18pt")),
           dashDataTable(
             id = "Nucleotide-region-dbm-datatable",
-            data = df_to_list(nucsAndRegions[which(nucsAndRegions$Region_type=="Low_Mapq"),]),
+            data = df_to_list(NewLongRead_nucsAndRegions[which(NewLongRead_nucsAndRegions$Region_type=="Low_Mapq"),]),
             sort_action='native',
             sort_mode='single',
             style_data = list(
@@ -1922,36 +2128,64 @@ app %>% add_callback(
         br(), br(),
         dccGraph(id = 'Platform-Comp-graph4', style = list(width = '100%', display = 'inline-block')),
         htmlHr(class="dashed"),
-        h2("Genes In overlapping", style=list(textAlign = "center")),
-        br(),
-        dccGraph(id = 'Wordcloud', style = list(width = '100%', display = 'inline-block')),
-        br(), br()
-        
+        h2("Difference in Number of Genes between (Primary + Supp - Primary Only)", style=list(textAlign = "center")),
+        br(),br(),
+        dccGraph(id = 'TotalComparison-AllDarkType-graphic', style = list(width = '40%', display = 'inline-block')),
+        div(style = list(width = '12%', display = 'inline-block')),
+        dccGraph(id = 'TotalComparison-DarkByDepthType-graphic', style = list(width = '40%', display = 'inline-block')),
+        br(), br(),
+        dccGraph(id = 'TotalComparison-DarkByMapQType-graphic', style = list(width = '40%', display = 'inline-block')),
+        div(style = list(width = '12%', display = 'inline-block')),
+        dccGraph(id = 'TotalComparison-CamoType-graphic', style = list(width = '40%', display = 'inline-block')),
+        br(), br(),
+        dccGraph(id="GW_Diff_MapQ", style = list(width = '40%', display = 'inline-block'), figure = ggplotly(WithSuppmapqFigDiff)),
+        div(style = list(width = '12%', display = 'inline-block')),
+        dccGraph(id="GW_Diff_depth", style = list(width = '40%', display = 'inline-block'), figure = ggplotly(WithSuppDepthFigDiff)),
+        br(), br(),
+        div(
+          dashbioCircos(
+            id = "circosPlot",
+            layout = referencesSize[["CHM13"]],
+            config = list(
+              "labels"= list(
+                "size"= 14,
+                "color"= "#4d4d4d"
+              ),
+              "ticks"= list(
+                "color"= "#4d4d4d",
+                "labelColor"= "#4d4d4d",
+                "spacing"= 10000000,
+                "labelSuffix"= "Mb",
+                "labelDenominator"= 1000000,
+                "labelSize"= 10
+              )
+            ),
+            tracks = list(
+              list(
+                "type" = "HISTOGRAM",
+                "data" = ONT_DbD_PrimaryOnlyMinusPrimarySup,
+                "config" = list(
+                  "innerRadius"= 0.5,
+                  "outerRadius"= 1,
+                  "color" = "blue",
+                  "tooltipContent" = list(
+                    "source" = "source",
+                    "sourceID" = "id",
+                    "target" = "target",
+                    "targetID" = "id",
+                    "targetEnd" = "end"
+                      ))
+                  )
+                )
+              ),
+          style = list(width = '50%', display = 'inline-block')
+        ),br(),br()
         
       )))
     }
   }
 )
 
-
-app %>% add_callback(
-  output('Wordcloud', 'figure'),
-  list(
-    input('platformRadio', 'value')
-  ),
-  function(xaxis_column_name) {
-    df2Use = NewLongRead_nucsAndRegions[which(NewLongRead_nucsAndRegions$Platform == xaxis_column_name), c("Region_type", "Platform", "Reference", "Nucleotide_count")]
-    df2Use$type = rep("PrimarySupp", nrow(df2Use))
-    temp=nucsAndRegions[which(nucsAndRegions$Platform == xaxis_column_name), c("Region_type", "Platform", "Reference", "Nucleotide_count")]
-    temp$type = rep("PrimaryOnly", nrow(temp))
-    df2Use = rbind(df2Use, temp)
-    temp=NULL
-    
-    fig=ggplot(df2Use, aes(x=Region_type, y=Nucleotide_count, fill=Reference)) + geom_bar(stat="identity", position = "dodge") + theme_bw() + theme(axis.text.x = element_text(angle = -45, vjust = 0.5, hjust=1))
-    fig = fig + facet_wrap( ~ type)
-    ggplotly(fig)
-  }
-)
 
 app %>% add_callback(
   output('Platform-Comp-graph', 'figure'),
@@ -1966,7 +2200,7 @@ app %>% add_callback(
     df2Use = rbind(df2Use, temp)
     temp=NULL
     
-    fig=ggplot(df2Use, aes(x=Region_type, y=Nucleotide_count, fill=Reference)) + geom_bar(stat="identity", position = "dodge") + theme_bw() + theme(axis.text.x = element_text(angle = -45, vjust = 0.5, hjust=1))
+    fig=ggplot(df2Use, aes(x=Region_type, y=Nucleotide_count/1000000, fill=Reference)) + geom_bar(stat="identity", position = "dodge") + theme_bw() + theme(axis.text.x = element_text(angle = -45, vjust = 0.5, hjust=1)) + ylab("Number of Dark Bases (Mb)") + xlab("")
     fig = fig + facet_wrap( ~ type)
     df2Use=NULL
     ggplotly(fig)
@@ -2013,6 +2247,10 @@ app %>% add_callback(
     fig=ggplot(mergedDf , aes(x=PrimaryOnly/1000000, y=PrimarySupp/1000000, color=Reference)) + geom_point() + theme_bw() + theme(axis.text.x = element_text(angle = -45, vjust = 0.5, hjust=1)) + ylab("Primary + Supplementary Dark Bases (Mb)") + xlab("Primary Alignment Only Dark Bases (Mb)")
     fig=fig+facet_wrap(~ Region_type)
     
+    
+    pdf(file = paste("Figures/", xaxis_column_name, "_referenceComparison_PrimaryOnly_vs_primarySupp.pdf", sep=""), width=6, height=3)
+    print(fig)
+    dev.off()
     
     temp=NULL
     df2Use=NULL
@@ -2204,27 +2442,37 @@ app %>% add_callback(
 app %>% add_callback(
   output('Total-DarkType-graphic', 'figure'),
   list(
-    input('percentDark', 'value')
+    input('percentDark', 'value'),
+    input('DataTabs', 'value')
   ),
-  function(perc) {
+  function(perc, tabType) {
+    df2Use = NULL
+    if(tabType == "primaryTab"){
+      df2Use = darkGenePercent
+    } else if (tabType == "primarySuppTab"){
+      df2Use = withSuppDarkGenePercent
+    } else if (tabType == "comparisonTab"){
+      df2Use = withSuppDarkGenePercent
+    } 
+    
     darkGenes = data.frame(Platform=c(rep("Illumina100", 4), rep("Illumina250", 4), rep("ONT", 4), rep("PacBio", 4)), 
                            Reference=rep(c("HG19_noAlt", "HG38_noAlt", "HG38_Alt", "CHM13"), 4), 
-                           numGene=c(length(unlist(darkGenePercent$HG19_noAlt$Illumina100[which(darkGenePercent$HG19_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
-                                     length(unlist(darkGenePercent$HG38_noAlt$Illumina100[which(darkGenePercent$HG38_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
-                                     length(unlist(darkGenePercent$HG38_Alt$Illumina100[which(darkGenePercent$HG38_Alt$Illumina100$perc_total >= perc), "gene_name"])), 
-                                     length(unlist(darkGenePercent$CHM13$Illumina100[which(darkGenePercent$CHM13$Illumina100$perc_total >= perc), "gene_name"])), 
-                                     length(unlist(darkGenePercent$HG19_noAlt$Illumina250[which(darkGenePercent$HG19_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
-                                     length(unlist(darkGenePercent$HG38_noAlt$Illumina250[which(darkGenePercent$HG38_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
-                                     length(unlist(darkGenePercent$HG38_Alt$Illumina250[which(darkGenePercent$HG38_Alt$Illumina250$perc_total >= perc), "gene_name"])), 
-                                     length(unlist(darkGenePercent$CHM13$Illumina250[which(darkGenePercent$CHM13$Illumina250$perc_total >= perc), "gene_name"])), 
-                                     length(unlist(darkGenePercent$HG19_noAlt$ONT[which(darkGenePercent$HG19_noAlt$ONT$perc_total >= perc), "gene_name"])), 
-                                     length(unlist(darkGenePercent$HG38_noAlt$ONT[which(darkGenePercent$HG38_noAlt$ONT$perc_total >= perc), "gene_name"])), 
-                                     length(unlist(darkGenePercent$HG38_Alt$ONT[which(darkGenePercent$HG38_Alt$ONT$perc_total >= perc), "gene_name"])), 
-                                     length(unlist(darkGenePercent$CHM13$ONT[which(darkGenePercent$CHM13$ONT$perc_total >= perc), "gene_name"])), 
-                                     length(unlist(darkGenePercent$HG19_noAlt$PacBio[which(darkGenePercent$HG19_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
-                                     length(unlist(darkGenePercent$HG38_noAlt$PacBio[which(darkGenePercent$HG38_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
-                                     length(unlist(darkGenePercent$HG38_Alt$PacBio[which(darkGenePercent$HG38_Alt$PacBio$perc_total >= perc), "gene_name"])), 
-                                     length(unlist(darkGenePercent$CHM13$PacBio[which(darkGenePercent$CHM13$PacBio$perc_total >= perc), "gene_name"]))))
+                           numGene=c(length(unlist(df2Use$HG19_noAlt$Illumina100[which(df2Use$HG19_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                     length(unlist(df2Use$HG38_noAlt$Illumina100[which(df2Use$HG38_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                     length(unlist(df2Use$HG38_Alt$Illumina100[which(df2Use$HG38_Alt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                     length(unlist(df2Use$CHM13$Illumina100[which(df2Use$CHM13$Illumina100$perc_total >= perc), "gene_name"])), 
+                                     length(unlist(df2Use$HG19_noAlt$Illumina250[which(df2Use$HG19_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                     length(unlist(df2Use$HG38_noAlt$Illumina250[which(df2Use$HG38_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                     length(unlist(df2Use$HG38_Alt$Illumina250[which(df2Use$HG38_Alt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                     length(unlist(df2Use$CHM13$Illumina250[which(df2Use$CHM13$Illumina250$perc_total >= perc), "gene_name"])), 
+                                     length(unlist(df2Use$HG19_noAlt$ONT[which(df2Use$HG19_noAlt$ONT$perc_total >= perc), "gene_name"])), 
+                                     length(unlist(df2Use$HG38_noAlt$ONT[which(df2Use$HG38_noAlt$ONT$perc_total >= perc), "gene_name"])), 
+                                     length(unlist(df2Use$HG38_Alt$ONT[which(df2Use$HG38_Alt$ONT$perc_total >= perc), "gene_name"])), 
+                                     length(unlist(df2Use$CHM13$ONT[which(df2Use$CHM13$ONT$perc_total >= perc), "gene_name"])), 
+                                     length(unlist(df2Use$HG19_noAlt$PacBio[which(df2Use$HG19_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
+                                     length(unlist(df2Use$HG38_noAlt$PacBio[which(df2Use$HG38_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
+                                     length(unlist(df2Use$HG38_Alt$PacBio[which(df2Use$HG38_Alt$PacBio$perc_total >= perc), "gene_name"])), 
+                                     length(unlist(df2Use$CHM13$PacBio[which(df2Use$CHM13$PacBio$perc_total >= perc), "gene_name"]))))
     
     darkGenes$Platform = factor(darkGenes$Platform, levels = c("Illumina100", "Illumina250", "PacBio", "ONT"))
     darkGenes$Reference = factor(darkGenes$Reference, levels=c("HG19_noAlt", "HG38_noAlt", "HG38_Alt", "CHM13"))
@@ -2243,28 +2491,38 @@ app %>% add_callback(
 app %>% add_callback(
   output('Biotype-DarkType-graphic', 'figure'),
   list(
-    input('percentDark', 'value')
+    input('percentDark', 'value'),
+    input('DataTabs', 'value')
   ),
-  function(perc) {
-    darkIllumina100_chm13 = as.data.frame(table(darkGenePercent$CHM13$Illumina100[which(darkGenePercent$CHM13$Illumina100$perc_total >= perc), "biotype"]))
-    darkIllumina250_chm13 = as.data.frame(table(darkGenePercent$CHM13$Illumina250[which(darkGenePercent$CHM13$Illumina250$perc_total >= perc), "biotype"]))
-    darkONT_chm13 = as.data.frame(table(darkGenePercent$CHM13$ONT[which(darkGenePercent$CHM13$ONT$perc_total >= perc), "biotype"]))
-    darkPacBio_chm13 = as.data.frame(table(darkGenePercent$CHM13$PacBio[which(darkGenePercent$CHM13$PacBio$perc_total >= perc), "biotype"]))
+  function(perc, tabType) {
+    df2Use = NULL
+    if(tabType == "primaryTab"){
+      df2Use = darkGenePercent
+    } else if (tabType == "primarySuppTab"){
+      df2Use = withSuppDarkGenePercent
+    } else if (tabType == "comparisonTab"){
+      df2Use = withSuppDarkGenePercent
+    } 
+ 
+    darkIllumina100_chm13 = as.data.frame(table(df2Use$CHM13$Illumina100[which(df2Use$CHM13$Illumina100$perc_total >= perc), "biotype"]))
+    darkIllumina250_chm13 = as.data.frame(table(df2Use$CHM13$Illumina250[which(df2Use$CHM13$Illumina250$perc_total >= perc), "biotype"]))
+    darkONT_chm13 = as.data.frame(table(df2Use$CHM13$ONT[which(df2Use$CHM13$ONT$perc_total >= perc), "biotype"]))
+    darkPacBio_chm13 = as.data.frame(table(df2Use$CHM13$PacBio[which(df2Use$CHM13$PacBio$perc_total >= perc), "biotype"]))
     
-    darkIllumina100_hg19_noAlt = as.data.frame(table(darkGenePercent$HG19_noAlt$Illumina100[which(darkGenePercent$HG19_noAlt$Illumina100$perc_total >= perc), "biotype"]))
-    darkIllumina250_hg19_noAlt = as.data.frame(table(darkGenePercent$HG19_noAlt$Illumina250[which(darkGenePercent$HG19_noAlt$Illumina250$perc_total >= perc), "biotype"]))
-    darkONT_hg19_noAlt = as.data.frame(table(darkGenePercent$HG19_noAlt$ONT[which(darkGenePercent$HG19_noAlt$ONT$perc_total >= perc), "biotype"]))
-    darkPacBio_hg19_noAlt = as.data.frame(table(darkGenePercent$HG19_noAlt$PacBio[which(darkGenePercent$HG19_noAlt$PacBio$perc_total >= perc), "biotype"]))
+    darkIllumina100_hg19_noAlt = as.data.frame(table(df2Use$HG19_noAlt$Illumina100[which(df2Use$HG19_noAlt$Illumina100$perc_total >= perc), "biotype"]))
+    darkIllumina250_hg19_noAlt = as.data.frame(table(df2Use$HG19_noAlt$Illumina250[which(df2Use$HG19_noAlt$Illumina250$perc_total >= perc), "biotype"]))
+    darkONT_hg19_noAlt = as.data.frame(table(df2Use$HG19_noAlt$ONT[which(df2Use$HG19_noAlt$ONT$perc_total >= perc), "biotype"]))
+    darkPacBio_hg19_noAlt = as.data.frame(table(df2Use$HG19_noAlt$PacBio[which(df2Use$HG19_noAlt$PacBio$perc_total >= perc), "biotype"]))
     
-    darkIllumina100_hg38_noAlt = as.data.frame(table(darkGenePercent$HG38_noAlt$Illumina100[which(darkGenePercent$HG38_noAlt$Illumina100$perc_total >= perc), "biotype"]))
-    darkIllumina250_hg38_noAlt = as.data.frame(table(darkGenePercent$HG38_noAlt$Illumina250[which(darkGenePercent$HG38_noAlt$Illumina250$perc_total >= perc), "biotype"]))
-    darkONT_hg38_noAlt = as.data.frame(table(darkGenePercent$HG38_noAlt$ONT[which(darkGenePercent$HG38_noAlt$ONT$perc_total >= perc), "biotype"]))
-    darkPacBio_hg38_noAlt = as.data.frame(table(darkGenePercent$HG38_noAlt$PacBio[which(darkGenePercent$HG38_noAlt$PacBio$perc_total >= perc), "biotype"]))
+    darkIllumina100_hg38_noAlt = as.data.frame(table(df2Use$HG38_noAlt$Illumina100[which(df2Use$HG38_noAlt$Illumina100$perc_total >= perc), "biotype"]))
+    darkIllumina250_hg38_noAlt = as.data.frame(table(df2Use$HG38_noAlt$Illumina250[which(df2Use$HG38_noAlt$Illumina250$perc_total >= perc), "biotype"]))
+    darkONT_hg38_noAlt = as.data.frame(table(df2Use$HG38_noAlt$ONT[which(df2Use$HG38_noAlt$ONT$perc_total >= perc), "biotype"]))
+    darkPacBio_hg38_noAlt = as.data.frame(table(df2Use$HG38_noAlt$PacBio[which(df2Use$HG38_noAlt$PacBio$perc_total >= perc), "biotype"]))
     
-    darkIllumina100_hg38_Alt = as.data.frame(table(darkGenePercent$HG38_Alt$Illumina100[which(darkGenePercent$HG38_Alt$Illumina100$perc_total >= perc), "biotype"]))
-    darkIllumina250_hg38_Alt = as.data.frame(table(darkGenePercent$HG38_Alt$Illumina250[which(darkGenePercent$HG38_Alt$Illumina250$perc_total >= perc), "biotype"]))
-    darkONT_hg38_Alt = as.data.frame(table(darkGenePercent$HG38_Alt$ONT[which(darkGenePercent$HG38_Alt$ONT$perc_total >= perc), "biotype"]))
-    darkPacBio_hg38_Alt = as.data.frame(table(darkGenePercent$HG38_Alt$PacBio[which(darkGenePercent$HG38_Alt$PacBio$perc_total >= perc), "biotype"]))
+    darkIllumina100_hg38_Alt = as.data.frame(table(df2Use$HG38_Alt$Illumina100[which(df2Use$HG38_Alt$Illumina100$perc_total >= perc), "biotype"]))
+    darkIllumina250_hg38_Alt = as.data.frame(table(df2Use$HG38_Alt$Illumina250[which(df2Use$HG38_Alt$Illumina250$perc_total >= perc), "biotype"]))
+    darkONT_hg38_Alt = as.data.frame(table(df2Use$HG38_Alt$ONT[which(df2Use$HG38_Alt$ONT$perc_total >= perc), "biotype"]))
+    darkPacBio_hg38_Alt = as.data.frame(table(df2Use$HG38_Alt$PacBio[which(df2Use$HG38_Alt$PacBio$perc_total >= perc), "biotype"]))
     
     darkIllumina100_chm13$Reference = rep("CHM13", nrow(darkIllumina100_chm13))
     darkIllumina250_chm13$Reference = rep("CHM13", nrow(darkIllumina250_chm13))
@@ -2324,29 +2582,41 @@ app %>% add_callback(
 app %>% add_callback(
   output('DarkGeneOverlap-graphic', 'figure'),
   list(
-    input('percentDark', 'value')
+    input('percentDark', 'value'),
+    input('DataTabs', 'value')
   ),
-  function(perc) {
+  function(perc, tabType) {
+    df2Use = NULL
+    if(tabType == "primaryTab"){
+      depth_df2Use = darkByDepthGenePercent
+      mapq_df2Use = darkByMapQGenePercent
+    } else if (tabType == "primarySuppTab"){
+      depth_df2Use = withSuppDarkByDepthGenePercent
+      mapq_df2Use = withSuppDarkByMapQGenePercent
+    } else if (tabType == "comparisonTab"){
+      depth_df2Use = withSuppDarkByDepthGenePercent
+      mapq_df2Use = withSuppDarkByMapQGenePercent
+    } 
     
-    illumina100_hg19_noAlt = intersect(unique(unlist(darkByDepthGenePercent$HG19_noAlt$Illumina100[which(darkByDepthGenePercent$HG19_noAlt$Illumina100$perc_total >= perc), "gene_name"])), unique(unlist(darkByMapQGenePercent$HG19_noAlt$Illumina100[which(darkByMapQGenePercent$HG19_noAlt$Illumina100$perc_total >= perc), "gene_name"])))
-    illumina100_hg38_noAlt = intersect(unique(unlist(darkByDepthGenePercent$HG38_noAlt$Illumina100[which(darkByDepthGenePercent$HG38_noAlt$Illumina100$perc_total >= perc), "gene_name"])), unique(unlist(darkByMapQGenePercent$HG38_noAlt$Illumina100[which(darkByMapQGenePercent$HG38_noAlt$Illumina100$perc_total >= perc), "gene_name"])))
-    illumina100_hg38_Alt = intersect(unique(unlist(darkByDepthGenePercent$HG38_Alt$Illumina100[which(darkByDepthGenePercent$HG38_Alt$Illumina100$perc_total >= perc), "gene_name"])), unique(unlist(darkByMapQGenePercent$HG38_Alt$Illumina100[which(darkByMapQGenePercent$HG38_Alt$Illumina100$perc_total >= perc), "gene_name"])))
-    illumina100_chm13 = intersect(unique(unlist(darkByDepthGenePercent$CHM13$Illumina100[which(darkByDepthGenePercent$CHM13$Illumina100$perc_total >= perc), "gene_name"])), unique(unlist(darkByMapQGenePercent$CHM13$Illumina100[which(darkByMapQGenePercent$CHM13$Illumina100$perc_total >= perc), "gene_name"])))
+    illumina100_hg19_noAlt = intersect(unique(unlist(depth_df2Use$HG19_noAlt$Illumina100[which(depth_df2Use$HG19_noAlt$Illumina100$perc_total >= perc), "gene_name"])), unique(unlist(mapq_df2Use$HG19_noAlt$Illumina100[which(mapq_df2Use$HG19_noAlt$Illumina100$perc_total >= perc), "gene_name"])))
+    illumina100_hg38_noAlt = intersect(unique(unlist(depth_df2Use$HG38_noAlt$Illumina100[which(depth_df2Use$HG38_noAlt$Illumina100$perc_total >= perc), "gene_name"])), unique(unlist(mapq_df2Use$HG38_noAlt$Illumina100[which(mapq_df2Use$HG38_noAlt$Illumina100$perc_total >= perc), "gene_name"])))
+    illumina100_hg38_Alt = intersect(unique(unlist(depth_df2Use$HG38_Alt$Illumina100[which(depth_df2Use$HG38_Alt$Illumina100$perc_total >= perc), "gene_name"])), unique(unlist(mapq_df2Use$HG38_Alt$Illumina100[which(mapq_df2Use$HG38_Alt$Illumina100$perc_total >= perc), "gene_name"])))
+    illumina100_chm13 = intersect(unique(unlist(depth_df2Use$CHM13$Illumina100[which(depth_df2Use$CHM13$Illumina100$perc_total >= perc), "gene_name"])), unique(unlist(mapq_df2Use$CHM13$Illumina100[which(mapq_df2Use$CHM13$Illumina100$perc_total >= perc), "gene_name"])))
     
-    illumina250_hg19_noAlt = intersect(unique(unlist(darkByDepthGenePercent$HG19_noAlt$Illumina250[which(darkByDepthGenePercent$HG19_noAlt$Illumina250$perc_total >= perc), "gene_name"])), unique(unlist(darkByMapQGenePercent$HG19_noAlt$Illumina250[which(darkByMapQGenePercent$HG19_noAlt$Illumina250$perc_total >= perc), "gene_name"])))
-    illumina250_hg38_noAlt = intersect(unique(unlist(darkByDepthGenePercent$HG38_noAlt$Illumina250[which(darkByDepthGenePercent$HG38_noAlt$Illumina250$perc_total >= perc), "gene_name"])), unique(unlist(darkByMapQGenePercent$HG38_noAlt$Illumina250[which(darkByMapQGenePercent$HG38_noAlt$Illumina250$perc_total >= perc), "gene_name"])))
-    illumina250_hg38_Alt = intersect(unique(unlist(darkByDepthGenePercent$HG38_Alt$Illumina250[which(darkByDepthGenePercent$HG38_Alt$Illumina250$perc_total >= perc), "gene_name"])), unique(unlist(darkByMapQGenePercent$HG38_Alt$Illumina250[which(darkByMapQGenePercent$HG38_Alt$Illumina250$perc_total >= perc), "gene_name"])))
-    illumina250_chm13 = intersect(unique(unlist(darkByDepthGenePercent$CHM13$Illumina250[which(darkByDepthGenePercent$CHM13$Illumina250$perc_total >= perc), "gene_name"])), unique(unlist(darkByMapQGenePercent$CHM13$Illumina250[which(darkByMapQGenePercent$CHM13$Illumina250$perc_total >= perc), "gene_name"])))
+    illumina250_hg19_noAlt = intersect(unique(unlist(depth_df2Use$HG19_noAlt$Illumina250[which(depth_df2Use$HG19_noAlt$Illumina250$perc_total >= perc), "gene_name"])), unique(unlist(mapq_df2Use$HG19_noAlt$Illumina250[which(mapq_df2Use$HG19_noAlt$Illumina250$perc_total >= perc), "gene_name"])))
+    illumina250_hg38_noAlt = intersect(unique(unlist(depth_df2Use$HG38_noAlt$Illumina250[which(depth_df2Use$HG38_noAlt$Illumina250$perc_total >= perc), "gene_name"])), unique(unlist(mapq_df2Use$HG38_noAlt$Illumina250[which(mapq_df2Use$HG38_noAlt$Illumina250$perc_total >= perc), "gene_name"])))
+    illumina250_hg38_Alt = intersect(unique(unlist(depth_df2Use$HG38_Alt$Illumina250[which(depth_df2Use$HG38_Alt$Illumina250$perc_total >= perc), "gene_name"])), unique(unlist(mapq_df2Use$HG38_Alt$Illumina250[which(mapq_df2Use$HG38_Alt$Illumina250$perc_total >= perc), "gene_name"])))
+    illumina250_chm13 = intersect(unique(unlist(depth_df2Use$CHM13$Illumina250[which(depth_df2Use$CHM13$Illumina250$perc_total >= perc), "gene_name"])), unique(unlist(mapq_df2Use$CHM13$Illumina250[which(mapq_df2Use$CHM13$Illumina250$perc_total >= perc), "gene_name"])))
     
-    ONT_hg19_noAlt = intersect(unique(unlist(darkByDepthGenePercent$HG19_noAlt$ONT[which(darkByDepthGenePercent$HG19_noAlt$ONT$perc_total >= perc), "gene_name"])), unique(unlist(darkByMapQGenePercent$HG19_noAlt$ONT[which(darkByMapQGenePercent$HG19_noAlt$ONT$perc_total >= perc), "gene_name"])))
-    ONT_hg38_noAlt = intersect(unique(unlist(darkByDepthGenePercent$HG38_noAlt$ONT[which(darkByDepthGenePercent$HG38_noAlt$ONT$perc_total >= perc), "gene_name"])), unique(unlist(darkByMapQGenePercent$HG38_noAlt$ONT[which(darkByMapQGenePercent$HG38_noAlt$ONT$perc_total >= perc), "gene_name"])))
-    ONT_hg38_Alt = intersect(unique(unlist(darkByDepthGenePercent$HG38_Alt$ONT[which(darkByDepthGenePercent$HG38_Alt$ONT$perc_total >= perc), "gene_name"])), unique(unlist(darkByMapQGenePercent$HG38_Alt$ONT[which(darkByMapQGenePercent$HG38_Alt$ONT$perc_total >= perc), "gene_name"])))
-    ONT_chm13 = intersect(unique(unlist(darkByDepthGenePercent$CHM13$ONT[which(darkByDepthGenePercent$CHM13$ONT$perc_total >= perc), "gene_name"])), unique(unlist(darkByMapQGenePercent$CHM13$ONT[which(darkByMapQGenePercent$CHM13$ONT$perc_total >= perc), "gene_name"])))
+    ONT_hg19_noAlt = intersect(unique(unlist(depth_df2Use$HG19_noAlt$ONT[which(depth_df2Use$HG19_noAlt$ONT$perc_total >= perc), "gene_name"])), unique(unlist(mapq_df2Use$HG19_noAlt$ONT[which(mapq_df2Use$HG19_noAlt$ONT$perc_total >= perc), "gene_name"])))
+    ONT_hg38_noAlt = intersect(unique(unlist(depth_df2Use$HG38_noAlt$ONT[which(depth_df2Use$HG38_noAlt$ONT$perc_total >= perc), "gene_name"])), unique(unlist(mapq_df2Use$HG38_noAlt$ONT[which(mapq_df2Use$HG38_noAlt$ONT$perc_total >= perc), "gene_name"])))
+    ONT_hg38_Alt = intersect(unique(unlist(depth_df2Use$HG38_Alt$ONT[which(depth_df2Use$HG38_Alt$ONT$perc_total >= perc), "gene_name"])), unique(unlist(mapq_df2Use$HG38_Alt$ONT[which(mapq_df2Use$HG38_Alt$ONT$perc_total >= perc), "gene_name"])))
+    ONT_chm13 = intersect(unique(unlist(depth_df2Use$CHM13$ONT[which(depth_df2Use$CHM13$ONT$perc_total >= perc), "gene_name"])), unique(unlist(mapq_df2Use$CHM13$ONT[which(mapq_df2Use$CHM13$ONT$perc_total >= perc), "gene_name"])))
     
-    PacBio_hg19_noAlt = intersect(unique(unlist(darkByDepthGenePercent$HG19_noAlt$PacBio[which(darkByDepthGenePercent$HG19_noAlt$PacBio$perc_total >= perc), "gene_name"])), unique(unlist(darkByMapQGenePercent$HG19_noAlt$PacBio[which(darkByMapQGenePercent$HG19_noAlt$PacBio$perc_total >= perc), "gene_name"])))
-    PacBio_hg38_noAlt = intersect(unique(unlist(darkByDepthGenePercent$HG38_noAlt$PacBio[which(darkByDepthGenePercent$HG38_noAlt$PacBio$perc_total >= perc), "gene_name"])), unique(unlist(darkByMapQGenePercent$HG38_noAlt$PacBio[which(darkByMapQGenePercent$HG38_noAlt$PacBio$perc_total >= perc), "gene_name"])))
-    PacBio_hg38_Alt = intersect(unique(unlist(darkByDepthGenePercent$HG38_Alt$PacBio[which(darkByDepthGenePercent$HG38_Alt$PacBio$perc_total >= perc), "gene_name"])), unique(unlist(darkByMapQGenePercent$HG38_Alt$PacBio[which(darkByMapQGenePercent$HG38_Alt$PacBio$perc_total >= perc), "gene_name"])))
-    PacBio_chm13 = intersect(unique(unlist(darkByDepthGenePercent$CHM13$PacBio[which(darkByDepthGenePercent$CHM13$PacBio$perc_total >= perc), "gene_name"])), unique(unlist(darkByMapQGenePercent$CHM13$PacBio[which(darkByMapQGenePercent$CHM13$PacBio$perc_total >= perc), "gene_name"])))
+    PacBio_hg19_noAlt = intersect(unique(unlist(depth_df2Use$HG19_noAlt$PacBio[which(depth_df2Use$HG19_noAlt$PacBio$perc_total >= perc), "gene_name"])), unique(unlist(mapq_df2Use$HG19_noAlt$PacBio[which(mapq_df2Use$HG19_noAlt$PacBio$perc_total >= perc), "gene_name"])))
+    PacBio_hg38_noAlt = intersect(unique(unlist(depth_df2Use$HG38_noAlt$PacBio[which(depth_df2Use$HG38_noAlt$PacBio$perc_total >= perc), "gene_name"])), unique(unlist(mapq_df2Use$HG38_noAlt$PacBio[which(mapq_df2Use$HG38_noAlt$PacBio$perc_total >= perc), "gene_name"])))
+    PacBio_hg38_Alt = intersect(unique(unlist(depth_df2Use$HG38_Alt$PacBio[which(depth_df2Use$HG38_Alt$PacBio$perc_total >= perc), "gene_name"])), unique(unlist(mapq_df2Use$HG38_Alt$PacBio[which(mapq_df2Use$HG38_Alt$PacBio$perc_total >= perc), "gene_name"])))
+    PacBio_chm13 = intersect(unique(unlist(depth_df2Use$CHM13$PacBio[which(depth_df2Use$CHM13$PacBio$perc_total >= perc), "gene_name"])), unique(unlist(mapq_df2Use$CHM13$PacBio[which(mapq_df2Use$CHM13$PacBio$perc_total >= perc), "gene_name"])))
     
     
     
@@ -2374,28 +2644,39 @@ app %>% add_callback(
 app %>% add_callback(
   output('Total-DarkByDepthType-graphic', 'figure'),
   list(
-    input('percentDark', 'value')
+    input('percentDark', 'value'),
+    input('DataTabs', 'value')
   ),
-  function(perc) {
-    #TODO: I think the legend and coloring is out of order. IDK why
+  function(perc, tabType) {
+    df2Use = NULL
+    if(tabType == "primaryTab"){
+      df2Use = darkByDepthGenePercent
+    } else if (tabType == "primarySuppTab"){
+      df2Use = withSuppDarkByDepthGenePercent
+    } else if (tabType == "comparisonTab"){
+      df2Use = withSuppDarkByDepthGenePercent
+    } 
+    
+    ###TODO: I think the legend and coloring is out of order. IDK why
+    
     darkByDepthGenes = data.frame(Platform=c(rep("Illumina100", 4), rep("Illumina250", 4), rep("ONT", 4), rep("PacBio", 4)), 
                                   Reference=rep(c("HG19_noAlt", "HG38_noAlt", "HG38_Alt", "CHM13"), 4), 
-                                  numGene=c(length(unlist(darkByDepthGenePercent$HG19_noAlt$Illumina100[which(darkByDepthGenePercent$HG19_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
-                                            length(unlist(darkByDepthGenePercent$HG38_noAlt$Illumina100[which(darkByDepthGenePercent$HG38_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
-                                            length(unlist(darkByDepthGenePercent$HG38_Alt$Illumina100[which(darkByDepthGenePercent$HG38_Alt$Illumina100$perc_total >= perc), "gene_name"])), 
-                                            length(unlist(darkByDepthGenePercent$CHM13$Illumina100[which(darkByDepthGenePercent$CHM13$Illumina100$perc_total >= perc), "gene_name"])), 
-                                            length(unlist(darkByDepthGenePercent$HG19_noAlt$Illumina250[which(darkByDepthGenePercent$HG19_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
-                                            length(unlist(darkByDepthGenePercent$HG38_noAlt$Illumina250[which(darkByDepthGenePercent$HG38_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
-                                            length(unlist(darkByDepthGenePercent$HG38_Alt$Illumina250[which(darkByDepthGenePercent$HG38_Alt$Illumina250$perc_total >= perc), "gene_name"])), 
-                                            length(unlist(darkByDepthGenePercent$CHM13$Illumina250[which(darkByDepthGenePercent$CHM13$Illumina250$perc_total >= perc), "gene_name"])), 
-                                            length(unlist(darkByDepthGenePercent$HG19_noAlt$ONT[which(darkByDepthGenePercent$HG19_noAlt$ONT$perc_total >= perc), "gene_name"])), 
-                                            length(unlist(darkByDepthGenePercent$HG38_noAlt$ONT[which(darkByDepthGenePercent$HG38_noAlt$ONT$perc_total >= perc), "gene_name"])), 
-                                            length(unlist(darkByDepthGenePercent$HG38_Alt$ONT[which(darkByDepthGenePercent$HG38_Alt$ONT$perc_total >= perc), "gene_name"])), 
-                                            length(unlist(darkByDepthGenePercent$CHM13$ONT[which(darkByDepthGenePercent$CHM13$ONT$perc_total >= perc), "gene_name"])), 
-                                            length(unlist(darkByDepthGenePercent$HG19_noAlt$PacBio[which(darkByDepthGenePercent$HG19_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
-                                            length(unlist(darkByDepthGenePercent$HG38_noAlt$PacBio[which(darkByDepthGenePercent$HG38_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
-                                            length(unlist(darkByDepthGenePercent$HG38_Alt$PacBio[which(darkByDepthGenePercent$HG38_Alt$PacBio$perc_total >= perc), "gene_name"])), 
-                                            length(unlist(darkByDepthGenePercent$CHM13$PacBio[which(darkByDepthGenePercent$CHM13$PacBio$perc_total >= perc), "gene_name"]))))
+                                  numGene=c(length(unlist(df2Use$HG19_noAlt$Illumina100[which(df2Use$HG19_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                            length(unlist(df2Use$HG38_noAlt$Illumina100[which(df2Use$HG38_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                            length(unlist(df2Use$HG38_Alt$Illumina100[which(df2Use$HG38_Alt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                            length(unlist(df2Use$CHM13$Illumina100[which(df2Use$CHM13$Illumina100$perc_total >= perc), "gene_name"])), 
+                                            length(unlist(df2Use$HG19_noAlt$Illumina250[which(df2Use$HG19_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                            length(unlist(df2Use$HG38_noAlt$Illumina250[which(df2Use$HG38_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                            length(unlist(df2Use$HG38_Alt$Illumina250[which(df2Use$HG38_Alt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                            length(unlist(df2Use$CHM13$Illumina250[which(df2Use$CHM13$Illumina250$perc_total >= perc), "gene_name"])), 
+                                            length(unlist(df2Use$HG19_noAlt$ONT[which(df2Use$HG19_noAlt$ONT$perc_total >= perc), "gene_name"])), 
+                                            length(unlist(df2Use$HG38_noAlt$ONT[which(df2Use$HG38_noAlt$ONT$perc_total >= perc), "gene_name"])), 
+                                            length(unlist(df2Use$HG38_Alt$ONT[which(df2Use$HG38_Alt$ONT$perc_total >= perc), "gene_name"])), 
+                                            length(unlist(df2Use$CHM13$ONT[which(df2Use$CHM13$ONT$perc_total >= perc), "gene_name"])), 
+                                            length(unlist(df2Use$HG19_noAlt$PacBio[which(df2Use$HG19_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
+                                            length(unlist(df2Use$HG38_noAlt$PacBio[which(df2Use$HG38_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
+                                            length(unlist(df2Use$HG38_Alt$PacBio[which(df2Use$HG38_Alt$PacBio$perc_total >= perc), "gene_name"])), 
+                                            length(unlist(df2Use$CHM13$PacBio[which(df2Use$CHM13$PacBio$perc_total >= perc), "gene_name"]))))
     
     darkByDepthGenes$Platform = factor(darkByDepthGenes$Platform, levels = c("Illumina100", "Illumina250", "PacBio", "ONT"))
     darkByDepthGenes$Reference = factor(darkByDepthGenes$Reference, levels=c("HG19_noAlt", "HG38_noAlt", "HG38_Alt", "CHM13"))
@@ -2415,28 +2696,38 @@ app %>% add_callback(
 app %>% add_callback(
   output('Biotype-DarkByDepthType-graphic', 'figure'),
   list(
-    input('percentDark', 'value')
+    input('percentDark', 'value'),
+    input('DataTabs', 'value')
   ),
-  function(perc) {
-    darkByDepthIllumina100_chm13 = as.data.frame(table(darkByDepthGenePercent$CHM13$Illumina100[which(darkByDepthGenePercent$CHM13$Illumina100$perc_total >= perc), "biotype"]))
-    darkByDepthIllumina250_chm13 = as.data.frame(table(darkByDepthGenePercent$CHM13$Illumina250[which(darkByDepthGenePercent$CHM13$Illumina250$perc_total >= perc), "biotype"]))
-    darkByDepthONT_chm13 = as.data.frame(table(darkByDepthGenePercent$CHM13$ONT[which(darkByDepthGenePercent$CHM13$ONT$perc_total >= perc), "biotype"]))
-    darkByDepthPacBio_chm13 = as.data.frame(table(darkByDepthGenePercent$CHM13$PacBio[which(darkByDepthGenePercent$CHM13$PacBio$perc_total >= perc), "biotype"]))
+  function(perc, tabType) {
+    df2Use = NULL
+    if(tabType == "primaryTab"){
+      df2Use = darkByDepthGenePercent
+    } else if (tabType == "primarySuppTab"){
+      df2Use = withSuppDarkByDepthGenePercent
+    } else if (tabType == "comparisonTab"){
+      df2Use = withSuppDarkByDepthGenePercent
+    } 
     
-    darkByDepthIllumina100_hg19_noAlt = as.data.frame(table(darkByDepthGenePercent$HG19_noAlt$Illumina100[which(darkByDepthGenePercent$HG19_noAlt$Illumina100$perc_total >= perc), "biotype"]))
-    darkByDepthIllumina250_hg19_noAlt = as.data.frame(table(darkByDepthGenePercent$HG19_noAlt$Illumina250[which(darkByDepthGenePercent$HG19_noAlt$Illumina250$perc_total >= perc), "biotype"]))
-    darkByDepthONT_hg19_noAlt = as.data.frame(table(darkByDepthGenePercent$HG19_noAlt$ONT[which(darkByDepthGenePercent$HG19_noAlt$ONT$perc_total >= perc), "biotype"]))
-    darkByDepthPacBio_hg19_noAlt = as.data.frame(table(darkByDepthGenePercent$HG19_noAlt$PacBio[which(darkByDepthGenePercent$HG19_noAlt$PacBio$perc_total >= perc), "biotype"]))
+    darkByDepthIllumina100_chm13 = as.data.frame(table(df2Use$CHM13$Illumina100[which(df2Use$CHM13$Illumina100$perc_total >= perc), "biotype"]))
+    darkByDepthIllumina250_chm13 = as.data.frame(table(df2Use$CHM13$Illumina250[which(df2Use$CHM13$Illumina250$perc_total >= perc), "biotype"]))
+    darkByDepthONT_chm13 = as.data.frame(table(df2Use$CHM13$ONT[which(df2Use$CHM13$ONT$perc_total >= perc), "biotype"]))
+    darkByDepthPacBio_chm13 = as.data.frame(table(df2Use$CHM13$PacBio[which(df2Use$CHM13$PacBio$perc_total >= perc), "biotype"]))
     
-    darkByDepthIllumina100_hg38_noAlt = as.data.frame(table(darkByDepthGenePercent$HG38_noAlt$Illumina100[which(darkByDepthGenePercent$HG38_noAlt$Illumina100$perc_total >= perc), "biotype"]))
-    darkByDepthIllumina250_hg38_noAlt = as.data.frame(table(darkByDepthGenePercent$HG38_noAlt$Illumina250[which(darkByDepthGenePercent$HG38_noAlt$Illumina250$perc_total >= perc), "biotype"]))
-    darkByDepthONT_hg38_noAlt = as.data.frame(table(darkByDepthGenePercent$HG38_noAlt$ONT[which(darkByDepthGenePercent$HG38_noAlt$ONT$perc_total >= perc), "biotype"]))
-    darkByDepthPacBio_hg38_noAlt = as.data.frame(table(darkByDepthGenePercent$HG38_noAlt$PacBio[which(darkByDepthGenePercent$HG38_noAlt$PacBio$perc_total >= perc), "biotype"]))
+    darkByDepthIllumina100_hg19_noAlt = as.data.frame(table(df2Use$HG19_noAlt$Illumina100[which(df2Use$HG19_noAlt$Illumina100$perc_total >= perc), "biotype"]))
+    darkByDepthIllumina250_hg19_noAlt = as.data.frame(table(df2Use$HG19_noAlt$Illumina250[which(df2Use$HG19_noAlt$Illumina250$perc_total >= perc), "biotype"]))
+    darkByDepthONT_hg19_noAlt = as.data.frame(table(df2Use$HG19_noAlt$ONT[which(df2Use$HG19_noAlt$ONT$perc_total >= perc), "biotype"]))
+    darkByDepthPacBio_hg19_noAlt = as.data.frame(table(df2Use$HG19_noAlt$PacBio[which(df2Use$HG19_noAlt$PacBio$perc_total >= perc), "biotype"]))
     
-    darkByDepthIllumina100_hg38_Alt = as.data.frame(table(darkByDepthGenePercent$HG38_Alt$Illumina100[which(darkByDepthGenePercent$HG38_Alt$Illumina100$perc_total >= perc), "biotype"]))
-    darkByDepthIllumina250_hg38_Alt = as.data.frame(table(darkByDepthGenePercent$HG38_Alt$Illumina250[which(darkByDepthGenePercent$HG38_Alt$Illumina250$perc_total >= perc), "biotype"]))
-    darkByDepthONT_hg38_Alt = as.data.frame(table(darkByDepthGenePercent$HG38_Alt$ONT[which(darkByDepthGenePercent$HG38_Alt$ONT$perc_total >= perc), "biotype"]))
-    darkByDepthPacBio_hg38_Alt = as.data.frame(table(darkByDepthGenePercent$HG38_Alt$PacBio[which(darkByDepthGenePercent$HG38_Alt$PacBio$perc_total >= perc), "biotype"]))
+    darkByDepthIllumina100_hg38_noAlt = as.data.frame(table(df2Use$HG38_noAlt$Illumina100[which(df2Use$HG38_noAlt$Illumina100$perc_total >= perc), "biotype"]))
+    darkByDepthIllumina250_hg38_noAlt = as.data.frame(table(df2Use$HG38_noAlt$Illumina250[which(df2Use$HG38_noAlt$Illumina250$perc_total >= perc), "biotype"]))
+    darkByDepthONT_hg38_noAlt = as.data.frame(table(df2Use$HG38_noAlt$ONT[which(df2Use$HG38_noAlt$ONT$perc_total >= perc), "biotype"]))
+    darkByDepthPacBio_hg38_noAlt = as.data.frame(table(df2Use$HG38_noAlt$PacBio[which(df2Use$HG38_noAlt$PacBio$perc_total >= perc), "biotype"]))
+    
+    darkByDepthIllumina100_hg38_Alt = as.data.frame(table(df2Use$HG38_Alt$Illumina100[which(df2Use$HG38_Alt$Illumina100$perc_total >= perc), "biotype"]))
+    darkByDepthIllumina250_hg38_Alt = as.data.frame(table(df2Use$HG38_Alt$Illumina250[which(df2Use$HG38_Alt$Illumina250$perc_total >= perc), "biotype"]))
+    darkByDepthONT_hg38_Alt = as.data.frame(table(df2Use$HG38_Alt$ONT[which(df2Use$HG38_Alt$ONT$perc_total >= perc), "biotype"]))
+    darkByDepthPacBio_hg38_Alt = as.data.frame(table(df2Use$HG38_Alt$PacBio[which(df2Use$HG38_Alt$PacBio$perc_total >= perc), "biotype"]))
     
     darkByDepthIllumina100_chm13$Reference = rep("CHM13", nrow(darkByDepthIllumina100_chm13))
     darkByDepthIllumina250_chm13$Reference = rep("CHM13", nrow(darkByDepthIllumina250_chm13))
@@ -2496,27 +2787,37 @@ app %>% add_callback(
 app %>% add_callback(
   output('Total-DarkByMapQType-graphic', 'figure'),
   list(
-    input('percentDark', 'value')
+    input('percentDark', 'value'),
+    input('DataTabs', 'value')
   ),
-  function(perc) {
+  function(perc, tabType) {
+    df2Use = NULL
+    if(tabType == "primaryTab"){
+      df2Use = darkByMapQGenePercent
+    } else if (tabType == "primarySuppTab"){
+      df2Use = withSuppDarkByMapQGenePercent
+    } else if (tabType == "comparisonTab"){
+      df2Use = withSuppDarkByMapQGenePercent
+    } 
+    
     darkByMapQGenes = data.frame(Platform=c(rep("Illumina100", 4), rep("Illumina250", 4), rep("ONT", 4), rep("PacBio", 4)), 
                                  Reference=rep(c("HG19_noAlt", "HG38_noAlt", "HG38_Alt", "CHM13"), 4), 
-                                 numGene=c(length(unlist(darkByMapQGenePercent$HG19_noAlt$Illumina100[which(darkByMapQGenePercent$HG19_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
-                                           length(unlist(darkByMapQGenePercent$HG38_noAlt$Illumina100[which(darkByMapQGenePercent$HG38_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
-                                           length(unlist(darkByMapQGenePercent$HG38_Alt$Illumina100[which(darkByMapQGenePercent$HG38_Alt$Illumina100$perc_total >= perc), "gene_name"])), 
-                                           length(unlist(darkByMapQGenePercent$CHM13$Illumina100[which(darkByMapQGenePercent$CHM13$Illumina100$perc_total >= perc), "gene_name"])), 
-                                           length(unlist(darkByMapQGenePercent$HG19_noAlt$Illumina250[which(darkByMapQGenePercent$HG19_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
-                                           length(unlist(darkByMapQGenePercent$HG38_noAlt$Illumina250[which(darkByMapQGenePercent$HG38_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
-                                           length(unlist(darkByMapQGenePercent$HG38_Alt$Illumina250[which(darkByMapQGenePercent$HG38_Alt$Illumina250$perc_total >= perc), "gene_name"])), 
-                                           length(unlist(darkByMapQGenePercent$CHM13$Illumina250[which(darkByMapQGenePercent$CHM13$Illumina250$perc_total >= perc), "gene_name"])), 
-                                           length(unlist(darkByMapQGenePercent$HG19_noAlt$ONT[which(darkByMapQGenePercent$HG19_noAlt$ONT$perc_total >= perc), "gene_name"])), 
-                                           length(unlist(darkByMapQGenePercent$HG38_noAlt$ONT[which(darkByMapQGenePercent$HG38_noAlt$ONT$perc_total >= perc), "gene_name"])), 
-                                           length(unlist(darkByMapQGenePercent$HG38_Alt$ONT[which(darkByMapQGenePercent$HG38_Alt$ONT$perc_total >= perc), "gene_name"])), 
-                                           length(unlist(darkByMapQGenePercent$CHM13$ONT[which(darkByMapQGenePercent$CHM13$ONT$perc_total >= perc), "gene_name"])), 
-                                           length(unlist(darkByMapQGenePercent$HG19_noAlt$PacBio[which(darkByMapQGenePercent$HG19_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
-                                           length(unlist(darkByMapQGenePercent$HG38_noAlt$PacBio[which(darkByMapQGenePercent$HG38_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
-                                           length(unlist(darkByMapQGenePercent$HG38_Alt$PacBio[which(darkByMapQGenePercent$HG38_Alt$PacBio$perc_total >= perc), "gene_name"])), 
-                                           length(unlist(darkByMapQGenePercent$CHM13$PacBio[which(darkByMapQGenePercent$CHM13$PacBio$perc_total >= perc), "gene_name"]))))
+                                 numGene=c(length(unlist(df2Use$HG19_noAlt$Illumina100[which(df2Use$HG19_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                           length(unlist(df2Use$HG38_noAlt$Illumina100[which(df2Use$HG38_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                           length(unlist(df2Use$HG38_Alt$Illumina100[which(df2Use$HG38_Alt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                           length(unlist(df2Use$CHM13$Illumina100[which(df2Use$CHM13$Illumina100$perc_total >= perc), "gene_name"])), 
+                                           length(unlist(df2Use$HG19_noAlt$Illumina250[which(df2Use$HG19_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                           length(unlist(df2Use$HG38_noAlt$Illumina250[which(df2Use$HG38_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                           length(unlist(df2Use$HG38_Alt$Illumina250[which(df2Use$HG38_Alt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                           length(unlist(df2Use$CHM13$Illumina250[which(df2Use$CHM13$Illumina250$perc_total >= perc), "gene_name"])), 
+                                           length(unlist(df2Use$HG19_noAlt$ONT[which(df2Use$HG19_noAlt$ONT$perc_total >= perc), "gene_name"])), 
+                                           length(unlist(df2Use$HG38_noAlt$ONT[which(df2Use$HG38_noAlt$ONT$perc_total >= perc), "gene_name"])), 
+                                           length(unlist(df2Use$HG38_Alt$ONT[which(df2Use$HG38_Alt$ONT$perc_total >= perc), "gene_name"])), 
+                                           length(unlist(df2Use$CHM13$ONT[which(df2Use$CHM13$ONT$perc_total >= perc), "gene_name"])), 
+                                           length(unlist(df2Use$HG19_noAlt$PacBio[which(df2Use$HG19_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
+                                           length(unlist(df2Use$HG38_noAlt$PacBio[which(df2Use$HG38_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
+                                           length(unlist(df2Use$HG38_Alt$PacBio[which(df2Use$HG38_Alt$PacBio$perc_total >= perc), "gene_name"])), 
+                                           length(unlist(df2Use$CHM13$PacBio[which(df2Use$CHM13$PacBio$perc_total >= perc), "gene_name"]))))
     
     darkByMapQGenes$Platform = factor(darkByMapQGenes$Platform, levels = c("Illumina100", "Illumina250", "PacBio", "ONT"))
     darkByMapQGenes$Reference = factor(darkByMapQGenes$Reference, levels=c("HG19_noAlt", "HG38_noAlt", "HG38_Alt", "CHM13"))
@@ -2537,28 +2838,38 @@ app %>% add_callback(
 app %>% add_callback(
   output('Biotype-DarkByMapQType-graphic', 'figure'),
   list(
-    input('percentDark', 'value')
+    input('percentDark', 'value'),
+    input('DataTabs', 'value')
   ),
-  function(perc) {
-    darkByMapQIllumina100_chm13 = as.data.frame(table(darkByMapQGenePercent$CHM13$Illumina100[which(darkByMapQGenePercent$CHM13$Illumina100$perc_total >= perc), "biotype"]))
-    darkByMapQIllumina250_chm13 = as.data.frame(table(darkByMapQGenePercent$CHM13$Illumina250[which(darkByMapQGenePercent$CHM13$Illumina250$perc_total >= perc), "biotype"]))
-    darkByMapQONT_chm13 = as.data.frame(table(darkByMapQGenePercent$CHM13$ONT[which(darkByMapQGenePercent$CHM13$ONT$perc_total >= perc), "biotype"]))
-    darkByMapQPacBio_chm13 = as.data.frame(table(darkByMapQGenePercent$CHM13$PacBio[which(darkByMapQGenePercent$CHM13$PacBio$perc_total >= perc), "biotype"]))
+  function(perc, tabType) {
+    df2Use = NULL
+    if(tabType == "primaryTab"){
+      df2Use = darkByMapQGenePercent
+    } else if (tabType == "primarySuppTab"){
+      df2Use = withSuppDarkByMapQGenePercent
+    } else if (tabType == "comparisonTab"){
+      df2Use = withSuppDarkByMapQGenePercent
+    } 
     
-    darkByMapQIllumina100_hg19_noAlt = as.data.frame(table(darkByMapQGenePercent$HG19_noAlt$Illumina100[which(darkByMapQGenePercent$HG19_noAlt$Illumina100$perc_total >= perc), "biotype"]))
-    darkByMapQIllumina250_hg19_noAlt = as.data.frame(table(darkByMapQGenePercent$HG19_noAlt$Illumina250[which(darkByMapQGenePercent$HG19_noAlt$Illumina250$perc_total >= perc), "biotype"]))
-    darkByMapQONT_hg19_noAlt = as.data.frame(table(darkByMapQGenePercent$HG19_noAlt$ONT[which(darkByMapQGenePercent$HG19_noAlt$ONT$perc_total >= perc), "biotype"]))
-    darkByMapQPacBio_hg19_noAlt = as.data.frame(table(darkByMapQGenePercent$HG19_noAlt$PacBio[which(darkByMapQGenePercent$HG19_noAlt$PacBio$perc_total >= perc), "biotype"]))
+    darkByMapQIllumina100_chm13 = as.data.frame(table(df2Use$CHM13$Illumina100[which(df2Use$CHM13$Illumina100$perc_total >= perc), "biotype"]))
+    darkByMapQIllumina250_chm13 = as.data.frame(table(df2Use$CHM13$Illumina250[which(df2Use$CHM13$Illumina250$perc_total >= perc), "biotype"]))
+    darkByMapQONT_chm13 = as.data.frame(table(df2Use$CHM13$ONT[which(df2Use$CHM13$ONT$perc_total >= perc), "biotype"]))
+    darkByMapQPacBio_chm13 = as.data.frame(table(df2Use$CHM13$PacBio[which(df2Use$CHM13$PacBio$perc_total >= perc), "biotype"]))
     
-    darkByMapQIllumina100_hg38_noAlt = as.data.frame(table(darkByMapQGenePercent$HG38_noAlt$Illumina100[which(darkByMapQGenePercent$HG38_noAlt$Illumina100$perc_total >= perc), "biotype"]))
-    darkByMapQIllumina250_hg38_noAlt = as.data.frame(table(darkByMapQGenePercent$HG38_noAlt$Illumina250[which(darkByMapQGenePercent$HG38_noAlt$Illumina250$perc_total >= perc), "biotype"]))
-    darkByMapQONT_hg38_noAlt = as.data.frame(table(darkByMapQGenePercent$HG38_noAlt$ONT[which(darkByMapQGenePercent$HG38_noAlt$ONT$perc_total >= perc), "biotype"]))
-    darkByMapQPacBio_hg38_noAlt = as.data.frame(table(darkByMapQGenePercent$HG38_noAlt$PacBio[which(darkByMapQGenePercent$HG38_noAlt$PacBio$perc_total >= perc), "biotype"]))
+    darkByMapQIllumina100_hg19_noAlt = as.data.frame(table(df2Use$HG19_noAlt$Illumina100[which(df2Use$HG19_noAlt$Illumina100$perc_total >= perc), "biotype"]))
+    darkByMapQIllumina250_hg19_noAlt = as.data.frame(table(df2Use$HG19_noAlt$Illumina250[which(df2Use$HG19_noAlt$Illumina250$perc_total >= perc), "biotype"]))
+    darkByMapQONT_hg19_noAlt = as.data.frame(table(df2Use$HG19_noAlt$ONT[which(df2Use$HG19_noAlt$ONT$perc_total >= perc), "biotype"]))
+    darkByMapQPacBio_hg19_noAlt = as.data.frame(table(df2Use$HG19_noAlt$PacBio[which(df2Use$HG19_noAlt$PacBio$perc_total >= perc), "biotype"]))
     
-    darkByMapQIllumina100_hg38_Alt = as.data.frame(table(darkByMapQGenePercent$HG38_Alt$Illumina100[which(darkByMapQGenePercent$HG38_Alt$Illumina100$perc_total >= perc), "biotype"]))
-    darkByMapQIllumina250_hg38_Alt = as.data.frame(table(darkByMapQGenePercent$HG38_Alt$Illumina250[which(darkByMapQGenePercent$HG38_Alt$Illumina250$perc_total >= perc), "biotype"]))
-    darkByMapQONT_hg38_Alt = as.data.frame(table(darkByMapQGenePercent$HG38_Alt$ONT[which(darkByMapQGenePercent$HG38_Alt$ONT$perc_total >= perc), "biotype"]))
-    darkByMapQPacBio_hg38_Alt = as.data.frame(table(darkByMapQGenePercent$HG38_Alt$PacBio[which(darkByMapQGenePercent$HG38_Alt$PacBio$perc_total >= perc), "biotype"]))
+    darkByMapQIllumina100_hg38_noAlt = as.data.frame(table(df2Use$HG38_noAlt$Illumina100[which(df2Use$HG38_noAlt$Illumina100$perc_total >= perc), "biotype"]))
+    darkByMapQIllumina250_hg38_noAlt = as.data.frame(table(df2Use$HG38_noAlt$Illumina250[which(df2Use$HG38_noAlt$Illumina250$perc_total >= perc), "biotype"]))
+    darkByMapQONT_hg38_noAlt = as.data.frame(table(df2Use$HG38_noAlt$ONT[which(df2Use$HG38_noAlt$ONT$perc_total >= perc), "biotype"]))
+    darkByMapQPacBio_hg38_noAlt = as.data.frame(table(df2Use$HG38_noAlt$PacBio[which(df2Use$HG38_noAlt$PacBio$perc_total >= perc), "biotype"]))
+    
+    darkByMapQIllumina100_hg38_Alt = as.data.frame(table(df2Use$HG38_Alt$Illumina100[which(df2Use$HG38_Alt$Illumina100$perc_total >= perc), "biotype"]))
+    darkByMapQIllumina250_hg38_Alt = as.data.frame(table(df2Use$HG38_Alt$Illumina250[which(df2Use$HG38_Alt$Illumina250$perc_total >= perc), "biotype"]))
+    darkByMapQONT_hg38_Alt = as.data.frame(table(df2Use$HG38_Alt$ONT[which(df2Use$HG38_Alt$ONT$perc_total >= perc), "biotype"]))
+    darkByMapQPacBio_hg38_Alt = as.data.frame(table(df2Use$HG38_Alt$PacBio[which(df2Use$HG38_Alt$PacBio$perc_total >= perc), "biotype"]))
     
     darkByMapQIllumina100_chm13$Reference = rep("CHM13", nrow(darkByMapQIllumina100_chm13))
     darkByMapQIllumina250_chm13$Reference = rep("CHM13", nrow(darkByMapQIllumina250_chm13))
@@ -2617,27 +2928,37 @@ app %>% add_callback(
 app %>% add_callback(
   output('Total-CamoType-graphic', 'figure'),
   list(
-    input('percentDark', 'value')
+    input('percentDark', 'value'),
+    input('DataTabs', 'value')
   ),
-  function(perc) {
+  function(perc, tabType) {
+    df2Use = NULL
+    if(tabType == "primaryTab"){
+      df2Use = CamoGenePercent
+    } else if (tabType == "primarySuppTab"){
+      df2Use = withSuppCamoGenePercent
+    } else if (tabType == "comparisonTab"){
+      df2Use = withSuppCamoGenePercent
+    } 
+    
     CamoGenes = data.frame(Platform=c(rep("Illumina100", 4), rep("Illumina250", 4), rep("ONT", 4), rep("PacBio", 4)), 
                            Reference=rep(c("HG19_noAlt", "HG38_noAlt", "HG38_Alt", "CHM13"), 4), 
-                           numGene=c(length(unlist(CamoGenePercent$HG19_noAlt$Illumina100[which(CamoGenePercent$HG19_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
-                                     length(unlist(CamoGenePercent$HG38_noAlt$Illumina100[which(CamoGenePercent$HG38_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
-                                     length(unlist(CamoGenePercent$HG38_Alt$Illumina100[which(CamoGenePercent$HG38_Alt$Illumina100$perc_total >= perc), "gene_name"])), 
-                                     length(unlist(CamoGenePercent$CHM13$Illumina100[which(CamoGenePercent$CHM13$Illumina100$perc_total >= perc), "gene_name"])), 
-                                     length(unlist(CamoGenePercent$HG19_noAlt$Illumina250[which(CamoGenePercent$HG19_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
-                                     length(unlist(CamoGenePercent$HG38_noAlt$Illumina250[which(CamoGenePercent$HG38_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
-                                     length(unlist(CamoGenePercent$HG38_Alt$Illumina250[which(CamoGenePercent$HG38_Alt$Illumina250$perc_total >= perc), "gene_name"])), 
-                                     length(unlist(CamoGenePercent$CHM13$Illumina250[which(CamoGenePercent$CHM13$Illumina250$perc_total >= perc), "gene_name"])), 
-                                     length(unlist(CamoGenePercent$HG19_noAlt$ONT[which(CamoGenePercent$HG19_noAlt$ONT$perc_total >= perc), "gene_name"])), 
-                                     length(unlist(CamoGenePercent$HG38_noAlt$ONT[which(CamoGenePercent$HG38_noAlt$ONT$perc_total >= perc), "gene_name"])), 
-                                     length(unlist(CamoGenePercent$HG38_Alt$ONT[which(CamoGenePercent$HG38_Alt$ONT$perc_total >= perc), "gene_name"])), 
-                                     length(unlist(CamoGenePercent$CHM13$ONT[which(CamoGenePercent$CHM13$ONT$perc_total >= perc), "gene_name"])), 
-                                     length(unlist(CamoGenePercent$HG19_noAlt$PacBio[which(CamoGenePercent$HG19_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
-                                     length(unlist(CamoGenePercent$HG38_noAlt$PacBio[which(CamoGenePercent$HG38_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
-                                     length(unlist(CamoGenePercent$HG38_Alt$PacBio[which(CamoGenePercent$HG38_Alt$PacBio$perc_total >= perc), "gene_name"])), 
-                                     length(unlist(CamoGenePercent$CHM13$PacBio[which(CamoGenePercent$CHM13$PacBio$perc_total >= perc), "gene_name"]))))
+                           numGene=c(length(unlist(df2Use$HG19_noAlt$Illumina100[which(df2Use$HG19_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                     length(unlist(df2Use$HG38_noAlt$Illumina100[which(df2Use$HG38_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                     length(unlist(df2Use$HG38_Alt$Illumina100[which(df2Use$HG38_Alt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                     length(unlist(df2Use$CHM13$Illumina100[which(df2Use$CHM13$Illumina100$perc_total >= perc), "gene_name"])), 
+                                     length(unlist(df2Use$HG19_noAlt$Illumina250[which(df2Use$HG19_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                     length(unlist(df2Use$HG38_noAlt$Illumina250[which(df2Use$HG38_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                     length(unlist(df2Use$HG38_Alt$Illumina250[which(df2Use$HG38_Alt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                     length(unlist(df2Use$CHM13$Illumina250[which(df2Use$CHM13$Illumina250$perc_total >= perc), "gene_name"])), 
+                                     length(unlist(df2Use$HG19_noAlt$ONT[which(df2Use$HG19_noAlt$ONT$perc_total >= perc), "gene_name"])), 
+                                     length(unlist(df2Use$HG38_noAlt$ONT[which(df2Use$HG38_noAlt$ONT$perc_total >= perc), "gene_name"])), 
+                                     length(unlist(df2Use$HG38_Alt$ONT[which(df2Use$HG38_Alt$ONT$perc_total >= perc), "gene_name"])), 
+                                     length(unlist(df2Use$CHM13$ONT[which(df2Use$CHM13$ONT$perc_total >= perc), "gene_name"])), 
+                                     length(unlist(df2Use$HG19_noAlt$PacBio[which(df2Use$HG19_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
+                                     length(unlist(df2Use$HG38_noAlt$PacBio[which(df2Use$HG38_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
+                                     length(unlist(df2Use$HG38_Alt$PacBio[which(df2Use$HG38_Alt$PacBio$perc_total >= perc), "gene_name"])), 
+                                     length(unlist(df2Use$CHM13$PacBio[which(df2Use$CHM13$PacBio$perc_total >= perc), "gene_name"]))))
     
     
     CamoGenes$Platform = factor(CamoGenes$Platform, levels = c("Illumina100", "Illumina250", "PacBio", "ONT"))
@@ -2658,28 +2979,38 @@ app %>% add_callback(
 app %>% add_callback(
   output('Biotype-CamoType-graphic', 'figure'),
   list(
-    input('percentDark', 'value')
+    input('percentDark', 'value'),
+    input('DataTabs', 'value')
   ),
-  function(perc) {
-    camoIllumina100_chm13 = as.data.frame(table(CamoGenePercent$CHM13$Illumina100[which(CamoGenePercent$CHM13$Illumina100$perc_total >= perc), "biotype"]))
-    camoIllumina250_chm13 = as.data.frame(table(CamoGenePercent$CHM13$Illumina250[which(CamoGenePercent$CHM13$Illumina250$perc_total >= perc), "biotype"]))
-    camoONT_chm13 = as.data.frame(table(CamoGenePercent$CHM13$ONT[which(CamoGenePercent$CHM13$ONT$perc_total >= perc), "biotype"]))
-    camoPacBio_chm13 = as.data.frame(table(CamoGenePercent$CHM13$PacBio[which(CamoGenePercent$CHM13$PacBio$perc_total >= perc), "biotype"]))
+  function(perc, tabType) {
+    df2Use = NULL
+    if(tabType == "primaryTab"){
+      df2Use = CamoGenePercent
+    } else if (tabType == "primarySuppTab"){
+      df2Use = withSuppCamoGenePercent
+    } else if (tabType == "comparisonTab"){
+      df2Use = withSuppCamoGenePercent
+    } 
     
-    camoIllumina100_hg19_noAlt = as.data.frame(table(CamoGenePercent$HG19_noAlt$Illumina100[which(CamoGenePercent$HG19_noAlt$Illumina100$perc_total >= perc), "biotype"]))
-    camoIllumina250_hg19_noAlt = as.data.frame(table(CamoGenePercent$HG19_noAlt$Illumina250[which(CamoGenePercent$HG19_noAlt$Illumina250$perc_total >= perc), "biotype"]))
-    camoONT_hg19_noAlt = as.data.frame(table(CamoGenePercent$HG19_noAlt$ONT[which(CamoGenePercent$HG19_noAlt$ONT$perc_total >= perc), "biotype"]))
-    camoPacBio_hg19_noAlt = as.data.frame(table(CamoGenePercent$HG19_noAlt$PacBio[which(CamoGenePercent$HG19_noAlt$PacBio$perc_total >= perc), "biotype"]))
+    camoIllumina100_chm13 = as.data.frame(table(df2Use$CHM13$Illumina100[which(df2Use$CHM13$Illumina100$perc_total >= perc), "biotype"]))
+    camoIllumina250_chm13 = as.data.frame(table(df2Use$CHM13$Illumina250[which(df2Use$CHM13$Illumina250$perc_total >= perc), "biotype"]))
+    camoONT_chm13 = as.data.frame(table(df2Use$CHM13$ONT[which(df2Use$CHM13$ONT$perc_total >= perc), "biotype"]))
+    camoPacBio_chm13 = as.data.frame(table(df2Use$CHM13$PacBio[which(df2Use$CHM13$PacBio$perc_total >= perc), "biotype"]))
     
-    camoIllumina100_hg38_noAlt = as.data.frame(table(CamoGenePercent$HG38_noAlt$Illumina100[which(CamoGenePercent$HG38_noAlt$Illumina100$perc_total >= perc), "biotype"]))
-    camoIllumina250_hg38_noAlt = as.data.frame(table(CamoGenePercent$HG38_noAlt$Illumina250[which(CamoGenePercent$HG38_noAlt$Illumina250$perc_total >= perc), "biotype"]))
-    camoONT_hg38_noAlt = as.data.frame(table(CamoGenePercent$HG38_noAlt$ONT[which(CamoGenePercent$HG38_noAlt$ONT$perc_total >= perc), "biotype"]))
-    camoPacBio_hg38_noAlt = as.data.frame(table(CamoGenePercent$HG38_noAlt$PacBio[which(CamoGenePercent$HG38_noAlt$PacBio$perc_total >= perc), "biotype"]))
+    camoIllumina100_hg19_noAlt = as.data.frame(table(df2Use$HG19_noAlt$Illumina100[which(df2Use$HG19_noAlt$Illumina100$perc_total >= perc), "biotype"]))
+    camoIllumina250_hg19_noAlt = as.data.frame(table(df2Use$HG19_noAlt$Illumina250[which(df2Use$HG19_noAlt$Illumina250$perc_total >= perc), "biotype"]))
+    camoONT_hg19_noAlt = as.data.frame(table(df2Use$HG19_noAlt$ONT[which(df2Use$HG19_noAlt$ONT$perc_total >= perc), "biotype"]))
+    camoPacBio_hg19_noAlt = as.data.frame(table(df2Use$HG19_noAlt$PacBio[which(df2Use$HG19_noAlt$PacBio$perc_total >= perc), "biotype"]))
     
-    camoIllumina100_hg38_Alt = as.data.frame(table(CamoGenePercent$HG38_Alt$Illumina100[which(CamoGenePercent$HG38_Alt$Illumina100$perc_total >= perc), "biotype"]))
-    camoIllumina250_hg38_Alt = as.data.frame(table(CamoGenePercent$HG38_Alt$Illumina250[which(CamoGenePercent$HG38_Alt$Illumina250$perc_total >= perc), "biotype"]))
-    camoONT_hg38_Alt = as.data.frame(table(CamoGenePercent$HG38_Alt$ONT[which(CamoGenePercent$HG38_Alt$ONT$perc_total >= perc), "biotype"]))
-    camoPacBio_hg38_Alt = as.data.frame(table(CamoGenePercent$HG38_Alt$PacBio[which(CamoGenePercent$HG38_Alt$PacBio$perc_total >= perc), "biotype"]))
+    camoIllumina100_hg38_noAlt = as.data.frame(table(df2Use$HG38_noAlt$Illumina100[which(df2Use$HG38_noAlt$Illumina100$perc_total >= perc), "biotype"]))
+    camoIllumina250_hg38_noAlt = as.data.frame(table(df2Use$HG38_noAlt$Illumina250[which(df2Use$HG38_noAlt$Illumina250$perc_total >= perc), "biotype"]))
+    camoONT_hg38_noAlt = as.data.frame(table(df2Use$HG38_noAlt$ONT[which(df2Use$HG38_noAlt$ONT$perc_total >= perc), "biotype"]))
+    camoPacBio_hg38_noAlt = as.data.frame(table(df2Use$HG38_noAlt$PacBio[which(df2Use$HG38_noAlt$PacBio$perc_total >= perc), "biotype"]))
+    
+    camoIllumina100_hg38_Alt = as.data.frame(table(df2Use$HG38_Alt$Illumina100[which(df2Use$HG38_Alt$Illumina100$perc_total >= perc), "biotype"]))
+    camoIllumina250_hg38_Alt = as.data.frame(table(df2Use$HG38_Alt$Illumina250[which(df2Use$HG38_Alt$Illumina250$perc_total >= perc), "biotype"]))
+    camoONT_hg38_Alt = as.data.frame(table(df2Use$HG38_Alt$ONT[which(df2Use$HG38_Alt$ONT$perc_total >= perc), "biotype"]))
+    camoPacBio_hg38_Alt = as.data.frame(table(df2Use$HG38_Alt$PacBio[which(df2Use$HG38_Alt$PacBio$perc_total >= perc), "biotype"]))
     
     camoIllumina100_chm13$Reference = rep("CHM13", nrow(camoIllumina100_chm13))
     camoIllumina250_chm13$Reference = rep("CHM13", nrow(camoIllumina250_chm13))
@@ -2745,26 +3076,39 @@ app %>% add_callback(
 app %>% add_callback(
   output('PercentCamoOfMapQ-graphic', 'figure'),
   list(
-    input('percentDark', 'value')
+    input('percentDark', 'value'),
+    input('DataTabs', 'value')
   ),
-  function(perc) {
-    CamoGenes = data.frame(Platform=c(rep("Illumina100", 4), rep("Illumina250", 4), rep("ONT", 4), rep("PacBio", 4)), Reference=rep(c("HG19_noAlt", "HG38_noAlt", "HG38_Alt", "CHM13"), 4), numGene=c(length(CamoGenePercent$HG19_noAlt$Illumina100[which(CamoGenePercent$HG19_noAlt$Illumina100$perc_total >= perc), "gene_name"]), length(CamoGenePercent$HG38_noAlt$Illumina100[which(CamoGenePercent$HG38_noAlt$Illumina100$perc_total >= perc), "gene_name"]), length(CamoGenePercent$HG38_Alt$Illumina100[which(CamoGenePercent$HG38_Alt$Illumina100$perc_total >= perc), "gene_name"]), length(CamoGenePercent$CHM13$Illumina100[which(CamoGenePercent$CHM13$Illumina100$perc_total >= perc), "gene_name"]), length(CamoGenePercent$HG19_noAlt$Illumina250[which(CamoGenePercent$HG19_noAlt$Illumina250$perc_total >= perc), "gene_name"]), length(CamoGenePercent$HG38_noAlt$Illumina250[which(CamoGenePercent$HG38_noAlt$Illumina250$perc_total >= perc), "gene_name"]), length(CamoGenePercent$HG38_Alt$Illumina250[which(CamoGenePercent$HG38_Alt$Illumina250$perc_total >= perc), "gene_name"]), length(CamoGenePercent$CHM13$Illumina250[which(CamoGenePercent$CHM13$Illumina250$perc_total >= perc), "gene_name"]), length(CamoGenePercent$HG19_noAlt$ONT[which(CamoGenePercent$HG19_noAlt$ONT$perc_total >= perc), "gene_name"]), length(CamoGenePercent$HG38_noAlt$ONT[which(CamoGenePercent$HG38_noAlt$ONT$perc_total >= perc), "gene_name"]), length(CamoGenePercent$HG38_Alt$ONT[which(CamoGenePercent$HG38_Alt$ONT$perc_total >= perc), "gene_name"]), length(CamoGenePercent$CHM13$ONT[which(CamoGenePercent$CHM13$ONT$perc_total >= perc), "gene_name"]), length(CamoGenePercent$HG19_noAlt$PacBio[which(CamoGenePercent$HG19_noAlt$PacBio$perc_total >= perc), "gene_name"]), length(CamoGenePercent$HG38_noAlt$PacBio[which(CamoGenePercent$HG38_noAlt$PacBio$perc_total >= perc), "gene_name"]), length(CamoGenePercent$HG38_Alt$PacBio[which(CamoGenePercent$HG38_Alt$PacBio$perc_total >= perc), "gene_name"]), length(CamoGenePercent$CHM13$PacBio[which(CamoGenePercent$CHM13$PacBio$perc_total >= perc), "gene_name"])))
-    CamoGenes$MapQNumGene = c(length(unlist(darkByMapQGenePercent$HG19_noAlt$Illumina100[which(darkByMapQGenePercent$HG19_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
-                              length(unlist(darkByMapQGenePercent$HG38_noAlt$Illumina100[which(darkByMapQGenePercent$HG38_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
-                              length(unlist(darkByMapQGenePercent$HG38_Alt$Illumina100[which(darkByMapQGenePercent$HG38_Alt$Illumina100$perc_total >= perc), "gene_name"])), 
-                              length(unlist(darkByMapQGenePercent$CHM13$Illumina100[which(darkByMapQGenePercent$CHM13$Illumina100$perc_total >= perc), "gene_name"])), 
-                              length(unlist(darkByMapQGenePercent$HG19_noAlt$Illumina250[which(darkByMapQGenePercent$HG19_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
-                              length(unlist(darkByMapQGenePercent$HG38_noAlt$Illumina250[which(darkByMapQGenePercent$HG38_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
-                              length(unlist(darkByMapQGenePercent$HG38_Alt$Illumina250[which(darkByMapQGenePercent$HG38_Alt$Illumina250$perc_total >= perc), "gene_name"])), 
-                              length(unlist(darkByMapQGenePercent$CHM13$Illumina250[which(darkByMapQGenePercent$CHM13$Illumina250$perc_total >= perc), "gene_name"])), 
-                              length(unlist(darkByMapQGenePercent$HG19_noAlt$ONT[which(darkByMapQGenePercent$HG19_noAlt$ONT$perc_total >= perc), "gene_name"])), 
-                              length(unlist(darkByMapQGenePercent$HG38_noAlt$ONT[which(darkByMapQGenePercent$HG38_noAlt$ONT$perc_total >= perc), "gene_name"])), 
-                              length(unlist(darkByMapQGenePercent$HG38_Alt$ONT[which(darkByMapQGenePercent$HG38_Alt$ONT$perc_total >= perc), "gene_name"])),
-                              length(unlist(darkByMapQGenePercent$CHM13$ONT[which(darkByMapQGenePercent$CHM13$ONT$perc_total >= perc), "gene_name"])), 
-                              length(unlist(darkByMapQGenePercent$HG19_noAlt$PacBio[which(darkByMapQGenePercent$HG19_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
-                              length(unlist(darkByMapQGenePercent$HG38_noAlt$PacBio[which(darkByMapQGenePercent$HG38_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
-                              length(unlist(darkByMapQGenePercent$HG38_Alt$PacBio[which(darkByMapQGenePercent$HG38_Alt$PacBio$perc_total >= perc), "gene_name"])), 
-                              length(unlist(darkByMapQGenePercent$CHM13$PacBio[which(darkByMapQGenePercent$CHM13$PacBio$perc_total >= perc), "gene_name"])))
+  function(perc, tabType) {
+    df2Use = NULL
+    if(tabType == "primaryTab"){
+      mapq_df2Use = darkByMapQGenePercent
+      camo_df2Use = CamoGenePercent
+    } else if (tabType == "primarySuppTab"){
+      mapq_df2Use = withSuppDarkByMapQGenePercent
+      camo_df2Use = withSuppCamoGenePercent
+    } else if (tabType == "comparisonTab"){
+      mapq_df2Use = withSuppDarkByMapQGenePercent
+      camo_df2Use = withSuppCamoGenePercent
+    } 
+    
+    CamoGenes = data.frame(Platform=c(rep("Illumina100", 4), rep("Illumina250", 4), rep("ONT", 4), rep("PacBio", 4)), Reference=rep(c("HG19_noAlt", "HG38_noAlt", "HG38_Alt", "CHM13"), 4), numGene=c(length(camo_df2Use$HG19_noAlt$Illumina100[which(camo_df2Use$HG19_noAlt$Illumina100$perc_total >= perc), "gene_name"]), length(camo_df2Use$HG38_noAlt$Illumina100[which(camo_df2Use$HG38_noAlt$Illumina100$perc_total >= perc), "gene_name"]), length(camo_df2Use$HG38_Alt$Illumina100[which(camo_df2Use$HG38_Alt$Illumina100$perc_total >= perc), "gene_name"]), length(camo_df2Use$CHM13$Illumina100[which(camo_df2Use$CHM13$Illumina100$perc_total >= perc), "gene_name"]), length(camo_df2Use$HG19_noAlt$Illumina250[which(camo_df2Use$HG19_noAlt$Illumina250$perc_total >= perc), "gene_name"]), length(camo_df2Use$HG38_noAlt$Illumina250[which(camo_df2Use$HG38_noAlt$Illumina250$perc_total >= perc), "gene_name"]), length(camo_df2Use$HG38_Alt$Illumina250[which(camo_df2Use$HG38_Alt$Illumina250$perc_total >= perc), "gene_name"]), length(camo_df2Use$CHM13$Illumina250[which(camo_df2Use$CHM13$Illumina250$perc_total >= perc), "gene_name"]), length(camo_df2Use$HG19_noAlt$ONT[which(camo_df2Use$HG19_noAlt$ONT$perc_total >= perc), "gene_name"]), length(camo_df2Use$HG38_noAlt$ONT[which(camo_df2Use$HG38_noAlt$ONT$perc_total >= perc), "gene_name"]), length(camo_df2Use$HG38_Alt$ONT[which(camo_df2Use$HG38_Alt$ONT$perc_total >= perc), "gene_name"]), length(camo_df2Use$CHM13$ONT[which(camo_df2Use$CHM13$ONT$perc_total >= perc), "gene_name"]), length(camo_df2Use$HG19_noAlt$PacBio[which(camo_df2Use$HG19_noAlt$PacBio$perc_total >= perc), "gene_name"]), length(camo_df2Use$HG38_noAlt$PacBio[which(camo_df2Use$HG38_noAlt$PacBio$perc_total >= perc), "gene_name"]), length(camo_df2Use$HG38_Alt$PacBio[which(camo_df2Use$HG38_Alt$PacBio$perc_total >= perc), "gene_name"]), length(camo_df2Use$CHM13$PacBio[which(camo_df2Use$CHM13$PacBio$perc_total >= perc), "gene_name"])))
+    CamoGenes$MapQNumGene = c(length(unlist(mapq_df2Use$HG19_noAlt$Illumina100[which(mapq_df2Use$HG19_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
+                              length(unlist(mapq_df2Use$HG38_noAlt$Illumina100[which(mapq_df2Use$HG38_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
+                              length(unlist(mapq_df2Use$HG38_Alt$Illumina100[which(mapq_df2Use$HG38_Alt$Illumina100$perc_total >= perc), "gene_name"])), 
+                              length(unlist(mapq_df2Use$CHM13$Illumina100[which(mapq_df2Use$CHM13$Illumina100$perc_total >= perc), "gene_name"])), 
+                              length(unlist(mapq_df2Use$HG19_noAlt$Illumina250[which(mapq_df2Use$HG19_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
+                              length(unlist(mapq_df2Use$HG38_noAlt$Illumina250[which(mapq_df2Use$HG38_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
+                              length(unlist(mapq_df2Use$HG38_Alt$Illumina250[which(mapq_df2Use$HG38_Alt$Illumina250$perc_total >= perc), "gene_name"])), 
+                              length(unlist(mapq_df2Use$CHM13$Illumina250[which(mapq_df2Use$CHM13$Illumina250$perc_total >= perc), "gene_name"])), 
+                              length(unlist(mapq_df2Use$HG19_noAlt$ONT[which(mapq_df2Use$HG19_noAlt$ONT$perc_total >= perc), "gene_name"])), 
+                              length(unlist(mapq_df2Use$HG38_noAlt$ONT[which(mapq_df2Use$HG38_noAlt$ONT$perc_total >= perc), "gene_name"])), 
+                              length(unlist(mapq_df2Use$HG38_Alt$ONT[which(mapq_df2Use$HG38_Alt$ONT$perc_total >= perc), "gene_name"])),
+                              length(unlist(mapq_df2Use$CHM13$ONT[which(mapq_df2Use$CHM13$ONT$perc_total >= perc), "gene_name"])), 
+                              length(unlist(mapq_df2Use$HG19_noAlt$PacBio[which(mapq_df2Use$HG19_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
+                              length(unlist(mapq_df2Use$HG38_noAlt$PacBio[which(mapq_df2Use$HG38_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
+                              length(unlist(mapq_df2Use$HG38_Alt$PacBio[which(mapq_df2Use$HG38_Alt$PacBio$perc_total >= perc), "gene_name"])), 
+                              length(unlist(mapq_df2Use$CHM13$PacBio[which(mapq_df2Use$CHM13$PacBio$perc_total >= perc), "gene_name"])))
     CamoGenes$Reference = factor(CamoGenes$Reference, levels=c("HG19_noAlt", "HG38_noAlt", "HG38_Alt", "CHM13"))
     CamoGenes$Percent = CamoGenes$numGene/CamoGenes$MapQNumGene * 100
     CamoGenes$Platform = factor(CamoGenes$Platform, levels = c("Illumina100", "Illumina250", "PacBio", "ONT"))
@@ -2790,6 +3134,287 @@ app %>% add_callback(
   ),
   function(reference, platform) {
     return(df_to_list(nucsAndRegions[which(nucsAndRegions$Platform == platform & nucsAndRegions$Reference == reference),]))
+  }
+)
+
+
+app %>% add_callback(
+  output('TotalComparison-DarkByMapQType-graphic', 'figure'),
+    params=list(input('DataTabs', 'value')),
+    function(tabType) {
+    perc = 5
+    
+    PrimaryOnlyDarkByMapQGenes = data.frame(Platform=c(rep("Illumina100", 4), rep("Illumina250", 4), rep("ONT", 4), rep("PacBio", 4)), 
+                                 Reference=rep(c("HG19_noAlt", "HG38_noAlt", "HG38_Alt", "CHM13"), 4), 
+                                 numGene=c(length(unlist(darkByMapQGenePercent$HG19_noAlt$Illumina100[which(darkByMapQGenePercent$HG19_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                           length(unlist(darkByMapQGenePercent$HG38_noAlt$Illumina100[which(darkByMapQGenePercent$HG38_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                           length(unlist(darkByMapQGenePercent$HG38_Alt$Illumina100[which(darkByMapQGenePercent$HG38_Alt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                           length(unlist(darkByMapQGenePercent$CHM13$Illumina100[which(darkByMapQGenePercent$CHM13$Illumina100$perc_total >= perc), "gene_name"])), 
+                                           length(unlist(darkByMapQGenePercent$HG19_noAlt$Illumina250[which(darkByMapQGenePercent$HG19_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                           length(unlist(darkByMapQGenePercent$HG38_noAlt$Illumina250[which(darkByMapQGenePercent$HG38_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                           length(unlist(darkByMapQGenePercent$HG38_Alt$Illumina250[which(darkByMapQGenePercent$HG38_Alt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                           length(unlist(darkByMapQGenePercent$CHM13$Illumina250[which(darkByMapQGenePercent$CHM13$Illumina250$perc_total >= perc), "gene_name"])), 
+                                           length(unlist(darkByMapQGenePercent$HG19_noAlt$ONT[which(darkByMapQGenePercent$HG19_noAlt$ONT$perc_total >= perc), "gene_name"])), 
+                                           length(unlist(darkByMapQGenePercent$HG38_noAlt$ONT[which(darkByMapQGenePercent$HG38_noAlt$ONT$perc_total >= perc), "gene_name"])), 
+                                           length(unlist(darkByMapQGenePercent$HG38_Alt$ONT[which(darkByMapQGenePercent$HG38_Alt$ONT$perc_total >= perc), "gene_name"])), 
+                                           length(unlist(darkByMapQGenePercent$CHM13$ONT[which(darkByMapQGenePercent$CHM13$ONT$perc_total >= perc), "gene_name"])), 
+                                           length(unlist(darkByMapQGenePercent$HG19_noAlt$PacBio[which(darkByMapQGenePercent$HG19_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
+                                           length(unlist(darkByMapQGenePercent$HG38_noAlt$PacBio[which(darkByMapQGenePercent$HG38_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
+                                           length(unlist(darkByMapQGenePercent$HG38_Alt$PacBio[which(darkByMapQGenePercent$HG38_Alt$PacBio$perc_total >= perc), "gene_name"])), 
+                                           length(unlist(darkByMapQGenePercent$CHM13$PacBio[which(darkByMapQGenePercent$CHM13$PacBio$perc_total >= perc), "gene_name"]))))
+    
+    PrimaryOnlyDarkByMapQGenes$Platform = factor(PrimaryOnlyDarkByMapQGenes$Platform, levels = c("Illumina100", "Illumina250", "PacBio", "ONT"))
+    PrimaryOnlyDarkByMapQGenes$Reference = factor(PrimaryOnlyDarkByMapQGenes$Reference, levels=c("HG19_noAlt", "HG38_noAlt", "HG38_Alt", "CHM13"))
+    
+    
+    PrimarySuppDarkByMapQGenes = data.frame(Platform=c(rep("Illumina100", 4), rep("Illumina250", 4), rep("ONT", 4), rep("PacBio", 4)), 
+                               Reference=rep(c("HG19_noAlt", "HG38_noAlt", "HG38_Alt", "CHM13"), 4), 
+                               numGene=c(length(unlist(withSuppDarkByMapQGenePercent$HG19_noAlt$Illumina100[which(withSuppDarkByMapQGenePercent$HG19_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                         length(unlist(withSuppDarkByMapQGenePercent$HG38_noAlt$Illumina100[which(withSuppDarkByMapQGenePercent$HG38_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                         length(unlist(withSuppDarkByMapQGenePercent$HG38_Alt$Illumina100[which(withSuppDarkByMapQGenePercent$HG38_Alt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                         length(unlist(withSuppDarkByMapQGenePercent$CHM13$Illumina100[which(withSuppDarkByMapQGenePercent$CHM13$Illumina100$perc_total >= perc), "gene_name"])), 
+                                         length(unlist(withSuppDarkByMapQGenePercent$HG19_noAlt$Illumina250[which(withSuppDarkByMapQGenePercent$HG19_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                         length(unlist(withSuppDarkByMapQGenePercent$HG38_noAlt$Illumina250[which(withSuppDarkByMapQGenePercent$HG38_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                         length(unlist(withSuppDarkByMapQGenePercent$HG38_Alt$Illumina250[which(withSuppDarkByMapQGenePercent$HG38_Alt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                         length(unlist(withSuppDarkByMapQGenePercent$CHM13$Illumina250[which(withSuppDarkByMapQGenePercent$CHM13$Illumina250$perc_total >= perc), "gene_name"])), 
+                                         length(unlist(withSuppDarkByMapQGenePercent$HG19_noAlt$ONT[which(withSuppDarkByMapQGenePercent$HG19_noAlt$ONT$perc_total >= perc), "gene_name"])), 
+                                         length(unlist(withSuppDarkByMapQGenePercent$HG38_noAlt$ONT[which(withSuppDarkByMapQGenePercent$HG38_noAlt$ONT$perc_total >= perc), "gene_name"])), 
+                                         length(unlist(withSuppDarkByMapQGenePercent$HG38_Alt$ONT[which(withSuppDarkByMapQGenePercent$HG38_Alt$ONT$perc_total >= perc), "gene_name"])), 
+                                         length(unlist(withSuppDarkByMapQGenePercent$CHM13$ONT[which(withSuppDarkByMapQGenePercent$CHM13$ONT$perc_total >= perc), "gene_name"])), 
+                                         length(unlist(withSuppDarkByMapQGenePercent$HG19_noAlt$PacBio[which(withSuppDarkByMapQGenePercent$HG19_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
+                                         length(unlist(withSuppDarkByMapQGenePercent$HG38_noAlt$PacBio[which(withSuppDarkByMapQGenePercent$HG38_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
+                                         length(unlist(withSuppDarkByMapQGenePercent$HG38_Alt$PacBio[which(withSuppDarkByMapQGenePercent$HG38_Alt$PacBio$perc_total >= perc), "gene_name"])), 
+                                         length(unlist(withSuppDarkByMapQGenePercent$CHM13$PacBio[which(withSuppDarkByMapQGenePercent$CHM13$PacBio$perc_total >= perc), "gene_name"]))))
+    
+    PrimarySuppDarkByMapQGenes$Platform = factor(PrimarySuppDarkByMapQGenes$Platform, levels = c("Illumina100", "Illumina250", "PacBio", "ONT"))
+    PrimarySuppDarkByMapQGenes$Reference = factor(PrimarySuppDarkByMapQGenes$Reference, levels=c("HG19_noAlt", "HG38_noAlt", "HG38_Alt", "CHM13"))
+    
+    
+    mergeDbM = merge(PrimaryOnlyDarkByMapQGenes, PrimarySuppDarkByMapQGenes, by=c("Platform", "Reference"))
+    colnames(mergeDbM) = c("Platform", "Reference", "PrimaryOnlyDbM", "PrimarySuppDbM")
+    
+    mergeDbM$Diff = mergeDbM$PrimarySuppDbM - mergeDbM$PrimaryOnlyDbM
+    
+    fig = ggplot(mergeDbM, aes(x=Platform, y=Diff, fill=Reference)) + geom_bar(stat="identity", position=position_dodge()) + theme_bw() + theme(axis.text.x = element_text(angle = -45, vjust = 0.5, hjust=1)) + ylab("Number of Genes") + xlab("") + ggtitle("Dark-by-MAPQ Genes (Primary+Supp - Primary Only)")
+
+    pdf(paste0("Figures/DbM_", perc, "PrimarySuppMinusPrimaryOnly.pdf"), width=6, height= 4)
+    print(fig)
+    dev.off()
+    
+    
+    ggplotly(fig)
+    
+  }
+)
+
+
+app %>% add_callback(
+  output('TotalComparison-DarkByDepthType-graphic', 'figure'),
+  params=list(input('DataTabs', 'value')),
+  function(tabType) {
+    
+    perc = 5
+    PrimaryOnlyDarkByDepthGenes = data.frame(Platform=c(rep("Illumina100", 4), rep("Illumina250", 4), rep("ONT", 4), rep("PacBio", 4)), 
+                                            Reference=rep(c("HG19_noAlt", "HG38_noAlt", "HG38_Alt", "CHM13"), 4), 
+                                            numGene=c(length(unlist(darkByDepthGenePercent$HG19_noAlt$Illumina100[which(darkByDepthGenePercent$HG19_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                                      length(unlist(darkByDepthGenePercent$HG38_noAlt$Illumina100[which(darkByDepthGenePercent$HG38_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                                      length(unlist(darkByDepthGenePercent$HG38_Alt$Illumina100[which(darkByDepthGenePercent$HG38_Alt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                                      length(unlist(darkByDepthGenePercent$CHM13$Illumina100[which(darkByDepthGenePercent$CHM13$Illumina100$perc_total >= perc), "gene_name"])), 
+                                                      length(unlist(darkByDepthGenePercent$HG19_noAlt$Illumina250[which(darkByDepthGenePercent$HG19_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                                      length(unlist(darkByDepthGenePercent$HG38_noAlt$Illumina250[which(darkByDepthGenePercent$HG38_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                                      length(unlist(darkByDepthGenePercent$HG38_Alt$Illumina250[which(darkByDepthGenePercent$HG38_Alt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                                      length(unlist(darkByDepthGenePercent$CHM13$Illumina250[which(darkByDepthGenePercent$CHM13$Illumina250$perc_total >= perc), "gene_name"])), 
+                                                      length(unlist(darkByDepthGenePercent$HG19_noAlt$ONT[which(darkByDepthGenePercent$HG19_noAlt$ONT$perc_total >= perc), "gene_name"])), 
+                                                      length(unlist(darkByDepthGenePercent$HG38_noAlt$ONT[which(darkByDepthGenePercent$HG38_noAlt$ONT$perc_total >= perc), "gene_name"])), 
+                                                      length(unlist(darkByDepthGenePercent$HG38_Alt$ONT[which(darkByDepthGenePercent$HG38_Alt$ONT$perc_total >= perc), "gene_name"])), 
+                                                      length(unlist(darkByDepthGenePercent$CHM13$ONT[which(darkByDepthGenePercent$CHM13$ONT$perc_total >= perc), "gene_name"])), 
+                                                      length(unlist(darkByDepthGenePercent$HG19_noAlt$PacBio[which(darkByDepthGenePercent$HG19_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
+                                                      length(unlist(darkByDepthGenePercent$HG38_noAlt$PacBio[which(darkByDepthGenePercent$HG38_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
+                                                      length(unlist(darkByDepthGenePercent$HG38_Alt$PacBio[which(darkByDepthGenePercent$HG38_Alt$PacBio$perc_total >= perc), "gene_name"])), 
+                                                      length(unlist(darkByDepthGenePercent$CHM13$PacBio[which(darkByDepthGenePercent$CHM13$PacBio$perc_total >= perc), "gene_name"]))))
+    
+    PrimaryOnlyDarkByDepthGenes$Platform = factor(PrimaryOnlyDarkByDepthGenes$Platform, levels = c("Illumina100", "Illumina250", "PacBio", "ONT"))
+    PrimaryOnlyDarkByDepthGenes$Reference = factor(PrimaryOnlyDarkByDepthGenes$Reference, levels=c("HG19_noAlt", "HG38_noAlt", "HG38_Alt", "CHM13"))
+    
+    
+    PrimarySuppDarkByDepthGenes = data.frame(Platform=c(rep("Illumina100", 4), rep("Illumina250", 4), rep("ONT", 4), rep("PacBio", 4)), 
+                                            Reference=rep(c("HG19_noAlt", "HG38_noAlt", "HG38_Alt", "CHM13"), 4), 
+                                            numGene=c(length(unlist(withSuppDarkByDepthGenePercent$HG19_noAlt$Illumina100[which(withSuppDarkByDepthGenePercent$HG19_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                                      length(unlist(withSuppDarkByDepthGenePercent$HG38_noAlt$Illumina100[which(withSuppDarkByDepthGenePercent$HG38_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                                      length(unlist(withSuppDarkByDepthGenePercent$HG38_Alt$Illumina100[which(withSuppDarkByDepthGenePercent$HG38_Alt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                                      length(unlist(withSuppDarkByDepthGenePercent$CHM13$Illumina100[which(withSuppDarkByDepthGenePercent$CHM13$Illumina100$perc_total >= perc), "gene_name"])), 
+                                                      length(unlist(withSuppDarkByDepthGenePercent$HG19_noAlt$Illumina250[which(withSuppDarkByDepthGenePercent$HG19_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                                      length(unlist(withSuppDarkByDepthGenePercent$HG38_noAlt$Illumina250[which(withSuppDarkByDepthGenePercent$HG38_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                                      length(unlist(withSuppDarkByDepthGenePercent$HG38_Alt$Illumina250[which(withSuppDarkByDepthGenePercent$HG38_Alt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                                      length(unlist(withSuppDarkByDepthGenePercent$CHM13$Illumina250[which(withSuppDarkByDepthGenePercent$CHM13$Illumina250$perc_total >= perc), "gene_name"])), 
+                                                      length(unlist(withSuppDarkByDepthGenePercent$HG19_noAlt$ONT[which(withSuppDarkByDepthGenePercent$HG19_noAlt$ONT$perc_total >= perc), "gene_name"])), 
+                                                      length(unlist(withSuppDarkByDepthGenePercent$HG38_noAlt$ONT[which(withSuppDarkByDepthGenePercent$HG38_noAlt$ONT$perc_total >= perc), "gene_name"])), 
+                                                      length(unlist(withSuppDarkByDepthGenePercent$HG38_Alt$ONT[which(withSuppDarkByDepthGenePercent$HG38_Alt$ONT$perc_total >= perc), "gene_name"])), 
+                                                      length(unlist(withSuppDarkByDepthGenePercent$CHM13$ONT[which(withSuppDarkByDepthGenePercent$CHM13$ONT$perc_total >= perc), "gene_name"])), 
+                                                      length(unlist(withSuppDarkByDepthGenePercent$HG19_noAlt$PacBio[which(withSuppDarkByDepthGenePercent$HG19_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
+                                                      length(unlist(withSuppDarkByDepthGenePercent$HG38_noAlt$PacBio[which(withSuppDarkByDepthGenePercent$HG38_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
+                                                      length(unlist(withSuppDarkByDepthGenePercent$HG38_Alt$PacBio[which(withSuppDarkByDepthGenePercent$HG38_Alt$PacBio$perc_total >= perc), "gene_name"])), 
+                                                      length(unlist(withSuppDarkByDepthGenePercent$CHM13$PacBio[which(withSuppDarkByDepthGenePercent$CHM13$PacBio$perc_total >= perc), "gene_name"]))))
+    
+    PrimarySuppDarkByDepthGenes$Platform = factor(PrimarySuppDarkByDepthGenes$Platform, levels = c("Illumina100", "Illumina250", "PacBio", "ONT"))
+    PrimarySuppDarkByDepthGenes$Reference = factor(PrimarySuppDarkByDepthGenes$Reference, levels=c("HG19_noAlt", "HG38_noAlt", "HG38_Alt", "CHM13"))
+    
+    
+    mergeDbD = merge(PrimaryOnlyDarkByDepthGenes, PrimarySuppDarkByDepthGenes, by=c("Platform", "Reference"))
+    colnames(mergeDbD) = c("Platform", "Reference", "PrimaryOnlyDbD", "PrimarySuppDbD")
+    
+    mergeDbD$Diff = mergeDbD$PrimarySuppDbD - mergeDbD$PrimaryOnlyDbD
+    
+    fig = ggplot(mergeDbD, aes(x=Platform, y=Diff, fill=Reference)) + geom_bar(stat="identity", position=position_dodge()) + theme_bw() + theme(axis.text.x = element_text(angle = -45, vjust = 0.5, hjust=1)) + ylab("Number of Genes") + xlab("") + ggtitle("Dark-by-Depth Genes (Primary+Supp - Primary Only)")
+    
+    pdf(paste0("Figures/DbD_", perc, "PrimarySuppMinusPrimaryOnly.pdf"), width=6, height= 4)
+    print(fig)
+    dev.off()
+    
+    
+    ggplotly(fig)
+    
+  }
+)
+
+
+app %>% add_callback(
+  output('TotalComparison-AllDarkType-graphic', 'figure'),
+  params=list(input('DataTabs', 'value')),
+  function(tabType) {
+    
+    perc = 5
+    PrimaryOnlyAllDarkGenes = data.frame(Platform=c(rep("Illumina100", 4), rep("Illumina250", 4), rep("ONT", 4), rep("PacBio", 4)), 
+                                             Reference=rep(c("HG19_noAlt", "HG38_noAlt", "HG38_Alt", "CHM13"), 4), 
+                                             numGene=c(length(unlist(darkGenePercent$HG19_noAlt$Illumina100[which(darkGenePercent$HG19_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                                       length(unlist(darkGenePercent$HG38_noAlt$Illumina100[which(darkGenePercent$HG38_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                                       length(unlist(darkGenePercent$HG38_Alt$Illumina100[which(darkGenePercent$HG38_Alt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                                       length(unlist(darkGenePercent$CHM13$Illumina100[which(darkGenePercent$CHM13$Illumina100$perc_total >= perc), "gene_name"])), 
+                                                       length(unlist(darkGenePercent$HG19_noAlt$Illumina250[which(darkGenePercent$HG19_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                                       length(unlist(darkGenePercent$HG38_noAlt$Illumina250[which(darkGenePercent$HG38_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                                       length(unlist(darkGenePercent$HG38_Alt$Illumina250[which(darkGenePercent$HG38_Alt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                                       length(unlist(darkGenePercent$CHM13$Illumina250[which(darkGenePercent$CHM13$Illumina250$perc_total >= perc), "gene_name"])), 
+                                                       length(unlist(darkGenePercent$HG19_noAlt$ONT[which(darkGenePercent$HG19_noAlt$ONT$perc_total >= perc), "gene_name"])), 
+                                                       length(unlist(darkGenePercent$HG38_noAlt$ONT[which(darkGenePercent$HG38_noAlt$ONT$perc_total >= perc), "gene_name"])), 
+                                                       length(unlist(darkGenePercent$HG38_Alt$ONT[which(darkGenePercent$HG38_Alt$ONT$perc_total >= perc), "gene_name"])), 
+                                                       length(unlist(darkGenePercent$CHM13$ONT[which(darkGenePercent$CHM13$ONT$perc_total >= perc), "gene_name"])), 
+                                                       length(unlist(darkGenePercent$HG19_noAlt$PacBio[which(darkGenePercent$HG19_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
+                                                       length(unlist(darkGenePercent$HG38_noAlt$PacBio[which(darkGenePercent$HG38_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
+                                                       length(unlist(darkGenePercent$HG38_Alt$PacBio[which(darkGenePercent$HG38_Alt$PacBio$perc_total >= perc), "gene_name"])), 
+                                                       length(unlist(darkGenePercent$CHM13$PacBio[which(darkGenePercent$CHM13$PacBio$perc_total >= perc), "gene_name"]))))
+    
+    PrimaryOnlyAllDarkGenes$Platform = factor(PrimaryOnlyAllDarkGenes$Platform, levels = c("Illumina100", "Illumina250", "PacBio", "ONT"))
+    PrimaryOnlyAllDarkGenes$Reference = factor(PrimaryOnlyAllDarkGenes$Reference, levels=c("HG19_noAlt", "HG38_noAlt", "HG38_Alt", "CHM13"))
+    
+    
+    PrimarySuppAllDarkGenes = data.frame(Platform=c(rep("Illumina100", 4), rep("Illumina250", 4), rep("ONT", 4), rep("PacBio", 4)), 
+                                             Reference=rep(c("HG19_noAlt", "HG38_noAlt", "HG38_Alt", "CHM13"), 4), 
+                                             numGene=c(length(unlist(withSuppDarkGenePercent$HG19_noAlt$Illumina100[which(withSuppDarkGenePercent$HG19_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                                       length(unlist(withSuppDarkGenePercent$HG38_noAlt$Illumina100[which(withSuppDarkGenePercent$HG38_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                                       length(unlist(withSuppDarkGenePercent$HG38_Alt$Illumina100[which(withSuppDarkGenePercent$HG38_Alt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                                       length(unlist(withSuppDarkGenePercent$CHM13$Illumina100[which(withSuppDarkGenePercent$CHM13$Illumina100$perc_total >= perc), "gene_name"])), 
+                                                       length(unlist(withSuppDarkGenePercent$HG19_noAlt$Illumina250[which(withSuppDarkGenePercent$HG19_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                                       length(unlist(withSuppDarkGenePercent$HG38_noAlt$Illumina250[which(withSuppDarkGenePercent$HG38_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                                       length(unlist(withSuppDarkGenePercent$HG38_Alt$Illumina250[which(withSuppDarkGenePercent$HG38_Alt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                                       length(unlist(withSuppDarkGenePercent$CHM13$Illumina250[which(withSuppDarkGenePercent$CHM13$Illumina250$perc_total >= perc), "gene_name"])), 
+                                                       length(unlist(withSuppDarkGenePercent$HG19_noAlt$ONT[which(withSuppDarkGenePercent$HG19_noAlt$ONT$perc_total >= perc), "gene_name"])), 
+                                                       length(unlist(withSuppDarkGenePercent$HG38_noAlt$ONT[which(withSuppDarkGenePercent$HG38_noAlt$ONT$perc_total >= perc), "gene_name"])), 
+                                                       length(unlist(withSuppDarkGenePercent$HG38_Alt$ONT[which(withSuppDarkGenePercent$HG38_Alt$ONT$perc_total >= perc), "gene_name"])), 
+                                                       length(unlist(withSuppDarkGenePercent$CHM13$ONT[which(withSuppDarkGenePercent$CHM13$ONT$perc_total >= perc), "gene_name"])), 
+                                                       length(unlist(withSuppDarkGenePercent$HG19_noAlt$PacBio[which(withSuppDarkGenePercent$HG19_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
+                                                       length(unlist(withSuppDarkGenePercent$HG38_noAlt$PacBio[which(withSuppDarkGenePercent$HG38_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
+                                                       length(unlist(withSuppDarkGenePercent$HG38_Alt$PacBio[which(withSuppDarkGenePercent$HG38_Alt$PacBio$perc_total >= perc), "gene_name"])), 
+                                                       length(unlist(withSuppDarkGenePercent$CHM13$PacBio[which(withSuppDarkGenePercent$CHM13$PacBio$perc_total >= perc), "gene_name"]))))
+    
+    PrimarySuppAllDarkGenes$Platform = factor(PrimarySuppAllDarkGenes$Platform, levels = c("Illumina100", "Illumina250", "PacBio", "ONT"))
+    PrimarySuppAllDarkGenes$Reference = factor(PrimarySuppAllDarkGenes$Reference, levels=c("HG19_noAlt", "HG38_noAlt", "HG38_Alt", "CHM13"))
+    
+    
+    mergeAllDark = merge(PrimaryOnlyAllDarkGenes, PrimarySuppAllDarkGenes, by=c("Platform", "Reference"))
+    colnames(mergeAllDark) = c("Platform", "Reference", "PrimaryOnlyAllDark", "PrimarySuppAllDark")
+    
+    mergeAllDark$Diff = mergeAllDark$PrimarySuppAllDark - mergeAllDark$PrimaryOnlyAllDark
+    
+    fig = ggplot(mergeAllDark, aes(x=Platform, y=Diff, fill=Reference)) + geom_bar(stat="identity", position=position_dodge()) + theme_bw() + theme(axis.text.x = element_text(angle = -45, vjust = 0.5, hjust=1)) + ylab("Number of Genes") + xlab("") + ggtitle("All Dark Genes (Primary+Supp - Primary Only)")
+    
+    pdf(paste0("Figures/AllDark_", perc, "PrimarySuppMinusPrimaryOnly.pdf"), width=6, height= 4)
+    print(fig)
+    dev.off()
+    
+    
+    ggplotly(fig)
+    
+  }
+)
+
+
+
+app %>% add_callback(
+  outputs = output('TotalComparison-CamoType-graphic', 'figure'),
+    params=list(input('DataTabs', 'value')),
+    function(tabType) {
+    
+    perc = 5
+    PrimaryOnlyCamoGenes = data.frame(Platform=c(rep("Illumina100", 4), rep("Illumina250", 4), rep("ONT", 4), rep("PacBio", 4)), 
+                                         Reference=rep(c("HG19_noAlt", "HG38_noAlt", "HG38_Alt", "CHM13"), 4), 
+                                         numGene=c(length(unlist(CamoGenePercent$HG19_noAlt$Illumina100[which(CamoGenePercent$HG19_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                                   length(unlist(CamoGenePercent$HG38_noAlt$Illumina100[which(CamoGenePercent$HG38_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                                   length(unlist(CamoGenePercent$HG38_Alt$Illumina100[which(CamoGenePercent$HG38_Alt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                                   length(unlist(CamoGenePercent$CHM13$Illumina100[which(CamoGenePercent$CHM13$Illumina100$perc_total >= perc), "gene_name"])), 
+                                                   length(unlist(CamoGenePercent$HG19_noAlt$Illumina250[which(CamoGenePercent$HG19_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                                   length(unlist(CamoGenePercent$HG38_noAlt$Illumina250[which(CamoGenePercent$HG38_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                                   length(unlist(CamoGenePercent$HG38_Alt$Illumina250[which(CamoGenePercent$HG38_Alt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                                   length(unlist(CamoGenePercent$CHM13$Illumina250[which(CamoGenePercent$CHM13$Illumina250$perc_total >= perc), "gene_name"])), 
+                                                   length(unlist(CamoGenePercent$HG19_noAlt$ONT[which(CamoGenePercent$HG19_noAlt$ONT$perc_total >= perc), "gene_name"])), 
+                                                   length(unlist(CamoGenePercent$HG38_noAlt$ONT[which(CamoGenePercent$HG38_noAlt$ONT$perc_total >= perc), "gene_name"])), 
+                                                   length(unlist(CamoGenePercent$HG38_Alt$ONT[which(CamoGenePercent$HG38_Alt$ONT$perc_total >= perc), "gene_name"])), 
+                                                   length(unlist(CamoGenePercent$CHM13$ONT[which(CamoGenePercent$CHM13$ONT$perc_total >= perc), "gene_name"])), 
+                                                   length(unlist(CamoGenePercent$HG19_noAlt$PacBio[which(CamoGenePercent$HG19_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
+                                                   length(unlist(CamoGenePercent$HG38_noAlt$PacBio[which(CamoGenePercent$HG38_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
+                                                   length(unlist(CamoGenePercent$HG38_Alt$PacBio[which(CamoGenePercent$HG38_Alt$PacBio$perc_total >= perc), "gene_name"])), 
+                                                   length(unlist(CamoGenePercent$CHM13$PacBio[which(CamoGenePercent$CHM13$PacBio$perc_total >= perc), "gene_name"]))))
+    
+    PrimaryOnlyCamoGenes$Platform = factor(PrimaryOnlyCamoGenes$Platform, levels = c("Illumina100", "Illumina250", "PacBio", "ONT"))
+    PrimaryOnlyCamoGenes$Reference = factor(PrimaryOnlyCamoGenes$Reference, levels=c("HG19_noAlt", "HG38_noAlt", "HG38_Alt", "CHM13"))
+    
+    
+    PrimarySuppCamoGenes = data.frame(Platform=c(rep("Illumina100", 4), rep("Illumina250", 4), rep("ONT", 4), rep("PacBio", 4)), 
+                                         Reference=rep(c("HG19_noAlt", "HG38_noAlt", "HG38_Alt", "CHM13"), 4), 
+                                         numGene=c(length(unlist(withSuppCamoGenePercent$HG19_noAlt$Illumina100[which(withSuppCamoGenePercent$HG19_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                                   length(unlist(withSuppCamoGenePercent$HG38_noAlt$Illumina100[which(withSuppCamoGenePercent$HG38_noAlt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                                   length(unlist(withSuppCamoGenePercent$HG38_Alt$Illumina100[which(withSuppCamoGenePercent$HG38_Alt$Illumina100$perc_total >= perc), "gene_name"])), 
+                                                   length(unlist(withSuppCamoGenePercent$CHM13$Illumina100[which(withSuppCamoGenePercent$CHM13$Illumina100$perc_total >= perc), "gene_name"])), 
+                                                   length(unlist(withSuppCamoGenePercent$HG19_noAlt$Illumina250[which(withSuppCamoGenePercent$HG19_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                                   length(unlist(withSuppCamoGenePercent$HG38_noAlt$Illumina250[which(withSuppCamoGenePercent$HG38_noAlt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                                   length(unlist(withSuppCamoGenePercent$HG38_Alt$Illumina250[which(withSuppCamoGenePercent$HG38_Alt$Illumina250$perc_total >= perc), "gene_name"])), 
+                                                   length(unlist(withSuppCamoGenePercent$CHM13$Illumina250[which(withSuppCamoGenePercent$CHM13$Illumina250$perc_total >= perc), "gene_name"])), 
+                                                   length(unlist(withSuppCamoGenePercent$HG19_noAlt$ONT[which(withSuppCamoGenePercent$HG19_noAlt$ONT$perc_total >= perc), "gene_name"])), 
+                                                   length(unlist(withSuppCamoGenePercent$HG38_noAlt$ONT[which(withSuppCamoGenePercent$HG38_noAlt$ONT$perc_total >= perc), "gene_name"])), 
+                                                   length(unlist(withSuppCamoGenePercent$HG38_Alt$ONT[which(withSuppCamoGenePercent$HG38_Alt$ONT$perc_total >= perc), "gene_name"])), 
+                                                   length(unlist(withSuppCamoGenePercent$CHM13$ONT[which(withSuppCamoGenePercent$CHM13$ONT$perc_total >= perc), "gene_name"])), 
+                                                   length(unlist(withSuppCamoGenePercent$HG19_noAlt$PacBio[which(withSuppCamoGenePercent$HG19_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
+                                                   length(unlist(withSuppCamoGenePercent$HG38_noAlt$PacBio[which(withSuppCamoGenePercent$HG38_noAlt$PacBio$perc_total >= perc), "gene_name"])), 
+                                                   length(unlist(withSuppCamoGenePercent$HG38_Alt$PacBio[which(withSuppCamoGenePercent$HG38_Alt$PacBio$perc_total >= perc), "gene_name"])), 
+                                                   length(unlist(withSuppCamoGenePercent$CHM13$PacBio[which(withSuppCamoGenePercent$CHM13$PacBio$perc_total >= perc), "gene_name"]))))
+    
+    PrimarySuppCamoGenes$Platform = factor(PrimarySuppCamoGenes$Platform, levels = c("Illumina100", "Illumina250", "PacBio", "ONT"))
+    PrimarySuppCamoGenes$Reference = factor(PrimarySuppCamoGenes$Reference, levels=c("HG19_noAlt", "HG38_noAlt", "HG38_Alt", "CHM13"))
+    
+    
+    mergeCamo = merge(PrimaryOnlyCamoGenes, PrimarySuppCamoGenes, by=c("Platform", "Reference"))
+    colnames(mergeCamo) = c("Platform", "Reference", "PrimaryOnlyCamo", "PrimarySuppCamo")
+    
+    mergeCamo$Diff = mergeCamo$PrimarySuppCamo - mergeCamo$PrimaryOnlyCamo
+    
+    fig = ggplot(mergeCamo, aes(x=Platform, y=Diff, fill=Reference)) + geom_bar(stat="identity", position=position_dodge()) + theme_bw() + theme(axis.text.x = element_text(angle = -45, vjust = 0.5, hjust=1)) + ylab("Number of Genes") + xlab("") + ggtitle("Camo Genes (Primary+Supp - Primary Only)")
+    
+    pdf(paste0("Figures/Camo_", perc, "PrimarySuppMinusPrimaryOnly.pdf"), width=6, height= 4)
+    print(fig)
+    dev.off()
+    
+    
+    ggplotly(fig)
+    
   }
 )
 

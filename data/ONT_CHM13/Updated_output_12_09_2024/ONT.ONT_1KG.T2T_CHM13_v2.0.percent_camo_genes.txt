@@ -1,9 +1,0 @@
-# This table shows what percentage of genes are camo, stratefied by genebody element
-# gene_name : Ensembl gene name
-# biotype : GENCODE biotype of gene
-# biotype : percent of CDS bases that are camo within gene (non protein-coding genes will have value of -1)
-# perc_UTR : percent of UTR bases that are camo within gene (non protein-coding genes will have value of -1)
-# perc_exon : percent of exonic bases that are camo
-# perc_intron : percent of intronic bases that are camo
-# perc_total : percent of total gene that is camo
-gene_name	biotype	perc_CDS	perc_UTR	perc_exon	perc_intron	perc_total

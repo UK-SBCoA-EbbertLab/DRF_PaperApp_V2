@@ -1,0 +1,10 @@
+# This table quantifies where dark regions fall within protein-coding genes, stratifying the percentage of dark by depth bases by gene-body element
+# region_type : gene-body element ( e.g. Exon, Intron, CDS, UTR )
+# count : total number of dark by depth bases within this gene-body element
+# total : total count of bases in across all gene-body elements of this type
+region_type	count	total	perc_region
+gene	459054	1295258043	0.035441
+UTR	63446	46118417	0.137572
+exon	93510	79556508	0.117539
+intron	348598	1167146651	0.029868
+CDS	30064	33438091	0.089909

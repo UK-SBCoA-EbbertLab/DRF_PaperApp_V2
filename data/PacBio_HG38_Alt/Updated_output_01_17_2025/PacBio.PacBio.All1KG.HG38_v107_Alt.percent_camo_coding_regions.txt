@@ -1,0 +1,10 @@
+# This table quantifies where dark regions fall within protein-coding genes, stratifying the percentage of camo bases by gene-body element
+# region_type : gene-body element ( e.g. Exon, Intron, CDS, UTR )
+# count : total number of camo bases within this gene-body element
+# total : total count of bases in across all gene-body elements of this type
+region_type	count	total	perc_region
+gene	3473170	1295258043	0.268145
+UTR	217671	46118417	0.471983
+exon	352277	79556508	0.442801
+intron	3103285	1167146651	0.265886
+CDS	134606	33438091	0.402553

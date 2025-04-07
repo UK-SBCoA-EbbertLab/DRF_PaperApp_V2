@@ -1,0 +1,3 @@
+ bedtools subtract -a ../Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.dark-merged.bed -b ../Updated_output_07_17_2023/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.dark-merged.bed > Unique2PrimarySupp.bed
+ bedtools subtract -b ../Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.dark-merged.bed -a ../Updated_output_07_17_2023/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.dark-merged.bed > Unique2PrimaryOnly.bed
+ bedtools intersect -a ../Updated_output_01_17_2025/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.dark-merged.bed -b ../Updated_output_07_17_2023/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.dark-merged.bed > IntersectPrimarySupp.vs.PrimaryOnly.bed
