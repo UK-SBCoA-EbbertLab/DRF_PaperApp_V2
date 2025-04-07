@@ -2248,9 +2248,9 @@ app %>% add_callback(
     fig=fig+facet_wrap(~ Region_type)
     
     
-    pdf(file = paste("Figures/", xaxis_column_name, "_referenceComparison_PrimaryOnly_vs_primarySupp.pdf", sep=""), width=6, height=3)
-    print(fig)
-    dev.off()
+    #pdf(file = paste("Figures/", xaxis_column_name, "_referenceComparison_PrimaryOnly_vs_primarySupp.pdf", sep=""), width=6, height=3)
+    #print(fig)
+    #dev.off()
     
     temp=NULL
     df2Use=NULL
@@ -3197,9 +3197,9 @@ app %>% add_callback(
     
     fig = ggplot(mergeDbM, aes(x=Platform, y=Diff, fill=Reference)) + geom_bar(stat="identity", position=position_dodge()) + theme_bw() + theme(axis.text.x = element_text(angle = -45, vjust = 0.5, hjust=1)) + ylab("Number of Genes") + xlab("") + ggtitle("Dark-by-MAPQ Genes (Primary+Supp - Primary Only)")
 
-    pdf(paste0("Figures/DbM_", perc, "PrimarySuppMinusPrimaryOnly.pdf"), width=6, height= 4)
-    print(fig)
-    dev.off()
+    #pdf(paste0("Figures/DbM_", perc, "PrimarySuppMinusPrimaryOnly.pdf"), width=6, height= 4)
+    #print(fig)
+    #dev.off()
     
     
     ggplotly(fig)
@@ -3267,9 +3267,9 @@ app %>% add_callback(
     
     fig = ggplot(mergeDbD, aes(x=Platform, y=Diff, fill=Reference)) + geom_bar(stat="identity", position=position_dodge()) + theme_bw() + theme(axis.text.x = element_text(angle = -45, vjust = 0.5, hjust=1)) + ylab("Number of Genes") + xlab("") + ggtitle("Dark-by-Depth Genes (Primary+Supp - Primary Only)")
     
-    pdf(paste0("Figures/DbD_", perc, "PrimarySuppMinusPrimaryOnly.pdf"), width=6, height= 4)
-    print(fig)
-    dev.off()
+    #pdf(paste0("Figures/DbD_", perc, "PrimarySuppMinusPrimaryOnly.pdf"), width=6, height= 4)
+    #print(fig)
+    #dev.off()
     
     
     ggplotly(fig)
@@ -3337,9 +3337,9 @@ app %>% add_callback(
     
     fig = ggplot(mergeAllDark, aes(x=Platform, y=Diff, fill=Reference)) + geom_bar(stat="identity", position=position_dodge()) + theme_bw() + theme(axis.text.x = element_text(angle = -45, vjust = 0.5, hjust=1)) + ylab("Number of Genes") + xlab("") + ggtitle("All Dark Genes (Primary+Supp - Primary Only)")
     
-    pdf(paste0("Figures/AllDark_", perc, "PrimarySuppMinusPrimaryOnly.pdf"), width=6, height= 4)
-    print(fig)
-    dev.off()
+    #pdf(paste0("Figures/AllDark_", perc, "PrimarySuppMinusPrimaryOnly.pdf"), width=6, height= 4)
+    #print(fig)
+    #dev.off()
     
     
     ggplotly(fig)
@@ -3408,17 +3408,15 @@ app %>% add_callback(
     
     fig = ggplot(mergeCamo, aes(x=Platform, y=Diff, fill=Reference)) + geom_bar(stat="identity", position=position_dodge()) + theme_bw() + theme(axis.text.x = element_text(angle = -45, vjust = 0.5, hjust=1)) + ylab("Number of Genes") + xlab("") + ggtitle("Camo Genes (Primary+Supp - Primary Only)")
     
-    pdf(paste0("Figures/Camo_", perc, "PrimarySuppMinusPrimaryOnly.pdf"), width=6, height= 4)
-    print(fig)
-    dev.off()
+    #pdf(paste0("Figures/Camo_", perc, "PrimarySuppMinusPrimaryOnly.pdf"), width=6, height= 4)
+    #print(fig)
+    #dev.off()
     
     
     ggplotly(fig)
     
   }
 )
-
-
 
 # Run the app
 app %>% run_app()
