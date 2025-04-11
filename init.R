@@ -1,6 +1,7 @@
 install.packages(c(
   "remotes",
   "reshape2",
+  "gridExtra",
   "plotly",
   "kableExtra",
   "ggVennDiagram"
