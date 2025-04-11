@@ -1,16 +1,19 @@
-install.packages("dash")
-install.packages("ggVennDiagram")
-#install.packages("dashBio")
-install.packages("reshape2")
-install.packages("plotly")
-install.packages("kableExtra")
-install.packages("remotes")
+install.packages(c(
+  "remotes",
+  "reshape2",
+  "plotly",
+  "kableExtra",
+  "ggVennDiagram"
+))
 
-# Bioconductor package
-if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-BiocManager::install("GenomicFeatures")
-
-# GitHub package
+# Install dash from GitHub (includes html/core components)
 remotes::install_github("plotly/dashR", upgrade = "always")
+
+# Optional: Dash Bio from GitHub
 remotes::install_github("plotly/dash-bio")
+
+# Bioconductor packages
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+  install.packages("BiocManager")
+}
+BiocManager::install("GenomicFeatures", ask = FALSE)
