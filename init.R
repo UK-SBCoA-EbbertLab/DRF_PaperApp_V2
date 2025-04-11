@@ -1,9 +1,11 @@
 install.packages(c(
   "remotes",
   "reshape2",
+  "Rideogram",
   "gridExtra",
   "plotly",
   "kableExtra",
+  "data.table",
   "ggVennDiagram"
 ))
 
