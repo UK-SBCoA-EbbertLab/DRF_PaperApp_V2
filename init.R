@@ -1,7 +1,7 @@
 install.packages(c(
   "remotes",
   "reshape2",
-  "Rideogram",
+  "RIdeogram",
   "gridExtra",
   "plotly",
   "kableExtra",
