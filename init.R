@@ -6,8 +6,7 @@ install.packages(c(
   "plotly",
   "kableExtra",
   "data.table",
-  "ggVennDiagram",
-  "dashHtmlComponents"
+  "ggVennDiagram"
 ))
 
 # Install dash from GitHub (includes html/core components)
