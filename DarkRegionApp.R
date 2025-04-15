@@ -2,7 +2,7 @@ library(dash)
 library(ggVennDiagram)
 #library(dashCoreComponents)
 library(dashBio)
-library(dashHtmlComponents)
+#library(dashHtmlComponents)
 library(reshape2)
 library(plotly)
 library(kableExtra)
@@ -12,7 +12,7 @@ library(data.table)
 
 
 #SET THIS WD
-setwd(".")
+setwd("~/Path/to/DRF_PaperApp_V2")
 
 # Create a Dash app
 app <- dash_app()
@@ -1659,14 +1659,16 @@ app %>% set_layout(
   h1('Dark Region Comparison App', style=list(textAlign = "center")),
   h2('Assessing the role of supplementary reads in defining dark regions', style=list(textAlign = "center")),
   br(),br(),
-  htmlDiv(list(
+  #htmlDiv(list(
+  html$div(list(
     dccTabs(id="DataTabs", value='primaryTab', children=list(
       dccTab(label='Primary Alignments Only', value='primaryTab', className='custom-tab', selected_className='custom-tab--selected'),
       dccTab(label='Primary + Supplementary Alignments', value='primarySuppTab', className='custom-tab', selected_className='custom-tab--selected'),
       dccTab(label='Comparison', value='comparisonTab', className='custom-tab', selected_className='custom-tab--selected')
       ))
   )),
-  htmlDiv(id="tabs-content"),
+  html$div(id="tabs-content"),
+  #htmlDiv(id="tabs-content"),
   br(),
   h1("Package Info:"),
   br(),
@@ -1683,7 +1685,8 @@ app %>% add_callback(
   params = list(input(id = 'DataTabs', property = 'value')),
   function(tab){
     if(tab == 'primaryTab'){
-      return(htmlDiv(list(
+      #return(htmlDiv(list(
+      return(html$div(list(
         br(), br(),
          h2("Number of Genome-wide Dark Bases", style=list(textAlign = "center")),
          br(),
@@ -1692,7 +1695,7 @@ app %>% add_callback(
          dccGraph(id="GW_depth", style = list(width = '40%', display = 'inline-block'), figure = ggplotly(depthFig)),
          br(), br(),
          
-         htmlHr(class="dashed"),
+         html$hr(class="dashed"),
          h2("Number of Dark Bases in Annotated Gene Bodies ", style=list(textAlign = "center")),
          br(),
          
@@ -1723,7 +1726,7 @@ app %>% add_callback(
          dccGraph(id = 'codingRegion-graphic', style = list(width = '40%', display = 'inline-block')),
          br(),
         
-         htmlHr(class="dashed"),
+         html$hr(class="dashed"),
          h2("Number of Bases Broken out by Region Type", style=list(textAlign = "center")),
          br(),
          div("Region Type:", style = list(width = '48%', display = 'inline-block')),
@@ -1742,7 +1745,7 @@ app %>% add_callback(
          dccGraph(id = 'codingRegion-RegionType-graphic', style = list(width = '40%', display = 'inline-block')),
          br(),
          br(),
-         htmlHr(class="dashed"),
+         html$hr(class="dashed"),
          h2("Number of Dark Genes", style=list(textAlign = "center")),
          br(),
          div(
@@ -1781,7 +1784,7 @@ app %>% add_callback(
          dccGraph(id = 'PercentCamoOfMapQ-graphic', style = list(width = '40%', display = 'inline-block')),
          br(),
          br(),
-         htmlHr(class="dashed"),
+         html$hr(class="dashed"),
          h1('Data Tables', style=list(textAlign = "center")),
          br(),
          br(),
@@ -1886,7 +1889,8 @@ app %>% add_callback(
          )
         )))
     } else if(tab == 'primarySuppTab'){
-      return(htmlDiv(list(
+      #return(htmlDiv(list(
+      return(html$div(list(
         br(), br(),
         h2("Number of Genome-wide Dark Bases", style=list(textAlign = "center")),
         br(),
@@ -1906,7 +1910,7 @@ app %>% add_callback(
         dccGraph(id="SuppGW_depth", style = list(width = '40%', display = 'inline-block'), figure = ggplotly(WithSuppDepthFigWithLine)),
         br(), br(),
         
-        htmlHr(class="dashed"),
+        html$hr(class="dashed"),
         h2("Number of Dark Bases in Annotated Gene Bodies ", style=list(textAlign = "center")),
         br(),
         
@@ -1937,7 +1941,7 @@ app %>% add_callback(
         dccGraph(id = 'codingRegion-graphic', style = list(width = '40%', display = 'inline-block')),
         br(),
         
-        htmlHr(class="dashed"),
+        html$hr(class="dashed"),
         h2("Number of Bases Broken out by Region Type", style=list(textAlign = "center")),
         br(),
         div("Region Type:", style = list(width = '48%', display = 'inline-block')),
@@ -1956,7 +1960,7 @@ app %>% add_callback(
         dccGraph(id = 'codingRegion-RegionType-graphic', style = list(width = '40%', display = 'inline-block')),
         br(),
         br(),
-        htmlHr(class="dashed"),
+        html$hr(class="dashed"),
         h2("Number of Dark Genes", style=list(textAlign = "center")),
         br(),
         div(
@@ -1995,7 +1999,7 @@ app %>% add_callback(
         dccGraph(id = 'PercentCamoOfMapQ-graphic', style = list(width = '40%', display = 'inline-block')),
         br(),
         br(),
-        htmlHr(class="dashed"),
+        html$hr(class="dashed"),
         h1('Data Tables', style=list(textAlign = "center")),
         br(),
         br(),
@@ -2100,7 +2104,7 @@ app %>% add_callback(
         )
       )))
     } else if (tab == 'comparisonTab') {
-      return(htmlDiv(list(
+      return(html$div(list(
         br(), br(),
         h2("Comparison of Genome-wide Dark Bases between Primary Reads with and without Supplementary Reads", style=list(textAlign = "center")),
         br(),
@@ -2121,13 +2125,13 @@ app %>% add_callback(
         br(),br(),
         dccGraph(id = 'Platform-Comp-graph2', style = list(width = '100%', display = 'inline-block')),
         br(), br(),
-        htmlHr(class="dashed"),
+        html$hr(class="dashed"),
         h2("Comparison of the Number of Dark Regions", style=list(textAlign = "center")),
         br(),
         dccGraph(id = 'Platform-Comp-graph3', style = list(width = '100%', display = 'inline-block')),
         br(), br(),
         dccGraph(id = 'Platform-Comp-graph4', style = list(width = '100%', display = 'inline-block')),
-        htmlHr(class="dashed"),
+        html$hr(class="dashed"),
         h2("Difference in Number of Genes between (Primary + Supp - Primary Only)", style=list(textAlign = "center")),
         br(),br(),
         dccGraph(id = 'TotalComparison-AllDarkType-graphic', style = list(width = '40%', display = 'inline-block')),
