@@ -3423,8 +3423,8 @@ app %>% add_callback(
 )
 
 # Run the app
-app %>% run_app()
-#app %>% run_app(host = '0.0.0.0', port = as.numeric(Sys.getenv('PORT')))
+#app %>% run_app()
+app %>% run_app(host = '0.0.0.0', port = as.numeric(Sys.getenv('PORT')))
 
 
 
