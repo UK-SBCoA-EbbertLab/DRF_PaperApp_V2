@@ -1,9 +1,8 @@
 library(dash)
 library(ggVennDiagram)
-#library(dashCoreComponents)
 library(dashBio)
-#library(dashHtmlComponents)
 library(reshape2)
+library(details)
 library(plotly)
 library(kableExtra)
 library(gridExtra)
@@ -12,12 +11,10 @@ library(data.table)
 
 
 #SET THIS WD
-setwd(".")
+setwd("~/Documents/EbbertLab/CHM13PaperFigures/DRF_PaperApp_V2")
 
 # Create a Dash app
 app <- dash_app()
-
-# Biotype
 
 ## Illumina250RL
 ### CHM13
@@ -1227,35 +1224,6 @@ darkSlidingWindow_WithSupp$HG19_noAlt$PacBio$Depth = hg19_PacBioDepth_WithSupp
 darkSlidingWindow_WithSupp$HG19_noAlt$PacBio$MAPQ = hg19_PacBioMapQ_WithSupp
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #chm13_mapq_cov = melt(chm13_dark[,c(1,grep("MapQ", colnames(chm13_dark))), with=F])
 #chm13_mapq_Fig = ggplot(chm13_mapq_cov, aes(x=log10(value+1), fill=variable)) + geom_density(alpha=.1) + facet_wrap(~Chr)
 #hg19_mapq_cov = melt(hg19_dark[,c(1,grep("MapQ", colnames(hg19_dark))), with=F])
@@ -1672,7 +1640,7 @@ app %>% set_layout(
   br(),
   h1("Package Info:"),
   br(),
-  div(img(src="assets/SessionInfo.png", alt="image")),
+  dccMarkdown(gsub("<.*?>", "", details::details(sessioninfo::session_info(), type='character', open=T)), style = list(width = '30%', display = 'inline-block')),
   br()
  
 )
@@ -1685,7 +1653,6 @@ app %>% add_callback(
   params = list(input(id = 'DataTabs', property = 'value')),
   function(tab){
     if(tab == 'primaryTab'){
-      #return(htmlDiv(list(
       return(html$div(list(
         br(), br(),
          h2("Number of Genome-wide Dark Bases", style=list(textAlign = "center")),
@@ -1889,7 +1856,6 @@ app %>% add_callback(
          )
         )))
     } else if(tab == 'primarySuppTab'){
-      #return(htmlDiv(list(
       return(html$div(list(
         br(), br(),
         h2("Number of Genome-wide Dark Bases", style=list(textAlign = "center")),

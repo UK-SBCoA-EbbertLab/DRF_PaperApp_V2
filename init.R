@@ -6,6 +6,7 @@ install.packages(c(
   "plotly",
   "kableExtra",
   "data.table",
+  "details",
   "ggVennDiagram"
 ))
 
