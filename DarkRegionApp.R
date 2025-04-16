@@ -8,7 +8,7 @@ library(kableExtra)
 library(gridExtra)
 library(RIdeogram)
 library(data.table)
-
+library(sessioninfo)
 
 #SET THIS WD
 setwd(".")

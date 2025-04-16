@@ -7,6 +7,7 @@ install.packages(c(
   "kableExtra",
   "data.table",
   "details",
+  "sessioninfo",
   "ggVennDiagram"
 ))
 
