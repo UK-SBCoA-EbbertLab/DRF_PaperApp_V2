@@ -11,7 +11,7 @@ library(data.table)
 
 
 #SET THIS WD
-setwd("~/Documents/EbbertLab/CHM13PaperFigures/DRF_PaperApp_V2")
+setwd(".")
 
 # Create a Dash app
 app <- dash_app()
