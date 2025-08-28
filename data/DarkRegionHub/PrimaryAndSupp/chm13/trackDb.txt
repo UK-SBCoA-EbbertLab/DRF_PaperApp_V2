@@ -2,7 +2,7 @@ track Illumina250_CHM13_Dark
 shortLabel Illumina250_CHM13_Dark
 longLabel Illumina250_CHM13_Dark (purple)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryAndSupp/chm13/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.dark-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryAndSupp/chm13/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.dark-merged.bb
 color 147,112,219
 visibility pack
 
@@ -10,7 +10,7 @@ track Illumina250_CHM13_DbD
 shortLabel Illumina250_CHM13_DbD
 longLabel Illumina250_CHM13_DbD (blue)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryAndSupp/chm13/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.low_depth-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryAndSupp/chm13/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.low_depth-merged.bb
 color 48,92,222
 visibility pack
 
@@ -18,7 +18,7 @@ track Illumina250_CHM13_DbM
 shortLabel Illumina250_CHM13_DbM
 longLabel Illumina250_CHM13_DbM (red)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryAndSupp/chm13/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.low_mapq-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryAndSupp/chm13/Illumina250.Illumina250.T2T_CHM13_v2.0_run2.low_mapq-merged.bb
 color 255,128,0
 visibility pack
 
@@ -26,7 +26,7 @@ track ONT_CHM13_Dark
 shortLabel ONT_CHM13_Dark
 longLabel ONT_CHM13_Dark (purple)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryAndSupp/chm13/ONT.ONT_1KG.T2T_CHM13_v2.0.dark-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryAndSupp/chm13/ONT.ONT_1KG.T2T_CHM13_v2.0.dark-merged.bb
 color 147,112,219
 visibility pack
 
@@ -34,7 +34,7 @@ track ONT_CHM13_DbD
 shortLabel ONT_CHM13_DbD
 longLabel ONT_CHM13_DbD (blue)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryAndSupp/chm13/ONT.ONT_1KG.T2T_CHM13_v2.0.low_depth-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryAndSupp/chm13/ONT.ONT_1KG.T2T_CHM13_v2.0.low_depth-merged.bb
 color 48,92,222
 visibility pack
 
@@ -42,7 +42,7 @@ track ONT_CHM13_DbM
 shortLabel ONT_CHM13_DbM
 longLabel ONT_CHM13_DbM (red)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryAndSupp/chm13/ONT.ONT_1KG.T2T_CHM13_v2.0.low_mapq-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryAndSupp/chm13/ONT.ONT_1KG.T2T_CHM13_v2.0.low_mapq-merged.bb
 color 255,128,0
 visibility pack
 
@@ -50,7 +50,7 @@ track Illumina100_CHM13_Dark
 shortLabel Illumina100_CHM13_Dark
 longLabel Illumina100_CHM13_Dark (purple)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryAndSupp/chm13/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.dark-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryAndSupp/chm13/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.dark-merged.bb
 color 147,112,219
 visibility pack
 
@@ -58,7 +58,7 @@ track Illumina100_CHM13_DbD
 shortLabel Illumina100_CHM13_DbD
 longLabel Illumina100_CHM13_DbD (blue)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryAndSupp/chm13/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.low_depth-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryAndSupp/chm13/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.low_depth-merged.bb
 color 48,92,222
 visibility pack
 
@@ -66,7 +66,7 @@ track Illumina100_CHM13_DbM
 shortLabel Illumina100_CHM13_DbM
 longLabel Illumina100_CHM13_DbM (red)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryAndSupp/chm13/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.low_mapq-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryAndSupp/chm13/originalADSP.Illumina_OriginalADSP.T2T_CHM13_v2.0.low_mapq-merged.bb
 color 255,128,0
 visibility pack
 
@@ -74,7 +74,7 @@ track PacBio_CHM13_Dark
 shortLabel PacBio_CHM13_Dark
 longLabel PacBio_CHM13_Dark (purple)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryAndSupp/chm13/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.dark-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryAndSupp/chm13/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.dark-merged.bb
 color 147,112,219
 visibility pack
 
@@ -82,7 +82,7 @@ track PacBio_CHM13_DbD
 shortLabel PacBio_CHM13_DbD
 longLabel PacBio_CHM13_DbD (blue)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryAndSupp/chm13/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.low_depth-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryAndSupp/chm13/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.low_depth-merged.bb
 color 48,92,222
 visibility pack
 
@@ -90,7 +90,7 @@ track PacBio_CHM13_DbM
 shortLabel PacBio_CHM13_DbM
 longLabel PacBio_CHM13_DbM (red)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryAndSupp/chm13/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.low_mapq-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryAndSupp/chm13/PacBio.PacBio.All1KG.T2T_CHM13_v2.0.low_mapq-merged.bb
 color 255,128,0
 visibility pack
 

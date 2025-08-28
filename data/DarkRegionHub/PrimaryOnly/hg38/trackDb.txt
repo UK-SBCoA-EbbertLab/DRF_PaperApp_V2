@@ -2,7 +2,7 @@ track Illumina250_HG38Alt_Dark
 shortLabel Illumina250_HG38Alt_Dark
 longLabel Illumina250_HG38Alt_Dark (purple)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryOnly/hg38/Illumina250.Illumina250.HG38_Alt.dark-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryOnly/hg38/Illumina250.Illumina250.HG38_Alt.dark-merged.bb
 color 147,112,219
 visibility pack
 
@@ -10,7 +10,7 @@ track Illumina250_HG38Alt_DbD
 shortLabel Illumina250_HG38Alt_DbD
 longLabel Illumina250_HG38Alt_DbD (blue)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryOnly/hg38/Illumina250.Illumina250.HG38_Alt.low_depth-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryOnly/hg38/Illumina250.Illumina250.HG38_Alt.low_depth-merged.bb
 color 48,92,222
 visibility pack
 
@@ -18,7 +18,7 @@ track Illumina250_HG38Alt_DbM
 shortLabel Illumina250_HG38Alt_DbM
 longLabel Illumina250_HG38Alt_DbM (red)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryOnly/hg38/Illumina250.Illumina250.HG38_Alt.low_mapq-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryOnly/hg38/Illumina250.Illumina250.HG38_Alt.low_mapq-merged.bb
 color 255,128,0
 visibility pack
 
@@ -26,7 +26,7 @@ track Illumina250_HG38NoAlt_Dark
 shortLabel Illumina250_HG38NoAlt_Dark
 longLabel Illumina250_HG38NoAlt_Dark (purple)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryOnly/hg38/Illumina250.Illumina250.HG38_noAlt.dark-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryOnly/hg38/Illumina250.Illumina250.HG38_noAlt.dark-merged.bb
 color 147,112,219
 visibility pack
 
@@ -34,7 +34,7 @@ track Illumina250_HG38NoAlt_DbD
 shortLabel Illumina250_HG38NoAlt_DbD
 longLabel Illumina250_HG38NoAlt_DbD (blue)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryOnly/hg38/Illumina250.Illumina250.HG38_noAlt.low_depth-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryOnly/hg38/Illumina250.Illumina250.HG38_noAlt.low_depth-merged.bb
 color 48,92,222
 visibility pack
 
@@ -42,7 +42,7 @@ track Illumina250_HG38NoAlt_DbM
 shortLabel Illumina250_HG38NoAlt_DbM
 longLabel Illumina250_HG38NoAlt_DbM (red)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryOnly/hg38/Illumina250.Illumina250.HG38_noAlt.low_mapq-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryOnly/hg38/Illumina250.Illumina250.HG38_noAlt.low_mapq-merged.bb
 color 255,128,0
 visibility pack
 
@@ -50,7 +50,7 @@ track Illumina100_HG38Alt_Dark
 shortLabel Illumina100_HG38Alt_Dark
 longLabel Illumina100_HG38Alt_Dark (purple)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryOnly/hg38/illuminaRL100.1KGenomes_hg38_plus_decoy.dark-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryOnly/hg38/illuminaRL100.1KGenomes_hg38_plus_decoy.dark-merged.bb
 color 147,112,219
 visibility pack
 
@@ -58,7 +58,7 @@ track Illumina100_HG38Alt_DbD
 shortLabel Illumina100_HG38Alt_DbD
 longLabel Illumina100_HG38Alt_DbD (blue)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryOnly/hg38/illuminaRL100.1KGenomes_hg38_plus_decoy.low_depth-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryOnly/hg38/illuminaRL100.1KGenomes_hg38_plus_decoy.low_depth-merged.bb
 color 48,92,222
 visibility pack
 
@@ -66,7 +66,7 @@ track Illumina100_HG38Alt_DbM
 shortLabel Illumina100_HG38Alt_DbM
 longLabel Illumina100_HG38Alt_DbM (red)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryOnly/hg38/illuminaRL100.1KGenomes_hg38_plus_decoy.low_mapq-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryOnly/hg38/illuminaRL100.1KGenomes_hg38_plus_decoy.low_mapq-merged.bb
 color 255,128,0
 visibility pack
 
@@ -74,7 +74,7 @@ track ONT_HG38Alt_Dark
 shortLabel ONT_HG38Alt_Dark
 longLabel ONT_HG38Alt_Dark (purple)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryOnly/hg38/ONT.ONT_1KG.HG38_Alt.dark-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryOnly/hg38/ONT.ONT_1KG.HG38_Alt.dark-merged.bb
 color 147,112,219
 visibility pack
 
@@ -82,7 +82,7 @@ track ONT_HG38Alt_DbD
 shortLabel ONT_HG38Alt_DbD
 longLabel ONT_HG38Alt_DbD (blue)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryOnly/hg38/ONT.ONT_1KG.HG38_Alt.low_depth-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryOnly/hg38/ONT.ONT_1KG.HG38_Alt.low_depth-merged.bb
 color 48,92,222
 visibility pack
 
@@ -90,7 +90,7 @@ track ONT_HG38Alt_DbM
 shortLabel ONT_HG38Alt_DbM
 longLabel ONT_HG38Alt_DbM (red)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryOnly/hg38/ONT.ONT_1KG.HG38_Alt.low_mapq-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryOnly/hg38/ONT.ONT_1KG.HG38_Alt.low_mapq-merged.bb
 color 255,128,0
 visibility pack
 
@@ -98,7 +98,7 @@ track ONT_HG38NoAlt_Dark
 shortLabel ONT_HG38NoAlt_Dark
 longLabel ONT_HG38NoAlt_Dark (purple)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryOnly/hg38/ONT.ONT_1KG.HG38_noAlt.dark-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryOnly/hg38/ONT.ONT_1KG.HG38_noAlt.dark-merged.bb
 color 147,112,219
 visibility pack
 
@@ -106,7 +106,7 @@ track ONT_HG38NoAlt_DbD
 shortLabel ONT_HG38NoAlt_DbD
 longLabel ONT_HG38NoAlt_DbD (blue)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryOnly/hg38/ONT.ONT_1KG.HG38_noAlt.low_depth-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryOnly/hg38/ONT.ONT_1KG.HG38_noAlt.low_depth-merged.bb
 color 48,92,222
 visibility pack
 
@@ -114,7 +114,7 @@ track ONT_HG38NoAlt_DbM
 shortLabel ONT_HG38NoAlt_DbM
 longLabel ONT_HG38NoAlt_DbM (red)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryOnly/hg38/ONT.ONT_1KG.HG38_noAlt.low_mapq-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryOnly/hg38/ONT.ONT_1KG.HG38_noAlt.low_mapq-merged.bb
 color 255,128,0
 visibility pack
 
@@ -122,7 +122,7 @@ track Illumina100_HG38NoAlt_Dark
 shortLabel Illumina100_HG38NoAlt_Dark
 longLabel Illumina100_HG38NoAlt_Dark (purple)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryOnly/hg38/originalADSP.Illumina_OriginalADSP.HG38_noAlt.dark-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryOnly/hg38/originalADSP.Illumina_OriginalADSP.HG38_noAlt.dark-merged.bb
 color 147,112,219
 visibility pack
 
@@ -130,7 +130,7 @@ track Illumina100_HG38NoAlt_DbD
 shortLabel Illumina100_HG38NoAlt_DbD 
 longLabel Illumina100_HG38NoAlt_DbD (blue)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryOnly/hg38/originalADSP.Illumina_OriginalADSP.HG38_noAlt.low_depth-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryOnly/hg38/originalADSP.Illumina_OriginalADSP.HG38_noAlt.low_depth-merged.bb
 color 48,92,222
 visibility pack
 
@@ -138,7 +138,7 @@ track Illumina100_HG38NoAlt_DbM
 shortLabel Illumina100_HG38NoAlt_DbM
 longLabel Illumina100_HG38NoAlt_DbM (red)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryOnly/hg38/originalADSP.Illumina_OriginalADSP.HG38_noAlt.low_mapq-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryOnly/hg38/originalADSP.Illumina_OriginalADSP.HG38_noAlt.low_mapq-merged.bb
 color 255,128,0
 visibility pack
 
@@ -146,7 +146,7 @@ track PacBio_HG38Alt_Dark
 shortLabel PacBio_HG38Alt_Dark
 longLabel PacBio_HG38Alt_Dark (purple)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryOnly/hg38/PacBio.PacBio.All1KG.HG38_v107_Alt.dark-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryOnly/hg38/PacBio.PacBio.All1KG.HG38_v107_Alt.dark-merged.bb
 color 147,112,219
 visibility pack
 
@@ -154,7 +154,7 @@ track PacBio_HG38Alt_DbD
 shortLabel PacBio_HG38Alt_DbD
 longLabel PacBio_HG38Alt_DbD (blue)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryOnly/hg38/PacBio.PacBio.All1KG.HG38_v107_Alt.low_depth-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryOnly/hg38/PacBio.PacBio.All1KG.HG38_v107_Alt.low_depth-merged.bb
 color 48,92,222
 visibility pack
 
@@ -162,7 +162,7 @@ track PacBio_HG38Alt_DbM
 shortLabel PacBio_HG38Alt_DbM
 longLabel PacBio_HG38Alt_DbM (red)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryOnly/hg38/PacBio.PacBio.All1KG.HG38_v107_Alt.low_mapq-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryOnly/hg38/PacBio.PacBio.All1KG.HG38_v107_Alt.low_mapq-merged.bb
 color 255,128,0
 visibility pack
 
@@ -170,7 +170,7 @@ track PacBio_HG38NoAlt_Dark
 shortLabel PacBio_HG38NoAlt_Dark
 longLabel PacBio_HG38NoAlt_Dark (purple)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryOnly/hg38/PacBio.PacBio.All1KG.HG38_v107_no_alt.dark-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryOnly/hg38/PacBio.PacBio.All1KG.HG38_v107_no_alt.dark-merged.bb
 color 147,112,219
 visibility pack
 
@@ -178,7 +178,7 @@ track PacBio_HG38NoAlt_DbD
 shortLabel PacBio_HG38NoAlt_DbD
 longLabel PacBio_HG38NoAlt_DbD (blue)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryOnly/hg38/PacBio.PacBio.All1KG.HG38_v107_no_alt.low_depth-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryOnly/hg38/PacBio.PacBio.All1KG.HG38_v107_no_alt.low_depth-merged.bb
 color 48,92,222
 visibility pack
 
@@ -186,6 +186,6 @@ track PacBio_HG38NoAlt_DbM
 shortLabel PacBio_HG38NoAlt_DbM
 longLabel PacBio_HG38NoAlt_DbM (red)
 type bigBed 3
-bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/tree/main/data/DarkRegionHub/PrimaryOnly/hg38/PacBio.PacBio.All1KG.HG38_v107_no_alt.low_mapq-merged.bb
+bigDataUrl https://uk-sbcoa-ebbertlab.github.io/DRF_PaperApp_V2/data/DarkRegionHub/PrimaryOnly/hg38/PacBio.PacBio.All1KG.HG38_v107_no_alt.low_mapq-merged.bb
 color 255,128,0
 visibility pack
