@@ -1,0 +1,16 @@
+genome hg19
+organism Human
+trackDb hg19/trackDb.txt
+order 1
+
+genome hg38
+organism Human
+trackDb hg38/trackDb.txt
+order 2
+
+genome chm13
+organism Human
+trackDb chm13/trackDb.txt
+order 3
+
+

@@ -1269,7 +1269,7 @@ fullGenome$MapQ=data.frame(Ref=c(rep("CHM13", 4 ),rep("HG19_noAlt", 4),rep("HG38
 
 nucsAndRegions$Reference = factor(nucsAndRegions$Reference, levels=c("HG19_noAlt", "HG38_noAlt", "HG38_alt", "CHM13"))
 nucsAndRegions$Platform = factor(nucsAndRegions$Platform, levels=c("Illumina100", "Illumina250", "PacBio", "ONT"))
-mapqFig=ggplot(nucsAndRegions[which(nucsAndRegions$Region_type=="Low_Mapq"), ], aes(x=Reference, y=Nucleotide_count/1000000, fill=Platform)) + geom_bar(stat="identity", position="dodge") + ggtitle("Genome-wide Dark-By-MapQ") + theme_bw() + xlab("Reference") + ylab("Number of Dark Bases (Mb)") + scale_fill_manual(values = RColorBrewer::brewer.pal(5, "Set2")[c(1,3,4,5)])
+mapqFig=ggplot(nucsAndRegions[which(nucsAndRegions$Region_type=="Low_Mapq"), ], aes(x=Reference, y=Nucleotide_count/1000000, fill=Platform)) + geom_bar(stat="identity", position="dodge") + ggtitle("Genome-wide Dark-By-MapQ") + theme_bw() + ylim(c(0,210)) + xlab("Reference") + ylab("Number of Dark Bases (Mb)") + scale_fill_manual(values = RColorBrewer::brewer.pal(5, "Set2")[c(1,3,4,5)])
 
 NewLongRead_nucsAndRegions$Reference = factor(NewLongRead_nucsAndRegions$Reference, levels=c("HG19_noAlt", "HG38_noAlt", "HG38_alt", "CHM13"))
 NewLongRead_nucsAndRegions$Platform = factor(NewLongRead_nucsAndRegions$Platform, levels=c("Illumina100", "Illumina250", "PacBio", "ONT"))
@@ -1305,7 +1305,7 @@ biotype$Platform = factor(biotype$Platform, levels=c("Illumina100RL", "Illumina2
 biotypeMapQ=ggplot(biotype[biotype=="total",], aes(x=Reference, y=Dark_by_MapQ/1000000, fill=Platform)) + geom_bar(stat="identity", position="dodge") + ggtitle("Gene Body Dark-By-MapQ") + theme_bw() + xlab("Reference") + ylab("Number of Dark Bases (Mb)")
 biotypeDepth=ggplot(biotype[biotype=="total",], aes(x=Reference, y=Dark_by_Depth/1000000, fill=Platform)) + geom_bar(stat="identity", position="dodge") + ggtitle("Gene Body Dark-By-Depth") + theme_bw() + xlab("Reference") + ylab("Number of Dark Bases (Mb)")
 
-depthFig=ggplot(nucsAndRegions[which(nucsAndRegions$Region_type=="Low_Depth"), ], aes(x=Reference, y=Nucleotide_count/1000000, fill=Platform)) + geom_bar(stat="identity", position="dodge") + ggtitle("Genome-wide Dark-By-Depth") + theme_bw() + xlab("Reference") + ylab("Number of Dark Bases (Mb)") + scale_fill_manual(values = RColorBrewer::brewer.pal(5, "Set2")[c(1,3,4,5)])
+depthFig=ggplot(nucsAndRegions[which(nucsAndRegions$Region_type=="Low_Depth"), ], aes(x=Reference, y=Nucleotide_count/1000000, fill=Platform)) + geom_bar(stat="identity", position="dodge") + ggtitle("Genome-wide Dark-By-Depth") + theme_bw() + ylim(c(0,210)) + xlab("Reference") + ylab("Number of Dark Bases (Mb)") + scale_fill_manual(values = RColorBrewer::brewer.pal(5, "Set2")[c(1,3,4,5)])
 WithSuppdepthFig=ggplot(NewLongRead_nucsAndRegions[which(NewLongRead_nucsAndRegions$Region_type=="Low_Depth"), ], aes(x=Reference, y=Nucleotide_count/1000000, fill=Platform)) + geom_bar(stat="identity", position="dodge") + ggtitle("Genome-wide Dark-By-Depth") + theme_bw() + xlab("Reference") + ylab("Number of Dark Bases (Mb)") + scale_fill_manual(values = RColorBrewer::brewer.pal(5, "Set2")[c(1,3,4,5)])
 
 
@@ -1325,9 +1325,9 @@ WithSuppDepthFigDiff=ggplot(mergedDepth, aes(x=Reference, y=Diff, fill=Platform)
 
 
 
-#pdf("Figures/GenomeWideDbD.pdf", width = 6, height=3)
-#depthFig
-#dev.off()
+pdf("Figures/GenomeWideDbD.pdf", width = 6, height=3)
+depthFig
+dev.off()
 
 #pdf("Figures/GenomeWideDbD_WithSupp.pdf", width = 6, height=3)
 #WithSuppdepthFig
@@ -2404,6 +2404,11 @@ app %>% add_callback(
     
     fig = ggplot(filtered_df, aes(x=color, y=y, fill=Ref)) + geom_bar(stat="identity", position = "dodge") + theme_bw()  + theme(axis.text.x = element_text(angle = -45, vjust = 0.5, hjust=1)) + ylab("Number of Bases (Mb)") + xlab("")
     fig = fig + facet_wrap( ~ x)
+    
+    #pdf(paste(xaxis_column_name,"CDS_plot.pdf", sep="_"))
+    #print(fig)
+    #dev.off()
+    
     ggplotly(fig)
     
   }

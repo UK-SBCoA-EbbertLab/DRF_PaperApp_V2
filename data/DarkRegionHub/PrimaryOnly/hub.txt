@@ -1,0 +1,5 @@
+hub DarkRegionsPrimaryAndSupplementary
+shortLabel Colored rectangles
+longLabel Multiple bigBed tracks as colored rectangles
+genomesFile genomes.txt
+email mewa283@uky.edu
