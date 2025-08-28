@@ -1,5 +1,5 @@
 hub DarkRegionsPrimaryAndSupplementary
-shortLabel Colored rectangles
-longLabel Multiple bigBed tracks as colored rectangles
+shortLabel Primary + Supplementary Dark Regions
+longLabel Primary + Supplementary Dark Regions
 genomesFile genomes.txt
 email mewa283@uky.edu
