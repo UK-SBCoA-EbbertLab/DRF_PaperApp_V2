@@ -8,7 +8,7 @@ organism Human
 trackDb hg38/trackDb.txt
 order 2
 
-genome chm13
+genome hs1
 organism Human
 trackDb chm13/trackDb.txt
 order 3
